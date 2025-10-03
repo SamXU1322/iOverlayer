@@ -1,0 +1,8 @@
+{
+  "Id": "iOverlayer",
+  "DisplayName": "iOverlayer",
+  "Author": "StarR1ver",
+  "Version": "1.0.0",
+  "AssemblyName": "iOverlayer.dll",
+  "EntryMethod":"iOverlayer.Main.Load"
+}

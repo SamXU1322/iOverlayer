@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/TextShower.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/TextShower.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/bin/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/bin/Debug/iOverlayer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/bin/Debug/iOverlayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/bin/Debug/iOverlayer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.pdb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="33Y8m3v3rlhzXKRnhtF0luv1BcW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="useMixedMode" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="" />
+      <created>1759482805581</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759482805581</updated>
+      <workItem from="1759482805583" duration="5128000" />
+      <workItem from="1759494375112" duration="590000" />
+      <workItem from="1759495061677" duration="310000" />
+      <workItem from="1759495439849" duration="146000" />
+      <workItem from="1759498456690" duration="35000" />
+      <workItem from="1759506795010" duration="28000" />
+      <workItem from="1759506928448" duration="315000" />
+    </task>
+    <task id="LOCAL-00001" summary="创建文本">
+      <option name="closed" value="true" />
+      <created>1759490832029</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759490832029</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="创建文本" />
+    <option name="LAST_COMMIT_MESSAGE" value="创建文本" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
