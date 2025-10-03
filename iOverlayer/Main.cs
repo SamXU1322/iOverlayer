@@ -15,11 +15,12 @@ namespace iOverlayer
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             gui = new GameObject().AddComponent<TextBehavior>();
-            gui.setText("uwu");
+            gui.setText("Congratulations!");
             gui.setPosition(0.5f,0.5f);
+            gui.setSize(222);
             UnityEngine.Object.DontDestroyOnLoad(gui);
             gui.TextObject.SetActive(true);
-            modEntry.Logger.Log("Hello World");
+            modEntry.Logger.Log("uwu");
         }
     }
 }
