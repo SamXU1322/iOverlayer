@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 using HarmonyLib;
 using UnityModManagerNet;
+
 namespace iOverlayer
 {
     public static class Main
@@ -15,11 +16,12 @@ namespace iOverlayer
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             gui = new GameObject().AddComponent<TextBehavior>();
+            gui.setSize(108);
             gui.setText("uwu");
             gui.setPosition(0.5f,0.5f);
             UnityEngine.Object.DontDestroyOnLoad(gui);
             gui.TextObject.SetActive(true);
-            modEntry.Logger.Log("Hello World");
+            modEntry.Logger.Log($"{gui.rectTransform.sizeDelta}");
         }
     }
 }

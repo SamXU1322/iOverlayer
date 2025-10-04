@@ -5,3 +5,7 @@ E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.CoreCompileInputs.cach
 E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.dll
 E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.pdb
 E:\code\iOverlayer\iOverlayer\bin\Debug\info.json
+E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\info.json
+E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\iOverlayer.dll
+E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\iOverlayer.pdb
+E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.Up2Date
