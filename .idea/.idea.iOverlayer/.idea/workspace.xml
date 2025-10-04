@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/iOverlayer/FontManger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Maplestory-Bold SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/TextShower.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.FileListAbsolute.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +33,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///C# Console" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/iOverlayer/FontManger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/FontManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/code/iOverlayer/iOverlayer/FontManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Maplestory-Bold SDF.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/code/iOverlayer/iOverlayer/TextShower.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -104,7 +97,7 @@
       <workItem from="1759508165303" duration="8148000" />
       <workItem from="1759549740846" duration="792000" />
       <workItem from="1759552818213" duration="5723000" />
-      <workItem from="1759572940687" duration="846000" />
+      <workItem from="1759572940687" duration="3342000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -114,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759490832029</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="重命名一些变量与方法&#10;添加FontManager接口">
+      <option name="closed" value="true" />
+      <created>1759575952269</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759575952269</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,7 +137,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="StarR1ver" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -151,7 +152,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="创建文本" />
-    <option name="LAST_COMMIT_MESSAGE" value="创建文本" />
+    <MESSAGE value="重命名一些变量与方法&#10;添加FontManager接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="重命名一些变量与方法&#10;添加FontManager接口" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

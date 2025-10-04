@@ -1,5 +1,0 @@
-E:\ADOFAI\-- Test --\Mods\iOverlayer\info.json
-E:\ADOFAI\-- Test --\Mods\iOverlayer\iOverlayer.dll
-F:\C#\iOverlayer\iOverlayer\obj\Release\iOverlayer.csproj.AssemblyReference.cache
-F:\C#\iOverlayer\iOverlayer\obj\Release\iOverlayer.csproj.CoreCompileInputs.cache
-F:\C#\iOverlayer\iOverlayer\obj\Release\iOverlayer.dll
