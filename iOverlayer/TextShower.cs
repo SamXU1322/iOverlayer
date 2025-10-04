@@ -11,9 +11,9 @@ namespace iOverlayer
         public RectTransform rectTransform;
 
          public void setSize(int size)
-         { 
-             text.fontSize = size;
-             text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+        {
+            text.fontSize = size;
+            text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
         }
         public void setText(string text) {
             this.text.text= text;

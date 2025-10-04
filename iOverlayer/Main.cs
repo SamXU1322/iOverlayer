@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.IO;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 using HarmonyLib;
 using UnityModManagerNet;
-
+using UnityEngine;
+using TMPro;
 namespace iOverlayer
 {
-    public static class Main
+    public static class Main 
     {
         public static UnityModManager.ModEntry.ModLogger Logger;
         internal static TextBehavior gui;
         public static Harmony Harmony;
+        
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             gui = new GameObject().AddComponent<TextBehavior>();
