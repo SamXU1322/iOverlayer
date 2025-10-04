@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ReferencePath>E:\ADOFAI\-- Test --\A Dance of Fire and Ice_Data\Managed;E:\ADOFAI\-- Test --\A Dance of Fire and Ice_Data\Managed\UnityModManager</ReferencePath>
+  </PropertyGroup>
+</Project>
