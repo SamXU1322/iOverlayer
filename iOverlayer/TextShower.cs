@@ -5,21 +5,20 @@ namespace iOverlayer
 {
     internal class TextBehavior : MonoBehaviour
     {
-        public GameObject TextObject;
+        public GameObject textObject;
         public TextMeshProUGUI text;
-        public Shadow shadowText;
         public RectTransform rectTransform;
 
-         public void setSize(int size)
+         public void SetSize(int newSize)
         {
-            text.fontSize = size;
+            text.fontSize = newSize;
             text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
         }
-        public void setText(string text) {
-            this.text.text= text;
+        public void SetText(string newText) {
+            this.text.text= newText;
         }
 
-        public void setPosition(float x, float y)
+        public void SetPosition(float x, float y)
         {
             Vector2 pos = new Vector2(x, y);
             rectTransform.anchorMin = pos;
@@ -40,15 +39,15 @@ namespace iOverlayer
             scaler.referencePixelsPerUnit = 0.5f;
             
             // 创建Text
-            TextObject = new GameObject();
-            TextObject.transform.SetParent(transform);
-            TextObject.AddComponent<Canvas>();
-            rectTransform = TextObject.GetComponent<RectTransform>();
+            this.textObject = new GameObject();
+            this.textObject.transform.SetParent(transform);
+            this.textObject.AddComponent<Canvas>();
+            rectTransform = this.textObject.GetComponent<RectTransform>();
             
-            GameObject textObject = new GameObject();
-            textObject.transform.SetParent(TextObject.transform);
+            GameObject newTextObject = new GameObject();
+            newTextObject.transform.SetParent(this.textObject.transform);
             
-            text = textObject.AddComponent<TextMeshProUGUI>();
+            text = newTextObject.AddComponent<TextMeshProUGUI>();
             text.font = TMP_Settings.defaultFontAsset;
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
