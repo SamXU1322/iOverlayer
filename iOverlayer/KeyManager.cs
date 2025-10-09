@@ -11,7 +11,7 @@ namespace iOverlayer
         private UnityModManager.ModEntry.ModLogger _logger;
         private bool _isEnabled = true;
         private Dictionary<KeyCode, string> _keyBindings = new Dictionary<KeyCode, string>();
-        
+        // def __init__(self)
         private void Awake()
         {
             if (_instance == null)
