@@ -32,7 +32,7 @@ namespace iOverlayer
         }
         private void SetupDefaultKeyBindings()
         {
-            _keyBindings[KeyCode.F1] = "显示界面";
+            _keyBindings[KeyCode.Insert] = "显示界面";
         }
 
         void Update()
@@ -49,10 +49,10 @@ namespace iOverlayer
                     _logger.Log($"{binding.Key} - {binding.Value}");
                 }
                 if (Input.GetMouseButtonDown(0))
-                    _logger.Log("鼠标左键点击");
+                    _logger.Log("左");
                 
                 if (Input.GetMouseButtonDown(1))
-                    _logger.Log("鼠标右键点击");
+                    _logger.Log("右");
             }
         }
     }

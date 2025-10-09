@@ -14,14 +14,14 @@ namespace iOverlayer
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             TextGUI = new GameObject().AddComponent<TextBehavior>();
-            TextGUI.SetText("Congratulations!");
+            TextGUI.SetText("Congratulation");
             TextGUI.SetPosition(0.5f,0.5f);
             TextGUI.SetSize(222);
             Object.DontDestroyOnLoad(TextGUI);
             TextGUI.textObject.SetActive(true);
 
             keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
-            keyManager.Initialtize(modEntry);
+            keyManager.Initialize(modEntry);
             Object.DontDestroyOnLoad(keyManager.gameObject);
         }
     }
