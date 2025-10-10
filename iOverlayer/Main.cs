@@ -3,6 +3,7 @@ using HarmonyLib;
 using UnityModManagerNet;
 using Object = UnityEngine.Object;
 using iOverlayer.Core;
+using TMPro;
 
 namespace iOverlayer
 {
@@ -22,7 +23,11 @@ namespace iOverlayer
             TextGUI.SetSize(222);
             Object.DontDestroyOnLoad(TextGUI);
             TextGUI.textObject.SetActive(true);
-            
+            if (TextGUI.text.font.material.shader != null)
+            {
+                modEntry.Logger.Log("Shader name: " + TextGUI.text.font.material.shader.name);
+            }
+            modEntry.Logger.Log("UWU");
             keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
             keyManager.Initialize(modEntry);
             Object.DontDestroyOnLoad(keyManager.gameObject);

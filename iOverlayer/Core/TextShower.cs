@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
+
+
 
 namespace iOverlayer.Core
 {
@@ -10,7 +13,12 @@ namespace iOverlayer.Core
         public GameObject textObject;
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
-
+        public static Shader sr_msdf;
+        public static Canvas mainCanvas;
+        static TextBehavior()
+        {
+            sr_msdf = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
+        }
          public void SetSize(int newSize)
         {
             text.fontSize = newSize;
@@ -27,11 +35,14 @@ namespace iOverlayer.Core
             rectTransform.anchorMax = pos;
             rectTransform.pivot = pos;
         }
-
-        void Awake()
+        public void SetColor(Color color)
         {
-            // 创建Canvas
-            Canvas mainCanvas = gameObject.AddComponent<Canvas>();
+            text.color = color;
+        }
+
+        public void InitializedPublicCanvas()
+        {
+            mainCanvas = gameObject.AddComponent<Canvas>();
             mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             mainCanvas.sortingOrder = 10001;
             CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
@@ -39,7 +50,33 @@ namespace iOverlayer.Core
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
-            
+        }
+
+        public void SetFont(Font font)
+        {
+            TMP_FontAsset targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
+            InitMaterial(targetFont.material);
+            ApplyMaterial(targetFont.material);
+            text.font = targetFont;
+        }
+
+        private static void InitMaterial(Material mat)
+        {
+            if (sr_msdf) mat.shader = sr_msdf;
+            mat.EnableKeyword(ShaderUtilities.Keyword_Outline);
+            mat.EnableKeyword(ShaderUtilities.Keyword_Underlay);
+        }
+
+        private void ApplyMaterial(Material mat)
+        {
+            mat.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
+            mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.3f);
+            mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.4f);
+            mat.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
+        }
+        void Awake()
+        {
+            InitializedPublicCanvas();
             // 创建Text
             this.textObject = new GameObject();
             this.textObject.transform.SetParent(transform);
@@ -50,19 +87,14 @@ namespace iOverlayer.Core
             newTextObject.transform.SetParent(this.textObject.transform);
             
             text = newTextObject.AddComponent<TextMeshProUGUI>();
-            Font DefaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
-            text.font = TMP_FontAsset.CreateFontAsset(DefaultFont, 100, 10, GlyphRenderMode.SDFAA, 1024, 1024);
+            Font defaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+            SetFont(defaultFont);
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
             text.color = Color.white;
             text.overflowMode = TextOverflowModes.Overflow;
             text.enableWordWrapping = false;
             
-            text.fontMaterial = Instantiate(text.font.material);
-            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.3f);
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.4f);
-            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
             
             
             Vector2 pos = new Vector2(0, 0);
