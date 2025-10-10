@@ -4,6 +4,8 @@
     <attachedFolders />
     <explicitIncludes>
       <Path>iOverlayer/Assets/Fonts/Maplestory-Bold SDF.asset</Path>
+      <Path>iOverlayer/bin</Path>
+      <Path>iOverlayer/obj</Path>
     </explicitIncludes>
     <explicitExcludes />
   </component>

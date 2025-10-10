@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/iOverlayer/CopilotIndices/17.14.1231.31060/CodeChunks.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/iOverlayer/CopilotIndices/17.14.1231.31060/SemanticSymbols.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/iOverlayer/FileContentIndex/b9491991-65c3-4545-be0d-6fa00516c550.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/iOverlayer/v17/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/iOverlayer/v17/DocumentLayout.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +38,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/iOverlayer/FontManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/FontManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/KeyManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Maplestory-Bold SDF.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/TextShower.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -54,7 +57,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;StarR1ver&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -98,6 +101,7 @@
       <workItem from="1759549740846" duration="792000" />
       <workItem from="1759552818213" duration="5723000" />
       <workItem from="1759572940687" duration="3342000" />
+      <workItem from="1760070509119" duration="590000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
