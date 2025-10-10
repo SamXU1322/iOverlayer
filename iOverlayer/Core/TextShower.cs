@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.TextCore.LowLevel;
 
 
-
 namespace iOverlayer.Core
 {
     internal class TextBehavior : MonoBehaviour
@@ -52,9 +51,8 @@ namespace iOverlayer.Core
             scaler.referencePixelsPerUnit = 0.5f;
         }
 
-        public void SetFont(Font font)
+        public void SetFont(TMP_FontAsset targetFont)
         {
-            TMP_FontAsset targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
             InitMaterial(targetFont.material);
             ApplyMaterial(targetFont.material);
             text.font = targetFont;
@@ -77,34 +75,27 @@ namespace iOverlayer.Core
         void Awake()
         {
             InitializedPublicCanvas();
-            // 创建Text
             this.textObject = new GameObject();
             this.textObject.transform.SetParent(transform);
             this.textObject.AddComponent<Canvas>();
             rectTransform = this.textObject.GetComponent<RectTransform>();
-            
             GameObject newTextObject = new GameObject();
             newTextObject.transform.SetParent(this.textObject.transform);
-            
             text = newTextObject.AddComponent<TextMeshProUGUI>();
             Font defaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
-            SetFont(defaultFont);
+            TMP_FontAsset defaultTMPFont = TMP_FontAsset.CreateFontAsset(defaultFont,100,10,GlyphRenderMode.SDFAA,1024,1024);
+            SetFont(defaultTMPFont);
+            text.text = "Congratulation";
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
             text.color = Color.white;
             text.overflowMode = TextOverflowModes.Overflow;
             text.enableWordWrapping = false;
-            
-            
-            
-            Vector2 pos = new Vector2(0, 0);
+            Vector2 pos = new Vector2(0.5f, 0.5f);
             rectTransform.anchorMin = pos;
             rectTransform.anchorMax = pos;
             rectTransform.pivot = pos;
             rectTransform.anchoredPosition = Vector2.zero;
-
         }
-
-       
     }
 }
