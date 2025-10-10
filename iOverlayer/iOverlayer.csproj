@@ -109,19 +109,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FontManager.cs" />
-    <Compile Include="KeyManager.cs" />
+    <Compile Include="Core\FontManager.cs" />
+    <Compile Include="Core\KeyManager.cs" />
+    <Compile Include="Core\TextShower.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextShower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Maplestory-Bold SDF.asset" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

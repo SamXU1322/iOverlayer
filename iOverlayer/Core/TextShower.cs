@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
 
-namespace iOverlayer
+namespace iOverlayer.Core
 {
     internal class TextBehavior : MonoBehaviour
     {
@@ -50,8 +50,8 @@ namespace iOverlayer
             newTextObject.transform.SetParent(this.textObject.transform);
             
             text = newTextObject.AddComponent<TextMeshProUGUI>();
-            Font DefaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
-            text.font = TMP_FontAsset.CreateFontAsset(DefaultFont, 100, 10, GlyphRenderMode.SDFAA, 1024, 1024);
+            Font defaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+            text.font = TMP_FontAsset.CreateFontAsset(defaultFont, 100, 10, GlyphRenderMode.SDFAA, 1024, 1024);
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
             text.color = Color.white;

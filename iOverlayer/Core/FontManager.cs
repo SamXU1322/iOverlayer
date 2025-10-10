@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 
-namespace iOverlayer
+namespace iOverlayer.Core
 {
     public class FontManager
     {

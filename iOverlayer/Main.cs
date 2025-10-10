@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using HarmonyLib;
 using UnityModManagerNet;
+using iOverlayer.Core;
 namespace iOverlayer
 {
     public static class Main 
