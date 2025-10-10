@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using HarmonyLib;
-using UnityEngine.UI;
 using UnityModManagerNet;
 using Object = UnityEngine.Object;
+using iOverlayer.Core;
 
 namespace iOverlayer
 {

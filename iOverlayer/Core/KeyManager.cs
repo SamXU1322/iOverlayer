@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityModManagerNet;
 
-namespace iOverlayer
+namespace iOverlayer.Core
 {
     public class KeyManager:MonoBehaviour
     {

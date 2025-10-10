@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 using TMPro;
 
-namespace iOverlayer
+namespace iOverlayer.Core
 {
     public class FontManager
     {
