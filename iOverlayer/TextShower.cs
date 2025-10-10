@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.TextCore.LowLevel;
+
 namespace iOverlayer
 {
     internal class TextBehavior : MonoBehaviour
@@ -48,18 +50,19 @@ namespace iOverlayer
             newTextObject.transform.SetParent(this.textObject.transform);
             
             text = newTextObject.AddComponent<TextMeshProUGUI>();
-            text.font = TMP_Settings.defaultFontAsset;
+            Font DefaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+            text.font = TMP_FontAsset.CreateFontAsset(DefaultFont, 100, 10, GlyphRenderMode.SDFAA, 1024, 1024);
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
             text.color = Color.white;
             text.overflowMode = TextOverflowModes.Overflow;
             text.enableWordWrapping = false;
             
-            text.fontSharedMaterial = Instantiate(text.font.material);
-            text.fontSharedMaterial.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
-            text.fontSharedMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.5f);
-            text.fontSharedMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.5f);
-            text.fontSharedMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
+            text.fontMaterial = Instantiate(text.font.material);
+            text.fontMaterial.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.3f);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.4f);
+            text.fontMaterial.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
             
             
             Vector2 pos = new Vector2(0, 0);

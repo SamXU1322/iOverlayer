@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityModManagerNet;
 
@@ -9,10 +8,10 @@ namespace iOverlayer
     {
         private static KeyManager _instance;
         public static KeyManager Instance => _instance;
-        private UnityModManager.ModEntry.ModLogger logger;
-        private bool isEnabled = true;
-        private Dictionary<KeyCode, string> keyBindings = new Dictionary<KeyCode, string>();
-
+        private UnityModManager.ModEntry.ModLogger _logger;
+        private bool _isEnabled = true;
+        private Dictionary<KeyCode, string> _keyBindings = new Dictionary<KeyCode, string>();
+        // def __init__(self
         private void Awake()
         {
             if (_instance == null)
@@ -26,34 +25,34 @@ namespace iOverlayer
             }
         }
 
-        public void Initialtize(UnityModManager.ModEntry modEntry)
+        public void Initialize(UnityModManager.ModEntry modEntry)
         {
-            logger = modEntry.Logger;
-            SetupDefaultKeyBingings();
+            _logger = modEntry.Logger;
+            SetupDefaultKeyBindings();
         }
-        private void SetupDefaultKeyBingings()
+        private void SetupDefaultKeyBindings()
         {
-            keyBindings[KeyCode.F1] = "显示界面";
+            _keyBindings[KeyCode.Insert] = "显示界面";
         }
 
         void Update()
         {
-            if(!isEnabled) return;
+            if(!_isEnabled) return;
             DetectKeys();
         }
         private void DetectKeys()
         {
-            foreach (var binding in keyBindings)
+            foreach (var binding in _keyBindings)
             {
                 if (Input.GetKeyDown(binding.Key))
                 {
-                    logger.Log($"{binding.Key} - {binding.Value}");
+                    _logger.Log($"{binding.Key} - {binding.Value}");
                 }
                 if (Input.GetMouseButtonDown(0))
-                    logger.Log("鼠标左键点击");
+                    _logger.Log("左");
                 
                 if (Input.GetMouseButtonDown(1))
-                    logger.Log("鼠标右键点击");
+                    _logger.Log("右");
             }
         }
     }
