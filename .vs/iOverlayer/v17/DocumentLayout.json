@@ -1,71 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\code\\iOverlayer\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|e:\\code\\ioverlayer\\ioverlayer\\fontmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|solutionrelative:ioverlayer\\fontmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|e:\\code\\ioverlayer\\ioverlayer\\textshower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|solutionrelative:ioverlayer\\textshower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|e:\\code\\ioverlayer\\ioverlayer\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1359655E-38CA-4647-A0ED-34B14F9599B6}|iOverlayer\\iOverlayer.csproj|solutionrelative:ioverlayer\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TextShower.cs",
-              "DocumentMoniker": "E:\\code\\iOverlayer\\iOverlayer\\TextShower.cs",
-              "RelativeDocumentMoniker": "iOverlayer\\TextShower.cs",
-              "ToolTip": "E:\\code\\iOverlayer\\iOverlayer\\TextShower.cs",
-              "RelativeToolTip": "iOverlayer\\TextShower.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T08:03:34.014Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FontManger.cs",
-              "DocumentMoniker": "E:\\code\\iOverlayer\\iOverlayer\\FontManger.cs",
-              "RelativeDocumentMoniker": "iOverlayer\\FontManger.cs",
-              "ToolTip": "E:\\code\\iOverlayer\\iOverlayer\\FontManger.cs*",
-              "RelativeToolTip": "iOverlayer\\FontManger.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T08:03:30.711Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Main.cs",
-              "DocumentMoniker": "E:\\code\\iOverlayer\\iOverlayer\\Main.cs",
-              "RelativeDocumentMoniker": "iOverlayer\\Main.cs",
-              "ToolTip": "E:\\code\\iOverlayer\\iOverlayer\\Main.cs",
-              "RelativeToolTip": "iOverlayer\\Main.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T08:03:18.556Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }
