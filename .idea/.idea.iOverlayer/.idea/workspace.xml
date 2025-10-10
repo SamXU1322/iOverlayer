@@ -6,10 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.Up2Date" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Release/iOverlayer.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,10 +39,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/18b90acbd2bd45a69060742d76b81f4092c0/c4/fa124ff6/Font.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/55/859e384d/FontData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/FontManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/FontManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/KeyManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/code/iOverlayer/iOverlayer/Main.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Maplestory-Bold SDF.asset" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/TextShower.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -60,7 +68,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.smartKeys_rider&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -97,7 +105,10 @@
       <workItem from="1759508165303" duration="8148000" />
       <workItem from="1759549740846" duration="792000" />
       <workItem from="1759552818213" duration="5723000" />
-      <workItem from="1759572940687" duration="3342000" />
+      <workItem from="1759572940687" duration="7788000" />
+      <workItem from="1759807726617" duration="3000" />
+      <workItem from="1759809220944" duration="671000" />
+      <workItem from="1760011618314" duration="8729000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -115,7 +126,39 @@
       <option name="project" value="LOCAL" />
       <updated>1759575952269</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="1">
+      <option name="closed" value="true" />
+      <created>1759576345607</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759576345607</updated>
+    </task>
+    <task id="LOCAL-00004" summary="添加变量">
+      <option name="closed" value="true" />
+      <created>1759576659541</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759576659541</updated>
+    </task>
+    <task id="LOCAL-00005" summary="完成了根据路径读取字体函数">
+      <option name="closed" value="true" />
+      <created>1759815329261</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1759815329261</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加按键检测功能">
+      <option name="closed" value="true" />
+      <created>1760020424467</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760020424467</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +196,11 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="创建文本" />
     <MESSAGE value="重命名一些变量与方法&#10;添加FontManager接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="重命名一些变量与方法&#10;添加FontManager接口" />
+    <MESSAGE value="1" />
+    <MESSAGE value="添加变量" />
+    <MESSAGE value="完成了根据路径读取字体函数" />
+    <MESSAGE value="添加按键检测功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加按键检测功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

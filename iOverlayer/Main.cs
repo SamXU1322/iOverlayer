@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using HarmonyLib;
+using UnityEngine.UI;
 using UnityModManagerNet;
+using Object = UnityEngine.Object;
+
 namespace iOverlayer
 {
     public static class Main 
@@ -19,7 +23,7 @@ namespace iOverlayer
             TextGUI.SetSize(222);
             Object.DontDestroyOnLoad(TextGUI);
             TextGUI.textObject.SetActive(true);
-
+            
             keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
             keyManager.Initialtize(modEntry);
             Object.DontDestroyOnLoad(keyManager.gameObject);

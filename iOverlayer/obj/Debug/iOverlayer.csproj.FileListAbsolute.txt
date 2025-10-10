@@ -3,9 +3,7 @@ E:\code\iOverlayer\iOverlayer\bin\Debug\iOverlayer.pdb
 E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.AssemblyReference.cache
 E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.CoreCompileInputs.cache
 E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.dll
-E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.pdb
 E:\code\iOverlayer\iOverlayer\bin\Debug\info.json
 E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\info.json
 E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\iOverlayer.dll
-E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer\iOverlayer.pdb
-E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.Up2Date
+E:\code\iOverlayer\iOverlayer\obj\Debug\iOverlayer.csproj.ResolveComReference.cache
