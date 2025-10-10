@@ -113,14 +113,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FontManager.cs" />
-    <Compile Include="KeyManager.cs" />
+    <Compile Include="Core\FontManager.cs" />
+    <Compile Include="Core\KeyManager.cs" />
+    <Compile Include="Core\TextShower.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextShower.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="mscorlib">
