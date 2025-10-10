@@ -1,17 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.TextCore.LowLevel;
 
 namespace iOverlayer.Core
 {
     public class FontManager
     {
-        static TMP_FontAsset DefaultTMPFont;
+        public static TMP_FontAsset DefaultTMPFont;
         static Font DefaultFont;
-        static bool initialized;
+        public static bool initialized;
         static FontData defaultFont;
         static Dictionary<string, FontData> Fonts = new Dictionary<string, FontData>();
         public static bool Initialized => initialized;
@@ -59,9 +61,63 @@ namespace iOverlayer.Core
                     font = newData;
                     return true;
                 }
+                else
+                {
+                    int index = Array.IndexOf(OSFonts, name);
+                    if (index != -1)
+                    {
+                        FontData newData = defaultFont;
+                        Font newFont = Font.CreateDynamicFontFromOSFont(name, defaultFont.font.fontSize);
+                        TMP_FontAsset newTMPFont = TMP_FontAsset.CreateFontAsset(new Font(OSFontPaths[index]));
+                        if (newTMPFont)
+                            newTMPFont.fallbackFontAssetTable = FallbackTMPFonts.ToList();
+                        newData.font = newFont;
+                        newData.fontTMP = newTMPFont ?? defaultFont.fontTMP;
+                        Fonts.Add(name, newData);
+                        font = newData;
+                        return true;
+                    }
+                }
             }
            font = defaultFont;
            return false;
         }
+        public static void Initialize()
+        {
+            if (!initialized)
+            {
+                DefaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+                DefaultTMPFont = TMP_FontAsset.CreateFontAsset(DefaultFont,100,10,GlyphRenderMode.SDFAA,1024,1024);
+                FallbackFontDatas = RDString.AvailableLanguages.Select(RDString.GetFontDataForLanguage).ToList().AsReadOnly();
+                FallbackFonts = FallbackFontDatas.Select(x => x.font).ToList().AsReadOnly();
+                FallbackTMPFonts = FallbackFontDatas.Select(x=>x.fontTMP).ToList().AsReadOnly();
+                DefaultTMPFont.fallbackFontAssetTable = FallbackTMPFonts.ToList();
+                defaultFont = RDString.fontData;
+                defaultFont.lineSpacing = 1f;
+                defaultFont.lineSpacingTMP = 1;
+                defaultFont.fontScale = 0.5f;
+                defaultFont.font = DefaultFont;
+                defaultFont.fontTMP = DefaultTMPFont;
+                OSFonts = Font.GetOSInstalledFontNames();
+                OSFontPaths = Font.GetPathsToOSFonts();
+                Fonts = new Dictionary<string, FontData>();
+                initialized = true;
+            }    
+        }
+
+        public static void Release()
+        {
+            DefaultFont = null;
+            DefaultTMPFont = null;
+            FallbackFontDatas = null;
+            FallbackFonts = null;
+            defaultFont = default;
+            OSFonts = null;
+            OSFontPaths = null;
+            Fonts = null;
+            initialized = false;
+        }
     }
+    
 }
+
