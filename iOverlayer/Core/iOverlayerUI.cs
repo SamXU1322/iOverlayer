@@ -14,6 +14,7 @@ namespace iOverlayer.Core
         public void Initilize(UnityModManager.ModEntry.ModLogger logger)
         {
             _logger = logger;
+            
         }
 
         public void Update()
