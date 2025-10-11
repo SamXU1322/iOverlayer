@@ -14,6 +14,8 @@ namespace iOverlayer.Core
         public RectTransform rectTransform;
         public static Shader sr_msdf;
         public static Canvas mainCanvas;
+        public Font font;
+        public TMP_FontAsset targetFont;
         static TextBehavior()
         {
             sr_msdf = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
@@ -51,8 +53,20 @@ namespace iOverlayer.Core
             scaler.referencePixelsPerUnit = 0.5f;
         }
 
-        public void SetFont(TMP_FontAsset targetFont)
+        public void SetFont(string fontPath)
         {
+            if (fontPath == "Default")
+            {
+                font = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+            }
+            else
+            {
+                if (System.IO.File.Exists(fontPath))
+                {
+                    font = new Font(fontPath);
+                }
+            }
+            targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
             InitMaterial(targetFont.material);
             ApplyMaterial(targetFont.material);
             text.font = targetFont;
@@ -84,7 +98,7 @@ namespace iOverlayer.Core
             text = newTextObject.AddComponent<TextMeshProUGUI>();
             Font defaultFont = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
             TMP_FontAsset defaultTMPFont = TMP_FontAsset.CreateFontAsset(defaultFont,100,10,GlyphRenderMode.SDFAA,1024,1024);
-            SetFont(defaultTMPFont);
+            SetFont("Default");
             text.text = "Congratulation";
             text.alignment = TextAlignmentOptions.Center;
             text.fontSize = 32;
