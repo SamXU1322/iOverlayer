@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEngine;
 using HarmonyLib;
 using UnityModManagerNet;
 using iOverlayer.Core;
 using iOverlayer.Text;
+using Object = UnityEngine.Object;
 
 namespace iOverlayer
 {
@@ -13,7 +15,8 @@ namespace iOverlayer
         public static UnityModManager.ModEntry ModEntry;
         internal static TextBehavior TextGUI;
         public static Harmony harmony;
-        public static KeyManager keyManager;
+        private static iOverlayerUI _overlayerUI;
+        private static GameObject _modGameObject;
 
         public static void Start(UnityModManager.ModEntry modEntry)
         {
@@ -31,10 +34,12 @@ namespace iOverlayer
             TextGUI.textObject.SetActive(true);
             Object.DontDestroyOnLoad(TextGUI);
             string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
+            TextGUI.SetFont(fontPath);
             Logger.Log("UWU");
-            keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
-            keyManager.Initialize(modEntry);
-            Object.DontDestroyOnLoad(keyManager.gameObject);
+            _modGameObject = new GameObject("iOverlayerUI");
+            _overlayerUI = _modGameObject.AddComponent<iOverlayerUI>();
+            _overlayerUI.Initilize(Logger);
+            Object.DontDestroyOnLoad(_modGameObject);
         }
     }
 }

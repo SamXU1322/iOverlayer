@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using UnityEngine;
+
 namespace iOverlayer.Core
 {
     internal static class Adofai
