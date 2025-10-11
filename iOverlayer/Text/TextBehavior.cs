@@ -65,6 +65,10 @@ namespace iOverlayer.Text
                 {
                     font = new Font(fontPath);
                 }
+                else
+                {
+                    font = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+                }
             }
             targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
             InitMaterial(targetFont.material);

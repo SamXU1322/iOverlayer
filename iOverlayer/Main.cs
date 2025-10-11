@@ -9,7 +9,6 @@ namespace iOverlayer
 {
     public static class Main 
     {
-        public static bool IsEnabled { get; private set; }
         public static UnityModManager.ModEntry.ModLogger Logger;
         public static UnityModManager.ModEntry ModEntry;
         internal static TextBehavior TextGUI;
@@ -21,20 +20,18 @@ namespace iOverlayer
             harmony = new Harmony(modEntry.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
-        
-        
-        
         public static void Load(UnityModManager.ModEntry modEntry)
         {
+            Logger = modEntry.Logger;
             Start(modEntry);
             TextGUI = new GameObject().AddComponent<TextBehavior>();
             TextGUI.SetText("Congratulation");
             TextGUI.SetPosition(0.5f,0.5f);
-            TextGUI.SetSize(222);
+            TextGUI.SetSize(128);
             TextGUI.textObject.SetActive(true);
             Object.DontDestroyOnLoad(TextGUI);
             string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
-            modEntry.Logger.Log("UWU");
+            Logger.Log("UWU");
             keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
             keyManager.Initialize(modEntry);
             Object.DontDestroyOnLoad(keyManager.gameObject);
