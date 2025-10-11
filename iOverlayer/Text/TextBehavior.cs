@@ -12,13 +12,13 @@ namespace iOverlayer.Text
         public GameObject textObject;
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
-        public static Shader sr_msdf;
+        public static Shader Shader;
         public static Canvas mainCanvas;
         public Font font;
         public TMP_FontAsset targetFont;
         static TextBehavior()
         {
-            sr_msdf = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
+            Shader = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
         }
          public void SetSize(int newSize)
         {
@@ -76,19 +76,19 @@ namespace iOverlayer.Text
             text.font = targetFont;
         }
 
-        private static void InitMaterial(Material mat)
+        private static void InitMaterial(Material material)
         {
-            if (sr_msdf) mat.shader = sr_msdf;
-            mat.EnableKeyword(ShaderUtilities.Keyword_Outline);
-            mat.EnableKeyword(ShaderUtilities.Keyword_Underlay);
+            if (Shader) material.shader = Shader;
+            material.EnableKeyword(ShaderUtilities.Keyword_Outline);
+            material.EnableKeyword(ShaderUtilities.Keyword_Underlay);
         }
 
-        private void ApplyMaterial(Material mat)
+        private void ApplyMaterial(Material material)
         {
-            mat.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
-            mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.3f);
-            mat.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.4f);
-            mat.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
+            material.SetColor(ShaderUtilities.ID_UnderlayColor,new Color32(0,0,0,80));
+            material.SetFloat(ShaderUtilities.ID_UnderlayOffsetX, 0.3f);
+            material.SetFloat(ShaderUtilities.ID_UnderlayOffsetY, -0.4f);
+            material.SetFloat(ShaderUtilities.ID_UnderlayDilate, 0);
         }
         void Awake()
         {
