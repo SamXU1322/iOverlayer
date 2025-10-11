@@ -2,10 +2,8 @@
 using UnityEngine;
 using HarmonyLib;
 using UnityModManagerNet;
-using Object = UnityEngine.Object;
 using iOverlayer.Core;
-using TMPro;
-using UnityEngine.TextCore.LowLevel;
+using iOverlayer.Text;
 
 namespace iOverlayer
 {
@@ -29,7 +27,6 @@ namespace iOverlayer
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             Start(modEntry);
-            FontManager.Initialize();
             TextGUI = new GameObject().AddComponent<TextBehavior>();
             TextGUI.SetText("Congratulation");
             TextGUI.SetPosition(0.5f,0.5f);
@@ -37,7 +34,6 @@ namespace iOverlayer
             TextGUI.textObject.SetActive(true);
             Object.DontDestroyOnLoad(TextGUI);
             string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
-    
             modEntry.Logger.Log("UWU");
             keyManager = new GameObject("KeyManager").AddComponent<KeyManager>();
             keyManager.Initialize(modEntry);

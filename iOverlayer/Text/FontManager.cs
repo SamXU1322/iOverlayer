@@ -7,7 +7,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
 
-namespace iOverlayer.Core
+namespace iOverlayer.Text
 {
     public class FontManager
     {
