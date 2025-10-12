@@ -13,6 +13,17 @@ namespace iOverlayer.Core
                 Main.TextGUI.textObject.SetActive(false);
             }
         }
+        [HarmonyPatch(typeof(scrCalibrationPlanet), "Update")]
+        internal static class scrCalibrationPlanet_Update
+        { 
+            private static void Postfix()
+            {
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    Main.TextGUI.textObject.SetActive(!Main.TextGUI.textObject.activeSelf);
+                }
+            }
+        }
         
     }
 }
