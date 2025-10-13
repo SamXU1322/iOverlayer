@@ -15,8 +15,8 @@ namespace iOverlayer
         public static UnityModManager.ModEntry ModEntry;
         public static Harmony harmony;
         private static GameObject _modGameObject;
-        private static AssetBundle _assetBundle;
-        private static GameObject iOverlagerText;
+        private static GameObject _textPrefab;
+        
 
         public static void Start(UnityModManager.ModEntry modEntry)
         {
@@ -33,13 +33,11 @@ namespace iOverlayer
             InitializedPublicCanvas();
             string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
             Logger.Log("UWU");
-            LoadAssetBundle(modEntry);
-            if (iOverlagerText != null)
-            {
-                iOverlagerText.transform.SetParent(_modGameObject.transform);
-                Object.DontDestroyOnLoad(iOverlagerText);
-            }
-            
+            string AssetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
+            AssetBundle ab = AssetBundle.LoadFromFile(AssetBundlePath);
+            _textPrefab = ab.LoadAsset<GameObject>("text");
+            ab.Unload(false);
+            GameObject Text =  GameObject.Instantiate(_textPrefab, _modGameObject.transform);
         }
 
         public static void InitializedPublicCanvas()
@@ -52,21 +50,7 @@ namespace iOverlayer
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; 
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
-        }
-
-        public static void LoadAssetBundle(UnityModManager.ModEntry modEntry)
-        {
-            string AssetBundlePath = System.IO.Path.Combine(modEntry.Path, "text");
-            if (System.IO.File.Exists(AssetBundlePath))
-            {
-                _assetBundle = AssetBundle.LoadFromFile(AssetBundlePath);
-                GameObject TextPrefab = _assetBundle.LoadAsset<GameObject>("text");
-                _assetBundle.Unload(false);
-                if (TextPrefab != null)
-                {
-                    iOverlagerText = Object.Instantiate(TextPrefab);
-                }
-            }
+            _modGameObject.AddComponent<GraphicRaycaster>();
         }
     }
 }
