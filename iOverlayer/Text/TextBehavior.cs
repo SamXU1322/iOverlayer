@@ -8,6 +8,8 @@ namespace iOverlayer.Text
     {
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
+        public Font font;
+        public TMP_FontAsset targetFont;
 
         public void Initialize()
         {
@@ -22,6 +24,7 @@ namespace iOverlayer.Text
             {
                 text.text = "Hello, iOverlayer!";
                 text.alignment = TextAlignmentOptions.Center;
+                SetFont("Default");
                 text.fontSize = 16;
                 text.color = Color.white;
                 text.overflowMode = TextOverflowModes.Overflow;
@@ -37,6 +40,22 @@ namespace iOverlayer.Text
                 rectTransform.pivot = pos;
                 rectTransform.anchoredPosition = Vector2.zero;
             }
+        }
+        public void SetFont(string fontPath)
+        {
+            if (fontPath == "Default")
+            {
+                font = RDString.GetFontDataForLanguage(SystemLanguage.English).font;
+            }
+            else
+            {
+                if (System.IO.File.Exists(fontPath))
+                {
+                    font = new Font(fontPath);
+                }
+            }
+            targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
+            text.font = targetFont;
         }
     }
 }
