@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="" />
+    <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,6 +146,7 @@
       <workItem from="1760347006151" duration="501000" />
       <workItem from="1760347731512" duration="809000" />
       <workItem from="1760351997937" duration="630000" />
+      <workItem from="1760367000520" duration="2016000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -294,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760352026358</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="更新默认字体">
+      <option name="closed" value="true" />
+      <created>1760367271171</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1760367271171</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +359,8 @@
     <MESSAGE value="1" />
     <MESSAGE value="test" />
     <MESSAGE value="用预制件重新了Text代码逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="用预制件重新了Text代码逻辑" />
+    <MESSAGE value="更新默认字体" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新默认字体" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -120,7 +120,6 @@
     <Compile Include="Core\Adofai.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Text\FontManager.cs" />
     <Compile Include="Text\TextBehavior.cs" />
   </ItemGroup>
   <ItemGroup>

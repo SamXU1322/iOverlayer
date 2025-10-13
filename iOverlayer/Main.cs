@@ -43,7 +43,7 @@ namespace iOverlayer
             mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             mainCanvas.sortingOrder = 10001;
             CanvasScaler scaler = _modGameObject.AddComponent<CanvasScaler>(); 
-            scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.referenceResolution = new Vector2(3840, 2160);
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; 
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
@@ -52,11 +52,11 @@ namespace iOverlayer
         private static GameObject CreateTextObject()
         {
             string assetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
-            AssetBundle ab = AssetBundle.LoadFromFile(assetBundlePath);
-            if (ab != null)
+            AssetBundle ba = AssetBundle.LoadFromFile(assetBundlePath);
+            if (ba != null)
             {
-                GameObject textPrefab = ab.LoadAsset<GameObject>("text");
-                ab.Unload(false);
+                GameObject textPrefab = ba.LoadAsset<GameObject>("text");
+                ba.Unload(false);
                 if (textPrefab != null)
                 {
                     return GameObject.Instantiate(textPrefab, _modGameObject.transform);

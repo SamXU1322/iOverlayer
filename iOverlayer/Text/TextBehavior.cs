@@ -2,17 +2,21 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
+using UnityEngine.UI;
+
 namespace iOverlayer.Text
 {
     internal class TextBehavior : MonoBehaviour
     {
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
+        public Image image;
         public Font font;
         public TMP_FontAsset targetFont;
 
         public void Initialize()
         {
+            image = GetComponent<Image>();
             rectTransform = GetComponent<RectTransform>();
             text = GetComponentInChildren<TextMeshProUGUI>();
             SetupDefaultProperties();
@@ -22,14 +26,17 @@ namespace iOverlayer.Text
         {
             if (text != null)
             {
+                text.enableAutoSizing = false;
+                text.fontSize = 160;
                 text.text = "Hello, iOverlayer!";
                 text.alignment = TextAlignmentOptions.Center;
                 SetFont("Default");
-                text.fontSize = 16;
                 text.color = Color.white;
                 text.overflowMode = TextOverflowModes.Overflow;
                 text.enableWordWrapping = false;
                 text.ForceMeshUpdate();
+                image.color = Color.clear;
+                image.rectTransform.sizeDelta = new Vector2(text.preferredWidth+50, text.preferredHeight);
             }
 
             if (rectTransform != null)
