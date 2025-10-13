@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/iOverlayerText.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

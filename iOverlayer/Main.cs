@@ -15,7 +15,6 @@ namespace iOverlayer
         public static UnityModManager.ModEntry ModEntry;
         public static Harmony harmony;
         private static GameObject _modGameObject;
-        private static GameObject _textPrefab;
         
 
         public static void Start(UnityModManager.ModEntry modEntry)
@@ -33,11 +32,9 @@ namespace iOverlayer
             InitializedPublicCanvas();
             string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
             Logger.Log("UWU");
-            string AssetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
-            AssetBundle ab = AssetBundle.LoadFromFile(AssetBundlePath);
-            _textPrefab = ab.LoadAsset<GameObject>("text");
-            ab.Unload(false);
-            GameObject Text =  GameObject.Instantiate(_textPrefab, _modGameObject.transform);
+            GameObject textObject = CreateTextObject();
+            TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
+            textBehavior.Initialize();
         }
 
         public static void InitializedPublicCanvas()
@@ -51,6 +48,29 @@ namespace iOverlayer
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
             _modGameObject.AddComponent<GraphicRaycaster>();
+        }
+        private static GameObject CreateTextObject()
+        {
+            string assetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
+            AssetBundle ab = AssetBundle.LoadFromFile(assetBundlePath);
+            if (ab != null)
+            {
+                GameObject textPrefab = ab.LoadAsset<GameObject>("text");
+                ab.Unload(false);
+                if (textPrefab != null)
+                {
+                    return GameObject.Instantiate(textPrefab, _modGameObject.transform);
+                }
+                else
+                {
+                    Logger.Log("Failed to load 'text' prefab from AssetBundle");
+                }
+            }
+            else
+            {
+                Logger.Log("Failed to load AssetBundle from path: " + assetBundlePath);
+            }
+            return null;
         }
     }
 }
