@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +39,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -67,11 +68,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/e2/15805073/CalibrationPreset.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/e4/f65987c6/RDString.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/fb/7376a773/scrController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/Core/Adofai.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/Core/Adofai.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/Core/Adofai.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/Core/iOverlayerUI.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/code/iOverlayer/iOverlayer/Core/iOverlayerUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Text/iOverlayerText.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -147,6 +144,9 @@
       <workItem from="1760193236264" duration="8715000" />
       <workItem from="1760202213181" duration="647000" />
       <workItem from="1760205182009" duration="450000" />
+      <workItem from="1760331514487" duration="952000" />
+      <workItem from="1760334601265" duration="2003000" />
+      <workItem from="1760339902576" duration="3835000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />

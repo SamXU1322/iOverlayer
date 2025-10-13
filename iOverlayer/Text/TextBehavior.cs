@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
 
@@ -40,19 +39,6 @@ namespace iOverlayer.Text
         {
             text.color = color;
         }
-
-        public void InitializedPublicCanvas()
-        {
-            mainCanvas = gameObject.AddComponent<Canvas>();
-            mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            mainCanvas.sortingOrder = 10001;
-            CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
-            scaler.referenceResolution = new Vector2(1920, 1080);
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.referencePixelsPerUnit = 0.5f;
-        }
-
         public void SetFont(string fontPath)
         {
             if (fontPath == "Default")
@@ -92,7 +78,6 @@ namespace iOverlayer.Text
         }
         void Awake()
         {
-            InitializedPublicCanvas();
             this.textObject = new GameObject();
             this.textObject.transform.SetParent(transform);
             this.textObject.AddComponent<Canvas>();
