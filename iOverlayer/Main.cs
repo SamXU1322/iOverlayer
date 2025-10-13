@@ -1,10 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using UnityEngine;
 using HarmonyLib;
 using UnityModManagerNet;
 using iOverlayer.Core;
 using iOverlayer.Text;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace iOverlayer
@@ -13,10 +13,9 @@ namespace iOverlayer
     {
         public static UnityModManager.ModEntry.ModLogger Logger;
         public static UnityModManager.ModEntry ModEntry;
-        internal static TextBehavior TextGUI;
         public static Harmony harmony;
-        private static iOverlayerUI _overlayerUI;
         private static GameObject _modGameObject;
+        
 
         public static void Start(UnityModManager.ModEntry modEntry)
         {
@@ -27,19 +26,51 @@ namespace iOverlayer
         {
             Logger = modEntry.Logger;
             Start(modEntry);
-            TextGUI = new GameObject().AddComponent<TextBehavior>();
-            TextGUI.SetText("Congratulation");
-            TextGUI.SetPosition(0.5f,0.5f);
-            TextGUI.SetSize(128);
-            TextGUI.textObject.SetActive(true);
-            Object.DontDestroyOnLoad(TextGUI);
-            string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
-            TextGUI.SetFont(fontPath);
-            Logger.Log("UWU");
-            _modGameObject = new GameObject("iOverlayerUI");
-            _overlayerUI = _modGameObject.AddComponent<iOverlayerUI>();
-            _overlayerUI.Initilize(Logger);
+            ModEntry = modEntry;
+            _modGameObject = new GameObject("iOverlayer");
             Object.DontDestroyOnLoad(_modGameObject);
+            InitializedPublicCanvas();
+            string fontPath = "C:\\Users\\ASUS\\AppData\\Local\\Microsoft\\Windows\\Fonts\\Maplestory-Bold.otf";
+            Logger.Log("UWU");
+            GameObject textObject = CreateTextObject();
+            TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
+            textBehavior.Initialize();
+        }
+
+        public static void InitializedPublicCanvas()
+        {
+            Canvas mainCanvas = _modGameObject.AddComponent<Canvas>();
+            mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            mainCanvas.sortingOrder = 10001;
+            CanvasScaler scaler = _modGameObject.AddComponent<CanvasScaler>(); 
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; 
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.referencePixelsPerUnit = 0.5f;
+            _modGameObject.AddComponent<GraphicRaycaster>();
+        }
+        private static GameObject CreateTextObject()
+        {
+            string assetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
+            AssetBundle ab = AssetBundle.LoadFromFile(assetBundlePath);
+            if (ab != null)
+            {
+                GameObject textPrefab = ab.LoadAsset<GameObject>("text");
+                ab.Unload(false);
+                if (textPrefab != null)
+                {
+                    return GameObject.Instantiate(textPrefab, _modGameObject.transform);
+                }
+                else
+                {
+                    Logger.Log("Failed to load 'text' prefab from AssetBundle");
+                }
+            }
+            else
+            {
+                Logger.Log("Failed to load AssetBundle from path: " + assetBundlePath);
+            }
+            return null;
         }
     }
 }
