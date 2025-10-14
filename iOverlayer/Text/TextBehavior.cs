@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
@@ -62,7 +61,7 @@ namespace iOverlayer.Text
                 }
             }
             targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
-            text.font = targetFont;
         }
+        
     }
 }
