@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using iOverlayer.Core;
 using iOverlayer.Text;
 using TMPro;
@@ -15,21 +16,24 @@ namespace iOverlayer.GUI
         public RectTransform rectTransform;
         public Transform Transform = ModManager.GUIObject.transform;
         public GameObject Name;
-        public Transform iOverlayerTransform;
         public static bool isGUIVisible = false;
+        public static Shader sr_msdf = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
         public TextMeshProUGUI[] NameText { get; private set; }
         public void Initialize()
         {
             rectTransform = GetComponent<RectTransform>();
             SetupDefaultProperties();
-            iOverlayerTransform = transform.Find("Navigation/Viewport/Content/iOverlayer");
-            if (iOverlayerTransform!= null)
+            if(Transform != null)
             {
-                NameText = iOverlayerTransform.GetComponentsInChildren<TextMeshProUGUI>();
-                foreach (var text in NameText)
+                NameText = Transform.GetComponentsInChildren<TextMeshProUGUI>();
+                foreach (TextMeshProUGUI text in NameText)
                 {
-                    text.font = Main.BoldFontAsset;
+                    text.fontSharedMaterial.shader = sr_msdf;
                 }
+            }
+            else
+            {
+                Main.Logger.Log("Error: iOverlayer Transform not found");
             }
 
             isGUIVisible = ModManager.GUIObject.activeSelf;
@@ -39,6 +43,7 @@ namespace iOverlayer.GUI
             if(rectTransform != null)
             {
                 rectTransform.localScale = new Vector3(0.5f, 0.5f, 1);
+                
             }
         }
         

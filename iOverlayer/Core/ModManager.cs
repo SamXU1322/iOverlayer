@@ -53,7 +53,7 @@ namespace iOverlayer.Core
                 ba.Unload(false);
                 if (GUIPrefab != null)
                 {
-                    return Instantiate(GUIPrefab, this.transform);
+                    return Instantiate(GUIPrefab, this.gameObject.transform);
                 }
                 else
                 {
