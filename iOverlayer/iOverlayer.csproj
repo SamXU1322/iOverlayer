@@ -119,6 +119,8 @@
   <ItemGroup>
     <Compile Include="Core\Adofai.cs" />
     <Compile Include="Core\ModManager.cs" />
+    <Compile Include="Core\Patch\iOverlayerPatch.cs" />
+    <Compile Include="Core\Patch\iOverlayerPatchAttribute.cs" />
     <Compile Include="GUI\iOverlayerGUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

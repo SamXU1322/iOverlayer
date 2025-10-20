@@ -10,26 +10,34 @@ namespace iOverlayer.Core
     public class ModManager:MonoBehaviour
     {
         public static GameObject GUIObject;
-        
+        public static iOverlayerGUI iOverlayerGUI;
+        public static GameObject[] TextSet;
+        public static TextBehavior[] TextBehaviors;
+        public int TextCount { get; set; } = 0;
+
         private void Awake()
         {
             InitializedPublicCanvas();
             GUIObject = CreateUIObject();
-            iOverlayerGUI iOverlayerGUI =  GUIObject.AddComponent<iOverlayerGUI>();
-            iOverlayerGUI.Initialize();
+            iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
+            CreateTextObject();
+            TextBehaviors[0].text.text = "{Value}";
         }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                ToggleGUIVisibility();
+                iOverlayerGUI.ToggleGUIVisibility();
                 Main.Logger.Log("F1 Pressed");
             }
-        }
-        public void ToggleGUIVisibility()
-        {
-            iOverlayerGUI.isGUIVisible = !iOverlayerGUI.isGUIVisible;
-            GUIObject.SetActive(iOverlayerGUI.isGUIVisible);
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                foreach (TextBehavior behavior in TextBehaviors)
+                {
+                    behavior.ChangeVisibility();
+                }
+                Main.Logger.Log("F2 Pressed");
+            }
         }
         public void InitializedPublicCanvas()
         {
@@ -53,7 +61,55 @@ namespace iOverlayer.Core
                 ba.Unload(false);
                 if (GUIPrefab != null)
                 {
-                    return Instantiate(GUIPrefab, this.gameObject.transform);
+                    GameObject TempGUIObject = GameObject.Instantiate(GUIPrefab, this.gameObject.transform);
+                    return TempGUIObject;
+                }
+                else
+                {
+                    Main.Logger.Log("Failed to load 'text' prefab from AssetBundle");
+                }
+            }
+            else
+            {
+                Main.Logger.Log("Failed to load AssetBundle from path: " + assetBundlePath);
+            }
+            return null;
+        }
+        private GameObject CreateTextObject()
+        {
+            string assetBundlePath = System.IO.Path.Combine(Main.ModEntry.Path, "text");
+            AssetBundle ba = AssetBundle.LoadFromFile(assetBundlePath);
+            if (ba != null)
+            {
+                GameObject textPrefab = ba.LoadAsset<GameObject>("text");
+                ba.Unload(false);
+                if (textPrefab != null)
+                {
+                    GameObject textObject = GameObject.Instantiate(textPrefab, this.gameObject.transform);
+                    textObject.name = $"Text{TextCount}";
+                    TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
+                    if (TextSet == null)
+                    {
+                        TextSet = new GameObject[1];
+                        TextSet[0] = textObject;
+                    }
+                    else
+                    {
+                        Array.Resize(ref TextSet, TextSet.Length + 1);
+                        TextSet[TextSet.Length - 1] = textObject;
+                    }
+
+                    if (TextBehaviors == null)
+                    {
+                        TextBehaviors = new TextBehavior[1];
+                        TextBehaviors[0] = textBehavior;
+                    }
+                    else
+                    {
+                        Array.Resize(ref TextBehaviors, TextBehaviors.Length + 1);
+                        TextBehaviors[TextBehaviors.Length - 1] = textBehavior;
+                    }
+                    return textObject;
                 }
                 else
                 {
