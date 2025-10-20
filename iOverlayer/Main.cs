@@ -18,6 +18,7 @@ namespace iOverlayer
         public static UnityModManager.ModEntry ModEntry;
         public static Harmony harmony;
         public static GameObject ModGameObject;
+        public static ModManager modManager;
 
 
         public static void Start(UnityModManager.ModEntry modEntry)
@@ -32,38 +33,12 @@ namespace iOverlayer
             Start(modEntry);
             ModEntry = modEntry;
             ModGameObject = new GameObject("iOverlayer");
-            ModGameObject.AddComponent<ModManager>();
+            modManager = ModGameObject.AddComponent<ModManager>();
             Object.DontDestroyOnLoad(ModGameObject);
             // GameObject textObject = CreateTextObject();
             // TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
             // textBehavior.Initialize();
 
-        }
-
-
-        private static GameObject CreateTextObject()
-        {
-            string assetBundlePath = System.IO.Path.Combine(ModEntry.Path, "text");
-            AssetBundle ba = AssetBundle.LoadFromFile(assetBundlePath);
-            if (ba != null)
-            {
-                GameObject textPrefab = ba.LoadAsset<GameObject>("text");
-                ba.Unload(false);
-                if (textPrefab != null)
-                {
-                    return GameObject.Instantiate(textPrefab, ModGameObject.transform);
-                }
-                else
-                {
-                    Logger.Log("Failed to load 'text' prefab from AssetBundle");
-                }
-            }
-            else
-            {
-                Logger.Log("Failed to load AssetBundle from path: " + assetBundlePath);
-            }
-
-            return null;
         }
     }
 }

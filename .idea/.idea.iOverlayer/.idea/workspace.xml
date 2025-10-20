@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatchAttribute.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +66,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/16/03ebf880/CustomLevelTile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/1c/5cb6a0c3/scrUIController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/47/c270ae9d/scrCalibrationPlanet.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/48/b1bf3c6e/scrPlanet.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/48/b1bf3c6e/scrPlanet.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/55/859e384d/FontData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/5d/64c1170b/ADOBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/6d/375b668c/scrPressToStart.cs" root0="SKIP_HIGHLIGHTING" />
@@ -70,6 +77,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/e6/ffcfd523/scrMisc.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/fb/7376a773/scrController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatchAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tag/Tags.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -162,6 +171,12 @@
       <workItem from="1760599426599" duration="2279000" />
       <workItem from="1760603801982" duration="1470000" />
       <workItem from="1760611101738" duration="926000" />
+      <workItem from="1760615300824" duration="61000" />
+      <workItem from="1760625374334" duration="174000" />
+      <workItem from="1760669745042" duration="23000" />
+      <workItem from="1760859029571" duration="1983000" />
+      <workItem from="1760879459568" duration="271000" />
+      <workItem from="1760967944551" duration="6183000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -355,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760598602991</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="添加主modObject组件，解决渲染文本渲染问题">
+      <option name="closed" value="true" />
+      <created>1760615343816</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1760615343816</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -411,7 +434,8 @@
     <MESSAGE value="添加ui组件，对字体进行了初始化读入" />
     <MESSAGE value="给tag留下接口" />
     <MESSAGE value="添加f1切换功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加f1切换功能" />
+    <MESSAGE value="添加主modObject组件，解决渲染文本渲染问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加主modObject组件，解决渲染文本渲染问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

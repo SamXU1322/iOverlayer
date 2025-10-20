@@ -19,7 +19,7 @@ namespace iOverlayer.GUI
         public static bool isGUIVisible = false;
         public static Shader sr_msdf = (Shader)typeof(ShaderUtilities).GetProperty("ShaderRef_MobileSDF", (BindingFlags)15420).GetValue(null);
         public TextMeshProUGUI[] NameText { get; private set; }
-        public void Initialize()
+        private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             SetupDefaultProperties();
@@ -46,6 +46,10 @@ namespace iOverlayer.GUI
                 
             }
         }
-        
+        public void ToggleGUIVisibility()
+        {
+            isGUIVisible = !isGUIVisible;
+            this.gameObject.SetActive(isGUIVisible);
+        }
     }
 }

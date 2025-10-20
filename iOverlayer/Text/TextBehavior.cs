@@ -1,24 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using TMPro;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 
 namespace iOverlayer.Text
 {
-    internal class TextBehavior : MonoBehaviour
+    public class TextBehavior : MonoBehaviour
     {
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
         public Image image;
         public Font font;
         public TMP_FontAsset targetFont;
+        public bool isVisible;
 
-        public void Initialize()
+        private void Awake()
         {
             image = GetComponent<Image>();
             rectTransform = GetComponent<RectTransform>();
             text = GetComponentInChildren<TextMeshProUGUI>();
             SetupDefaultProperties();
+            isVisible = this.gameObject.activeSelf;
         }
 
         private void SetupDefaultProperties()
@@ -62,6 +65,11 @@ namespace iOverlayer.Text
             }
             targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
         }
-        
+
+        public void ChangeVisibility()
+        {
+            isVisible = !isVisible;
+            this.gameObject.SetActive(isVisible);
+        }
     }
 }

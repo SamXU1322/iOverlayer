@@ -18,7 +18,17 @@ namespace iOverlayer.Core
                 }
             }
         }
-
-        
+        [HarmonyPatch(typeof(scrPlanet),"MoveToNextFloor")]
+        internal static class scrPlanet_MoveToNextFloor
+        { 
+            public static void Postfix(scrPlanet __instance,scrFloor floor)
+            {
+                if (__instance.controller.gameworld) return;
+                if (floor.nextfloor == null) return;
+                bool isTwirl = scrController.instance.isCW;
+                double val = scrMisc.GetAngleMoved(floor.entryangle, floor.exitangle, isTwirl);
+                ModManager.TextBehaviors[0].text.text = val.ToString();
+            }
+        }
     }
 }
