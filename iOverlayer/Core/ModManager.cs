@@ -21,7 +21,8 @@ namespace iOverlayer.Core
             GUIObject = CreateUIObject();
             iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
             CreateTextObject();
-            TextBehaviors[0].text.text = "{Value}";
+            TextBehaviors[0].text.text = "{TotalTime}"
+            ;
         }
         private void Update()
         {
@@ -50,6 +51,18 @@ namespace iOverlayer.Core
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
             this.gameObject.AddComponent<GraphicRaycaster>();
+            InitializedEventSystem();
+        }
+
+        private void InitializedEventSystem()
+        {
+            if (UnityEngine.EventSystems.EventSystem.current == null)
+            {
+                GameObject eventSystemObject = new GameObject("EventSystem");
+                eventSystemObject.AddComponent<UnityEngine.EventSystems.EventSystem>();
+                eventSystemObject.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+                DontDestroyOnLoad(eventSystemObject);
+            }
         }
         private GameObject CreateUIObject()
         {

@@ -1,12 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 
 namespace iOverlayer.Text
 {
-    public class TextBehavior : MonoBehaviour
+    public class TextBehavior : MonoBehaviour,IPointerDownHandler, IPointerUpHandler,IDragHandler
     {
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
@@ -14,6 +14,8 @@ namespace iOverlayer.Text
         public Font font;
         public TMP_FontAsset targetFont;
         public bool isVisible;
+        private Vector2 _pointerOffset;
+        public bool isDragging = false;
 
         private void Awake()
         {
@@ -38,6 +40,7 @@ namespace iOverlayer.Text
                 text.enableWordWrapping = false;
                 text.ForceMeshUpdate();
                 image.color = Color.clear;
+                image.raycastTarget = true;
                 image.rectTransform.sizeDelta = new Vector2(text.preferredWidth+50, text.preferredHeight);
             }
 
@@ -70,6 +73,49 @@ namespace iOverlayer.Text
         {
             isVisible = !isVisible;
             this.gameObject.SetActive(isVisible);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    rectTransform,
+                    eventData.position,
+                    eventData.pressEventCamera,
+                    out _pointerOffset
+                    );
+                isDragging = true;
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+
+            }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (isDragging && eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (rectTransform != null)
+                {
+                    Vector2 localPoint;
+                    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                            rectTransform.parent as RectTransform,
+                            eventData.position,
+                            eventData.pressEventCamera,
+                            out localPoint))
+                    {
+                        rectTransform.anchoredPosition = localPoint - _pointerOffset;
+                    }
+                }
+            }
+                
+            
+        }
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            isDragging = false;
         }
     }
 }

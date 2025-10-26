@@ -35,10 +35,6 @@ namespace iOverlayer
             ModGameObject = new GameObject("iOverlayer");
             modManager = ModGameObject.AddComponent<ModManager>();
             Object.DontDestroyOnLoad(ModGameObject);
-            // GameObject textObject = CreateTextObject();
-            // TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
-            // textBehavior.Initialize();
-
         }
     }
 }
