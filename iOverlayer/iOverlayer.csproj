@@ -117,14 +117,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Adofai.cs" />
     <Compile Include="Core\ModManager.cs" />
-    <Compile Include="Core\Patch\iOverlayerPatch.cs" />
-    <Compile Include="Core\Patch\iOverlayerPatchAttribute.cs" />
     <Compile Include="GUI\iOverlayerGUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tag\Tags.cs" />
+    <Compile Include="Tags\BPM.cs" />
+    <Compile Include="Tags\Patches\BPMPatch.cs" />
     <Compile Include="Text\TextBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +140,9 @@
     <None Include="info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Patch\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
