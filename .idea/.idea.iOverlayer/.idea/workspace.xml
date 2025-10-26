@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/BPM.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/SongPatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/Song.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Adofai.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatch.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/Patch/iOverlayerPatchAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/Tag/Tags.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
     </list>
@@ -59,6 +60,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/008e431e3cba47bbaf574c12ccc2566a5ce00/73/89a3fe38/ShaderUtilities.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/18b90acbd2bd45a69060742d76b81f4092c0/c4/fa124ff6/Font.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5b058ffca2e741838fe41b1fc5cf0e4040800/50/f46bf305/IDragHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5b058ffca2e741838fe41b1fc5cf0e4040800/b4/6dbedb87/IPointerDownHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ef01846f2094996aa9c77a64b17827d1528c0/2c/75f774d1/Shader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ef01846f2094996aa9c77a64b17827d1528c0/43/d18f0b7b/Material.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/16/03ebf880/CustomLevelTile.cs" root0="FORCE_HIGHLIGHTING" />
@@ -69,6 +72,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/5d/64c1170b/ADOBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/6d/375b668c/scrPressToStart.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/6f/820e10c9/scrFloor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/7a/2e2a5e19/scrConductor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/cc/5dd2db3f/GCS.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/e2/15805073/CalibrationPreset.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9fee158074174471900e9d054bc100ea258c00/e4/f65987c6/RDString.cs" root0="FORCE_HIGHLIGHTING" />
@@ -77,6 +81,9 @@
     <setting file="file://$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/BPM.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/SongPatch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Song.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -176,7 +183,8 @@
       <workItem from="1760967944551" duration="6522000" />
       <workItem from="1761219070214" duration="3915000" />
       <workItem from="1761228988820" duration="5207000" />
-      <workItem from="1761468544704" duration="978000" />
+      <workItem from="1761468544704" duration="7259000" />
+      <workItem from="1761485586615" duration="2764000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -386,7 +394,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760974181788</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="完成bpm修正">
+      <option name="closed" value="true" />
+      <created>1761469804557</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1761469804557</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,7 +460,8 @@
     <MESSAGE value="添加f1切换功能" />
     <MESSAGE value="添加主modObject组件，解决渲染文本渲染问题" />
     <MESSAGE value="添加f2功能，添加角度计算功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加f2功能，添加角度计算功能" />
+    <MESSAGE value="完成bpm修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成bpm修正" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
