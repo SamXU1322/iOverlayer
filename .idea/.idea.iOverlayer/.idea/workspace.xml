@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="" />
+    <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +95,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;new&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -172,6 +179,8 @@
       <workItem from="1761228988820" duration="5207000" />
       <workItem from="1761468544704" duration="7259000" />
       <workItem from="1761485586615" duration="2863000" />
+      <workItem from="1761560774277" duration="14000" />
+      <workItem from="1761560806721" duration="1023000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />

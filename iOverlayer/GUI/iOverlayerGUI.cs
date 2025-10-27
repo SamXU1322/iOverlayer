@@ -35,8 +35,8 @@ namespace iOverlayer.GUI
             {
                 Main.Logger.Log("Error: iOverlayer Transform not found");
             }
-
-            isGUIVisible = ModManager.GUIObject.activeSelf;
+            ModManager.GUIObject.SetActive(false);
+            isGUIVisible = false;
         }
         private void SetupDefaultProperties()
         { 

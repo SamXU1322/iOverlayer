@@ -23,7 +23,8 @@ namespace iOverlayer.Text
             rectTransform = GetComponent<RectTransform>();
             text = GetComponentInChildren<TextMeshProUGUI>();
             SetupDefaultProperties();
-            isVisible = this.gameObject.activeSelf;
+            this.gameObject.SetActive(false);
+            isVisible = false;
         }
 
         private void SetupDefaultProperties()
@@ -32,7 +33,7 @@ namespace iOverlayer.Text
             {
                 text.enableAutoSizing = false;
                 text.fontSize = 160;
-                text.text = "Hello, iOverlayer!";
+                text.text = "";
                 text.alignment = TextAlignmentOptions.Center;
                 SetFont("Default");
                 text.color = Color.white;
@@ -41,7 +42,7 @@ namespace iOverlayer.Text
                 text.ForceMeshUpdate();
                 image.color = Color.clear;
                 image.raycastTarget = true;
-                image.rectTransform.sizeDelta = new Vector2(text.preferredWidth+50, text.preferredHeight);
+                image.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
             }
 
             if (rectTransform != null)
@@ -68,7 +69,14 @@ namespace iOverlayer.Text
             }
             targetFont = TMP_FontAsset.CreateFontAsset(font,100,10,GlyphRenderMode.SDFAA,1024,1024);
         }
-
+        public void SetText(string text)
+        {
+            if (text != null)
+            {
+                this.text.text = text;
+                image.rectTransform.sizeDelta = new Vector2(this.text.preferredWidth, this.text.preferredHeight);
+            }
+        }
         public void ChangeVisibility()
         {
             isVisible = !isVisible;

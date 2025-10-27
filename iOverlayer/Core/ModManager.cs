@@ -11,7 +11,6 @@ namespace iOverlayer.Core
     {
         public static GameObject GUIObject;
         public static iOverlayerGUI iOverlayerGUI;
-        public static GameObject[] TextSet;
         public static TextBehavior[] TextBehaviors;
         public int TextCount { get; set; } = 0;
 
@@ -21,8 +20,8 @@ namespace iOverlayer.Core
             GUIObject = CreateUIObject();
             iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
             CreateTextObject();
-            TextBehaviors[0].text.text = "{TotalTime}"
-            ;
+            TextBehaviors[0].SetText("123");
+            TextBehaviors[0].image.color = Color.black;
         }
         private void Update()
         {
@@ -101,17 +100,6 @@ namespace iOverlayer.Core
                     GameObject textObject = GameObject.Instantiate(textPrefab, this.gameObject.transform);
                     textObject.name = $"Text{TextCount}";
                     TextBehavior textBehavior = textObject.AddComponent<TextBehavior>();
-                    if (TextSet == null)
-                    {
-                        TextSet = new GameObject[1];
-                        TextSet[0] = textObject;
-                    }
-                    else
-                    {
-                        Array.Resize(ref TextSet, TextSet.Length + 1);
-                        TextSet[TextSet.Length - 1] = textObject;
-                    }
-
                     if (TextBehaviors == null)
                     {
                         TextBehaviors = new TextBehavior[1];
