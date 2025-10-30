@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.LowLevel;
@@ -16,6 +18,9 @@ namespace iOverlayer.Text
         public bool isVisible;
         private Vector2 _pointerOffset;
         public bool isDragging = false;
+        public bool isSelecting = false;
+        public Image borderImage;
+        private Color borderColor = new Color(0.3f, 0.6f, 1f, 1f);
 
         private void Awake()
         {
@@ -26,7 +31,6 @@ namespace iOverlayer.Text
             this.gameObject.SetActive(false);
             isVisible = false;
         }
-
         private void SetupDefaultProperties()
         {
             if (text != null)
@@ -87,6 +91,7 @@ namespace iOverlayer.Text
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
+                isSelecting = !isSelecting;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     rectTransform,
                     eventData.position,
@@ -97,13 +102,13 @@ namespace iOverlayer.Text
             }
             else if (eventData.button == PointerEventData.InputButton.Right)
             {
-
+                
             }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (isDragging && eventData.button == PointerEventData.InputButton.Left)
+            if (isSelecting && isDragging && eventData.button == PointerEventData.InputButton.Left)
             {
                 if (rectTransform != null)
                 {
@@ -123,6 +128,38 @@ namespace iOverlayer.Text
         }
         public void OnPointerUp(PointerEventData eventData)
         {
+            isDragging = false;
+        }
+
+        public void Update()
+        {
+            if (Input.GetMouseButtonDown(0) && isSelecting)
+            {
+                if (!IsPointerOverGameObject())
+                {
+                    
+                }
+            }
+        }
+        private bool IsPointerOverGameObject()
+        {
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject == gameObject || result.gameObject.transform.IsChildOf(transform))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void Deselect()
+        {
+            isSelecting = false;
             isDragging = false;
         }
     }
