@@ -11,12 +11,11 @@ namespace iOverlayer.Tags.Patches
             var errorMeter = controller.errorMeter;
             if (errorMeter && controller.gameworld && errorMeter.gameObject.activeSelf)
             {
-                errorMeter.UpdateLayout();
                 errorMeter.meterScale = size;
                 errorMeter.wrapperRectTransform.localScale = new Vector3(size, size, size);
+				
             }
         }
-
         private static void SetErrorMeterHide(bool isHide = true)
         {
             var controller = scrController.instance;

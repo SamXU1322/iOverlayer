@@ -25,7 +25,6 @@ namespace iOverlayer.Tags.Patches
                 Song.TotalMinute = totalTime.Minutes;
                 Song.TotalSecond = totalTime.Seconds;
                 Song.TotalMillisecond = totalTime.Milliseconds;
-                ModManager.TextBehaviors[0].text.text = $"{Song.CurMinute:00}:{Song.CurSecond:00}:{Song.CurMillisecond:000} / {Song.TotalMinute:00}:{Song.TotalSecond:00}:{Song.TotalMillisecond:000}";
             }
         }
     }

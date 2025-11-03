@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="323f3420-0509-42e7-bf81-e1e599447bb4" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/ErrorMeterPatch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/UIPatches.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iOverlayer/Tags/TagManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iOverlayer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/GUI/iOverlayerGUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Core/ModManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Tags/Patches/ErrorMeterPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/ErrorMeterPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iOverlayer/Tags/Patches/SongPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Tags/Patches/SongPatch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/iOverlayer.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/iOverlayer/obj/Debug/iOverlayer.csproj.CoreCompileInputs.cache" afterDir="false" />
@@ -85,8 +86,9 @@
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/BPMPatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/ErrorMeterPatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/SongPatch.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/UIPatches.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Patches/UIPatches.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/Song.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/iOverlayer/Tags/TagManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/iOverlayer/Text/TextBehavior.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -195,6 +197,8 @@
       <workItem from="1761574088723" duration="2630000" />
       <workItem from="1761658412309" duration="1337000" />
       <workItem from="1761792815218" duration="2440000" />
+      <workItem from="1761795517902" duration="137000" />
+      <workItem from="1761841168946" duration="3091000" />
     </task>
     <task id="LOCAL-00001" summary="创建文本">
       <option name="closed" value="true" />
@@ -420,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761488637463</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="添加精准度修改信息&#10;1. 可以设置精准度大小&#10;2. 同步tweaks隐藏功能">
+      <option name="closed" value="true" />
+      <created>1761795579436</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1761795579437</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,7 +468,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="创建文本" />
     <MESSAGE value="重命名一些变量与方法&#10;添加FontManager接口" />
     <MESSAGE value="添加变量" />
     <MESSAGE value="完成了根据路径读取字体函数" />
@@ -481,7 +492,8 @@
     <MESSAGE value="完成bpm修正" />
     <MESSAGE value="完成游戏时间显示" />
     <MESSAGE value="默认显示关闭" />
-    <option name="LAST_COMMIT_MESSAGE" value="默认显示关闭" />
+    <MESSAGE value="添加精准度修改信息&#10;1. 可以设置精准度大小&#10;2. 同步tweaks隐藏功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加精准度修改信息&#10;1. 可以设置精准度大小&#10;2. 同步tweaks隐藏功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

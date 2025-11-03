@@ -131,6 +131,7 @@
     <Compile Include="Tags\Patches\SongPatch.cs" />
     <Compile Include="Tags\Patches\UIPatches.cs" />
     <Compile Include="Tags\Song.cs" />
+    <Compile Include="Tags\TagManager.cs" />
     <Compile Include="Text\TextBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
