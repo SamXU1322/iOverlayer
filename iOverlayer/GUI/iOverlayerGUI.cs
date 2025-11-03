@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.TextCore.LowLevel;
+using UnityEngine.UI;
 using UnityModManagerNet;
 
 namespace iOverlayer.GUI
@@ -26,6 +27,7 @@ namespace iOverlayer.GUI
             if(Transform != null)
             {
                 NameText = Transform.GetComponentsInChildren<TextMeshProUGUI>();
+                Image[] images = Transform.GetComponentsInChildren<Image>();
                 foreach (TextMeshProUGUI text in NameText)
                 {
                     text.fontSharedMaterial.shader = sr_msdf;

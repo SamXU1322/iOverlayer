@@ -20,7 +20,7 @@ namespace iOverlayer.Core
             GUIObject = CreateUIObject();
             iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
             CreateTextObject();
-            TextBehaviors[0].SetText("123");
+            TextBehaviors[0].SetText("{TileBPM:2}");
             TextBehaviors[0].image.color = Color.black;
         }
         private void Update()

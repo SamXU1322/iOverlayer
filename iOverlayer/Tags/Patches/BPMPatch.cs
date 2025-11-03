@@ -1,6 +1,7 @@
 ﻿using System;
 using HarmonyLib;
 using iOverlayer.Core;
+using iOverlayer.Text;
 
 namespace iOverlayer.Tags.Patch
 {
