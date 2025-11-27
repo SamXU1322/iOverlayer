@@ -8,17 +8,21 @@
 [Ee]xportedObj/
 .vs/
 *.userprefs
-*.csproj
+*.csproj.user
 *.pidb
 *.suo
-*.sln
-*.sw?
+*.sln.DotSettings.user
+
+# IDE - JetBrains Rider
+.idea/
 
 # IDE - VSCode
 .vscode/
 
 # Build cache
 *.cache
+*.dll
+*.exe
 
 # OS generated
 .DS_Store
