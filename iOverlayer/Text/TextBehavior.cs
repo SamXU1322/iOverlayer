@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace iOverlayer.Text
 {
-    public class TextBehavior : MonoBehaviour,IPointerDownHandler, IPointerUpHandler,IDragHandler
+    public class TextBehavior : MonoBehaviour
     {
         public TextMeshProUGUI text;
         public RectTransform rectTransform;
@@ -22,6 +22,8 @@ namespace iOverlayer.Text
         public bool isSelecting = false;
         public Image borderImage;
         private Color borderColor = new Color(0.3f, 0.6f, 1f, 1f);
+        private bool _isMouseDown = false;
+        private Vector3 _lastMousePosition;
 
         private void Awake()
         {
@@ -44,9 +46,10 @@ namespace iOverlayer.Text
                 text.color = Color.white;
                 text.overflowMode = TextOverflowModes.Overflow;
                 text.enableWordWrapping = false;
+                text.raycastTarget = false;
                 text.ForceMeshUpdate();
                 image.color = Color.clear;
-                image.raycastTarget = true;
+                image.raycastTarget = false; // 禁用raycastTarget，避免拦截鼠标事件
                 image.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
             }
 
@@ -88,80 +91,96 @@ namespace iOverlayer.Text
             this.gameObject.SetActive(isVisible);
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        private void Update()
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
+            // 检测鼠标左键按下
+            if (Input.GetMouseButtonDown(0))
             {
-                isSelecting = !isSelecting;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    rectTransform,
-                    eventData.position,
-                    eventData.pressEventCamera,
-                    out _pointerOffset
+                if (IsPointerOverGameObject())
+                {
+                    // 鼠标在UI上，切换选择状态
+                    isSelecting = !isSelecting;
+                    _isMouseDown = true;
+                    _lastMousePosition = Input.mousePosition;
+                    
+                    // 计算鼠标相对于UI元素的偏移
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        rectTransform,
+                        Input.mousePosition,
+                        null,
+                        out _pointerOffset
                     );
-                isDragging = true;
+                }
+                else if (isSelecting)
+                {
+                    // 鼠标不在UI上但当前处于选择状态，取消选择
+                    isSelecting = false;
+                    isDragging = false;
+                }
             }
-            else if (eventData.button == PointerEventData.InputButton.Right)
+            
+            // 检测鼠标左键抬起
+            if (Input.GetMouseButtonUp(0))
             {
+                _isMouseDown = false;
+                isDragging = false;
+            }
+            
+            // 处理拖动
+            if (_isMouseDown && isSelecting)
+            {
+                Vector3 currentMousePosition = Input.mousePosition;
+                Vector3 mouseDelta = currentMousePosition - _lastMousePosition;
                 
-            }
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (isSelecting && isDragging && eventData.button == PointerEventData.InputButton.Left)
-            {
-                if (rectTransform != null)
+                // 如果鼠标移动超过一定阈值，开始拖动
+                if (mouseDelta.magnitude > 1f && !isDragging)
+                {
+                    isDragging = true;
+                }
+                
+                if (isDragging && rectTransform != null)
                 {
                     Vector2 localPoint;
                     if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                             rectTransform.parent as RectTransform,
-                            eventData.position,
-                            eventData.pressEventCamera,
+                            currentMousePosition,
+                            null,
                             out localPoint))
                     {
                         rectTransform.anchoredPosition = localPoint - _pointerOffset;
                     }
                 }
-            }
                 
-            
-        }
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            isDragging = false;
-        }
-
-        public void Update()
-        {
-            if (Input.GetMouseButtonDown(0) && isSelecting)
-            {
-                if (!IsPointerOverGameObject())
-                {
-                    
-                }
+                _lastMousePosition = currentMousePosition;
             }
         }
+        
         private bool IsPointerOverGameObject()
         {
-            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-            eventDataCurrentPosition.position = Input.mousePosition;
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-            foreach (RaycastResult result in results)
+            // 使用RectTransformUtility直接检查鼠标是否在矩形内，不依赖EventSystem的Raycast
+            if (rectTransform != null)
             {
-                if (result.gameObject == gameObject || result.gameObject.transform.IsChildOf(transform))
+                Vector2 screenPoint = Input.mousePosition;
+                Vector2 localPoint;
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        rectTransform,
+                        screenPoint,
+                        null,
+                        out localPoint))
                 {
-                    return true;
+                    // 检查点是否在rectTransform的边界内
+                    Rect rect = rectTransform.rect;
+                    return rect.Contains(localPoint);
                 }
             }
             return false;
         }
-
+        
         private void Deselect()
         {
             isSelecting = false;
             isDragging = false;
+            _isMouseDown = false;
         }
     }
 }

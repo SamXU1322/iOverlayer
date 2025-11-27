@@ -1,5 +1,6 @@
 ﻿using System;
 using iOverlayer.GUI;
+using iOverlayer.Tags;
 using iOverlayer.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +18,11 @@ namespace iOverlayer.Core
         private void Awake()
         {
             InitializedPublicCanvas();
-            GUIObject = CreateUIObject();
-            iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
+            // GUIObject = CreateUIObject();
+            // iOverlayerGUI = GUIObject.AddComponent<iOverlayerGUI>();
             CreateTextObject();
             TextBehaviors[0].SetText("{TileBPM:2}");
-            TextBehaviors[0].image.color = Color.black;
+            TextBehaviors[0].image.color = Color.clear;
         }
         private void Update()
         {
@@ -30,7 +31,7 @@ namespace iOverlayer.Core
                 iOverlayerGUI.ToggleGUIVisibility();
                 Main.Logger.Log("F1 Pressed");
             }
-            if (Input.GetKeyDown(KeyCode.F2))
+            if (Input.GetKeyDown(KeyCode.F3))
             {
                 foreach (TextBehavior behavior in TextBehaviors)
                 {
@@ -49,19 +50,6 @@ namespace iOverlayer.Core
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; 
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.referencePixelsPerUnit = 0.5f;
-            this.gameObject.AddComponent<GraphicRaycaster>();
-            InitializedEventSystem();
-        }
-
-        private void InitializedEventSystem()
-        {
-            if (UnityEngine.EventSystems.EventSystem.current == null)
-            {
-                GameObject eventSystemObject = new GameObject("EventSystem");
-                eventSystemObject.AddComponent<UnityEngine.EventSystems.EventSystem>();
-                eventSystemObject.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-                DontDestroyOnLoad(eventSystemObject);
-            }
         }
         private GameObject CreateUIObject()
         {
