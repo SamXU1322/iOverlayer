@@ -25,7 +25,7 @@ namespace iOverlayer.Tags
             string result = inputText;
             foreach (var kvp in tagHandlers)
             {
-                result = System.Text.RegularExpressions.Regex.Replace(result, kvp.Key,match => kvp.Value(match.Value));
+                result = Regex.Replace(result, kvp.Key,match => kvp.Value(match.Value));
             }
             return result;
         }
@@ -34,7 +34,7 @@ namespace iOverlayer.Tags
         {
             var match = Regex.Match(input, @"\{TileBPM:(\d+)\}");
             int decimalPlaces = int.TryParse(match.Groups[1].Value, out int parsedValue) ? parsedValue : 3;
-            return BPMPatch.Bpm.bpm.ToString("F" + decimalPlaces);
+            return BPMPatch.Bpm.Tilebpm.ToString("F" + decimalPlaces);
         }
     }
 }

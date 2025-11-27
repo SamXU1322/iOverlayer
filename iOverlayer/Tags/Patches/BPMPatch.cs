@@ -22,6 +22,18 @@ namespace iOverlayer.Tags.Patch
                 if(angle==0) angle=360;
                 double speed = 0;
                 speed = __instance.controller.speed;
+                Bpm.Tilebpm = Bpm.bpm * speed;
+                if (ModManager.TextBehaviors != null)
+                {
+                    foreach(var behavior in ModManager.TextBehaviors)
+                    {
+                        if(behavior.isVisible)
+                        {
+                            behavior.text.text = TagManager.ProcessTags(behavior.text.text);
+                            behavior.text.ForceMeshUpdate();
+                        }
+                    }
+                }
             }
         }
     }

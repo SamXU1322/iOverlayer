@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\iOverLayer</OutputPath>
+    <OutputPath>E:\code\adofai\Mods\iOverLayer</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -125,33 +125,21 @@
     <Compile Include="GUI\iOverlayerGUI.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tags\Artist.cs" />
     <Compile Include="Tags\BPM.cs" />
+    <Compile Include="Tags\Patches\ArtistPatch.cs" />
     <Compile Include="Tags\Patches\BPMPatch.cs" />
     <Compile Include="Tags\Patches\ErrorMeterPatch.cs" />
     <Compile Include="Tags\Patches\SongPatch.cs" />
-    <Compile Include="Tags\Patches\UIPatches.cs" />
     <Compile Include="Tags\Song.cs" />
     <Compile Include="Tags\TagManager.cs" />
     <Compile Include="Text\TextBehavior.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="mscorlib">
-      <Guid>{BED7F4EA-1A96-11D2-8F08-00A0C9A6186D}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>4</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
+
   <ItemGroup>
     <None Include="info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Patch\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
