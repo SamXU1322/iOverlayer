@@ -1,0 +1,107 @@
+# Visual Studio / .NET Framework 通用忽略项
+
+# 编译输出
+bin/
+obj/
+artifacts/
+publish/
+out/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.opendb
+
+# Rider / IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+.nuget/
+.nuget/packages/
+
+# MSBuild / Visual Studio generated
+Generated\ Files/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.o
+*.pch
+*.pdb
+*.ipch
+*.iobj
+*.ipdb
+
+# 打包 / 产物
+*.zip
+*.tar
+*.7z
+
+# 日志 / 临时
+*.log
+logs/
+temp/
+tmp/
+
+# 单元测试 / 覆盖率
+TestResults/
+*.trx
+*.coverage
+coverage/
+*.coveragexml
+*.codecoverage
+
+# 证书 / 密钥
+*.pfx
+*.snk
+
+# 发布配置 / 用户配置
+*.publishsettings
+PublishProfiles/
+*.user
+*.userosscache
+*.credentials
+*.suo
+
+# 其他 IDE / 插件
+_ReSharper*/
+*.[Rr]e[Ss]harper*/ 
+*.DotSettings.user
+.resharper
+
+# 打包 / 本地缓存
+node_modules/
+bower_components/
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 二进制 / 非源文件（如确实需要提交第三方二进制，请把它们放到专门目录并在此处取消忽略）
+*.exe
+*.dll
+*.so
+*.lib
+*.a
+
+# 保留重要的项目文件（取消注释以确保被跟踪）
+!/*.sln
+!/*.csproj
+!/*.vbproj
+!/*.config
+!README*
+!LICENSE*
+!*.md
