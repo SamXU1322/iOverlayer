@@ -15,7 +15,7 @@ namespace iOverLayer
         {
             if (_root != null) return;
 
-            _root = new GameObject("iOverLayerCanvas");
+            _root = new GameObject("iOverLayer");
             Object.DontDestroyOnLoad(_root);
 
             _canvas = _root.AddComponent<UnityEngine.Canvas>();
