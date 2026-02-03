@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace iOverLayer.Text
@@ -10,8 +11,26 @@ namespace iOverLayer.Text
         private static int _textCount = 0;
         public static void Create()
         {
-            GameObject TextInstance = AssetLoader.LoadPrefabAssetBundle("","");
-            Text text = TextInstance.AddComponent<Text>();
+            if (_texts == null)
+            {
+                _texts = new Dictionary<int, Text>();
+            }
+
+            if (Canvas.Root == null)
+            {
+                LogSystem.Error("Canvas.Root is null. Call Canvas.Init() first.");
+                return;
+            }
+
+            GameObject prefab = AssetLoader.LoadPrefabAssetBundle("textprefab", "Text");
+            if (prefab == null)
+            {
+                LogSystem.Error("Text prefab load failed.");
+                return;
+            }
+
+            GameObject instance = Object.Instantiate(prefab, Canvas.Root.transform);
+            Text text = instance.AddComponent<Text>();
             text.setId(_textCount);
             _textCount++;
             _texts[text.ID] = text; 
@@ -27,5 +46,6 @@ namespace iOverLayer.Text
                 LogSystem.Error($"Text with ID {index} does not exist.");
             }
         }
+        
     }
 }

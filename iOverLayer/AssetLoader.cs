@@ -6,8 +6,8 @@ namespace iOverLayer
 {
     public static class AssetLoader
     {
-        private static string _assetBundlePrfabPath = "iOverLayer.assets/prefabs";
-        private static string _assetBundleFontPath = "iOverLayer.assets/fonts";
+        private static string _assetBundlePrfabPath = "iOverLayer.assets\\prefabs";
+        private static string _assetBundleFontPath = "iOverLayer.assets\\fonts";
         public static void Init(UnityModManager.ModEntry modEntry)
         {
             _assetBundlePrfabPath = Path.Combine(modEntry.Path, _assetBundlePrfabPath);

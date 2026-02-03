@@ -28,6 +28,7 @@ namespace iOverLayer
             scaler.matchWidthOrHeight = 0.5f;
 
             _root.AddComponent<GraphicRaycaster>();
+            LogSystem.Info("Canvas initialized.");
         }
     }
 }

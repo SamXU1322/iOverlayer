@@ -1,5 +1,7 @@
-﻿using UnityModManagerNet;
-using iOverLayer;
+﻿using HarmonyLib;
+using iOverLayer.Text;
+using UnityEngine;
+using UnityModManagerNet;
 namespace iOverLayer{
     public static class Main
     {
@@ -7,6 +9,8 @@ namespace iOverLayer{
         {
             LogSystem.Init(modEntry);
             AssetLoader.Init(modEntry);
+            Canvas.Init();
+            TextManager.Create();
         }
     }
 }
