@@ -6,13 +6,10 @@ namespace iOverLayer.Text
 {
     public static class TextFont
     {
-        private static string _fontPath;
         private static TMP_FontAsset _fontAsset;
-
-        public static void SetFontPath(string fontPath)
+        public static void LoadFontAsset(string fontName) 
         {
-            _fontPath = fontPath;
-            _fontAsset = null;
+            _fontAsset = AssetLoader.LoadFontAssetBundle("",fontName);
         }
     }
 }

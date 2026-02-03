@@ -16,14 +16,17 @@ namespace iOverLayer
         public static void Info(string message)
         {
             WriteLine("INFO", message);
+            _modEntry.Logger.Log(message);
         }
         public static void Warning(string message)
         {
             WriteLine("WARNING", message);
+            _modEntry.Logger.Warning(message);
         }
         public static void Error(string message)
         {
             WriteLine("ERROR", message);
+            _modEntry.Logger.Error(message);
         }
         private static void WriteLine(string level,string message)
         {
