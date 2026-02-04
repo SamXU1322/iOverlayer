@@ -12,26 +12,24 @@ namespace iOverLayer
         {
             _modEntry = modEntry;
             _logFilePath = Path.Combine(_modEntry.Path, "iOverLayer.log");
+            Info("LogSystem initialized.");
         }
         public static void Info(string message)
         {
-            WriteLine("INFO", message);
+        #if DEBUG
             _modEntry.Logger.Log(message);
+        #endif
         }
         public static void Warning(string message)
         {
-            WriteLine("WARNING", message);
+        #if DEBUG
             _modEntry.Logger.Warning(message);
+        #endif
         }
         public static void Error(string message)
         {
-            WriteLine("ERROR", message);
             _modEntry.Logger.Error(message);
         }
-        private static void WriteLine(string level,string message)
-        {
-            var line = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{level}] {message}";
-            File.AppendAllText(_logFilePath, line + Environment.NewLine);
-        }
+        
     }
 }

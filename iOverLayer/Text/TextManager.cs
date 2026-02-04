@@ -34,6 +34,7 @@ namespace iOverLayer.Text
             text.setId(_textCount);
             _textCount++;
             _texts[text.ID] = text; 
+            LogSystem.Info($"Text with ID {text.ID} created.");
         }
         public static void Delete(int index)
         {
