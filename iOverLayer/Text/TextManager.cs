@@ -9,7 +9,7 @@ namespace iOverLayer.Text
     {
         private static Dictionary<int,Text> _texts;
         private static int _textCount = 0;
-        public static void Create()
+        public static void Create(string information)
         {
             if (_texts == null)
             {
@@ -31,6 +31,7 @@ namespace iOverLayer.Text
 
             GameObject instance = Object.Instantiate(prefab, Canvas.Root.transform);
             Text text = instance.AddComponent<Text>();
+            text.setText(information);
             text.setId(_textCount);
             _textCount++;
             _texts[text.ID] = text; 

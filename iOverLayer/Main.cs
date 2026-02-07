@@ -10,7 +10,7 @@ namespace iOverLayer{
             LogSystem.Init(modEntry);
             AssetLoader.Init(modEntry);
             Canvas.Init();
-            TextManager.Create();
+            TextManager.Create("Hello iOverLayer");
         }
     }
 }

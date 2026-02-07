@@ -99,8 +99,10 @@
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\Text.cs" />
+    <Compile Include="Text\TextDeafaultSetting.cs" />
     <Compile Include="Text\TextFont.cs" />
     <Compile Include="Text\TextManager.cs" />
+    <Compile Include="UI\UIAssetLoader.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
