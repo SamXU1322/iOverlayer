@@ -62,6 +62,7 @@ TestResults/
 coverage/
 *.coveragexml
 *.codecoverage
+*.bat
 
 # 证书 / 密钥
 *.pfx

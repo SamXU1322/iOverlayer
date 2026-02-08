@@ -27,8 +27,6 @@ namespace iOverLayer
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 0.5f;
 
-            _root.AddComponent<GraphicRaycaster>();
-
             LogSystem.Info("Canvas initialized.");
         }
     }

@@ -22,6 +22,7 @@ namespace iOverLayer.Text
                 TextFont.CreateOSAsset("Arial");
                 _textMesh.font = TextFont.FontAsset["Arial"];
             }
+
         }
     }
 }
