@@ -11,7 +11,9 @@ namespace iOverLayer
         public static void Init(UnityModManager.ModEntry modEntry)
         {
             _assetBundlePrfabPath = Path.Combine(modEntry.Path, _assetBundlePrfabPath);
+            _assetBundleFontPath = Path.Combine(modEntry.Path, _assetBundleFontPath);
             LogSystem.Info($"Prefab AssetBundle path set to {_assetBundlePrfabPath}");
+            LogSystem.Info($"Font AssetBundle path set to {_assetBundleFontPath}");
         }
         public static GameObject LoadPrefabAssetBundle(string AssetBundleName, string PrefabName)
         {

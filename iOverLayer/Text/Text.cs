@@ -17,17 +17,17 @@ namespace iOverLayer.Text
                 LogSystem.Error("TextMeshProUGUI component not found on Text GameObject.");
                 return;
             }
-            TextDefaultSetting.SetDefaultText(ref _textMesh);
+            TextDefaultSetting.SetDefaultText(ref _textMesh,"OS");
         }
-        public void setId(int id)
+        public void SetId(int id)
         {
             _id = id;
         }
-        public void setText(string text)
+        public void SetText(string text)
         {
             _textMesh.text = text;
         }
-        public void setColor(Color color)
+        public void SetColor(Color color)
         {
             _textMesh.color = color;
         }

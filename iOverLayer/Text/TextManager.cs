@@ -31,8 +31,8 @@ namespace iOverLayer.Text
 
             GameObject instance = Object.Instantiate(prefab, Canvas.Root.transform);
             Text text = instance.AddComponent<Text>();
-            text.setText(information);
-            text.setId(_textCount);
+            text.SetText(information);
+            text.SetId(_textCount);
             _textCount++;
             _texts[text.ID] = text; 
             LogSystem.Info($"Text with ID {text.ID} created.");
