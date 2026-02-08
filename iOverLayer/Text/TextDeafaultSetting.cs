@@ -19,8 +19,8 @@ namespace iOverLayer.Text
             }
             else if (type == "OS")
             {
-                TextFont.CreateOSAsset("");
-                _textMesh.font = TextFont.FontAsset[""];
+                TextFont.CreateOSAsset("Arial");
+                _textMesh.font = TextFont.FontAsset["Arial"];
             }
         }
     }
