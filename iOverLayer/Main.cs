@@ -1,8 +1,4 @@
-﻿using HarmonyLib;
-using iOverLayer.Text;
-using UnityEngine;
-using UnityModManagerNet;
-using iOverLayer.UI;
+﻿using UnityModManagerNet;
 namespace iOverLayer{
     public static class Main
     {

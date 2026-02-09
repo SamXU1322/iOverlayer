@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
-using iOverLayer;
 namespace iOverLayer.UI
 {
     public static class UIAssetLoader

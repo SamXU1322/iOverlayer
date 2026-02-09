@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.PerformanceData;
-using TMPro;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace iOverLayer.Text
