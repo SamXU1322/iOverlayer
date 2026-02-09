@@ -2,6 +2,7 @@
 using iOverLayer.Text;
 using UnityEngine;
 using UnityModManagerNet;
+using iOverLayer.UI;
 namespace iOverLayer{
     public static class Main
     {
@@ -10,8 +11,7 @@ namespace iOverLayer{
             LogSystem.Init(modEntry);
             AssetLoader.Init(modEntry);
             Canvas.Init();
-            int Text1 = TextManager.Create("Hello iOverLayer");
-            
+
         }
     }
 }
