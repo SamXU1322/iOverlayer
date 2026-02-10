@@ -1,31 +1,27 @@
-﻿using UnityEngine;
+﻿using iOverLayer.UI;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class UIController: MonoBehaviour
 {
-    private VisualElement root;
-    private Button exitButton;
+    private VisualElement _root;
+    public VisualElement Root => _root;
+
     void Start()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
-        root.focusable = true;
-        root.Focus();
-        exitButton = root.Q<Button>("ExitButton");
-        exitButton.clicked += OnExitButtonClicked;
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        _root.style.display = DisplayStyle.None;
+        ButtonBox.ApplyExitButton(_root);
     }
-    private void OnExitButtonClicked()
-    {
-        Debug.Log("Exit button clicked!");
-        root.style.display = DisplayStyle.None;
-    }
+
     private void OnF1()
     {
         Debug.Log("F1 pressed on root");
-        root.style.display = DisplayStyle.Flex;
+        _root.style.display = DisplayStyle.Flex;
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1) && root.style.display == DisplayStyle.None)
+        if (Input.GetKeyDown(KeyCode.F1) && _root.style.display == DisplayStyle.None)
         {
             OnF1();
         }
