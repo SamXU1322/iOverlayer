@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 3972719585
+CRC: 2384561514
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: gameobject
+      Name: mainui
       Dependencies: {}

@@ -106,7 +106,8 @@
     <Compile Include="Text\TextDeafaultSetting.cs" />
     <Compile Include="Text\TextFont.cs" />
     <Compile Include="Text\TextManager.cs" />
-    <Compile Include="UI\UIAssetLoader.cs" />
+    <Compile Include="UI\UIController.cs" />
+    <Compile Include="UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

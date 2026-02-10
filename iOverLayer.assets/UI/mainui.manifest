@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1843487065
+CRC: 2469144848
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: caa086b3d3b9aa3c057d14f3e196c166
+    Hash: 7437e401aec14ba2cb15243f6b1cd3fe
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5e4ab1661bdeb787a6bc37d9488e07be
+    Hash: 546028df2466da891c7c62d8d6faaf56
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: caa086b3d3b9aa3c057d14f3e196c166
+    Hash: 7437e401aec14ba2cb15243f6b1cd3fe
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -32,6 +32,8 @@ ClassTypes:
   Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
 - Class: 114
   Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: be1adfd49b4a936468f2ca9f8283d327, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -66,5 +68,5 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.VisualElementAsset
 Assets:
-- Assets/GameObject.prefab
+- Assets/MainUI.prefab
 Dependencies: []
