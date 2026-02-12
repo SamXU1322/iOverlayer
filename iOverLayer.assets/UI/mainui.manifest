@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2469144848
+CRC: 2670683525
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7437e401aec14ba2cb15243f6b1cd3fe
+    Hash: 86ebc239e99f30fd2bc522cc2b0c0a7d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 546028df2466da891c7c62d8d6faaf56
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 7437e401aec14ba2cb15243f6b1cd3fe
+    Hash: 86ebc239e99f30fd2bc522cc2b0c0a7d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -44,6 +44,8 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.DynamicAtlasSettings
 - AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.Label/UxmlFactory
+- AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleComplexSelector
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleProperty
@@ -61,6 +63,8 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UIElements.StyleSheets.ScalableImage
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.StyleValueHandle
+- AssemblyName: UnityEngine.UIElementsModule
+  ClassName: UnityEngine.UIElements.TextField/UxmlFactory
 - AssemblyName: UnityEngine.UIElementsModule
   ClassName: UnityEngine.UIElements.UxmlRootElementFactory
 - AssemblyName: UnityEngine.UIElementsModule
