@@ -1,4 +1,5 @@
-﻿using iOverLayer.UI;
+﻿using iOverLayer.Patch;
+using iOverLayer.UI;
 using UnityModManagerNet;
 namespace iOverLayer{
     public static class Main
@@ -9,6 +10,7 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
+            PatchManager.ApplyPatches("iOverLayer");
         }
     }
 }

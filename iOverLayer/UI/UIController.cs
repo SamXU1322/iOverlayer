@@ -1,29 +1,37 @@
-﻿using iOverLayer.UI;
+﻿using iOverLayer;
 using UnityEngine;
 using UnityEngine.UIElements;
-
-public class UIController: MonoBehaviour
-{
-    private VisualElement _root;
-    public VisualElement Root => _root;
-
-    void Start()
+namespace iOverLayer.UI
+{ 
+    public class UIController: MonoBehaviour
     {
-        _root = GetComponent<UIDocument>().rootVisualElement;
-        _root.style.display = DisplayStyle.None;
-        ButtonBox.ApplyExitButton(_root);
-    }
+        private VisualElement _root;
+        public VisualElement Root => _root;
 
-    private void OnF1()
-    {
-        Debug.Log("F1 pressed on root");
-        _root.style.display = DisplayStyle.Flex;
-    }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1) && _root.style.display == DisplayStyle.None)
+        private KeyCode _appearKey = KeyCode.F1;
+        void Start()
         {
-            OnF1();
+            _root = GetComponent<UIDocument>().rootVisualElement;
+            _root.style.display = DisplayStyle.None;
+            ButtonBox.ApplyExitButton(_root);
+        }
+
+        private void AppearUI(KeyCode key)
+        {
+            if(Input.GetKeyDown(key) && _root.style.display == DisplayStyle.Flex)
+            {
+                LogSystem.Info($"{key} Pressed");
+                _root.style.display = DisplayStyle.Flex;
+            }
+        }
+        public void Update()
+        {
+            AppearUI(_appearKey);
+        }
+        public void SetAppearKey(KeyCode key)
+        {
+            _appearKey = key;
         }
     }
 }
+    
