@@ -1,23 +1,40 @@
 ﻿using iOverLayer.Patch;
+using iOverLayer.Text;
 using System;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 namespace iOverLayer.ADOFAI
 {
     public static class BPM
     {
-        private static float lastTileBPM = -1;
-        private static float lastCurBPM = -1;
+        private static float _lastTileBPM = -1;
+        private static float _lastCurBPM = -1;
+        private static float _tbpm;
+        private static float _cbpm;
+        private static float _kps;
+        public static float TBPM => _tbpm;
+        public static float CBPM => _cbpm;
+        public static float kps => _kps;
+
+
         public static void UpdateBPM()
         {
             scrFloor floor = scrController.instance.currFloor ?? scrController.instance.firstFloor;
             scrConductor conductor = scrConductor.instance;
-            float bpm = (float)(conductor.bpm * conductor.song.pitch * scrController.instance.speed);
-            float cbpm = floor.nextfloor ? (float)(60.0 / (floor.nextfloor.entryTime - floor.entryTime) * conductor.song.pitch) : bpm;
-            float kps = cbpm / 60;
-            LogSystem.Info (" BPM: " + bpm + " CBPM: " + cbpm + " KPS: " + kps);
-            if (lastTileBPM == bpm && lastCurBPM == cbpm) return;
-            lastTileBPM = bpm;
-            lastCurBPM = cbpm;
+            float _tbpm = (float)(conductor.bpm * conductor.song.pitch * scrController.instance.speed);
+            float _cbpm = floor.nextfloor ? (float)(60.0 / (floor.nextfloor.entryTime - floor.entryTime) * conductor.song.pitch) : _tbpm;
+            float _kps = _cbpm / 60;
+            if (TextManager.Texts.ContainsKey("BPM"))
+            {
+                TextManager.Texts["BPM"].SetText(" BPM: " + _tbpm + " \nCBPM: " + _cbpm + " \nKPS: " + _kps);
+            }
+            else
+            {
+                LogSystem.Warning("the bpm text is not existed.please create it");
+            }
+            if (_lastTileBPM == _tbpm && _lastCurBPM == _cbpm) return;
+            _lastTileBPM = _tbpm;
+            _lastCurBPM = _cbpm;
         }
     }
 }

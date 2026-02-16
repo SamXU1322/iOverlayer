@@ -1,4 +1,5 @@
 ﻿using iOverLayer.Patch;
+using iOverLayer.Text;
 using iOverLayer.UI;
 using UnityModManagerNet;
 namespace iOverLayer{
@@ -10,6 +11,7 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
+            TextManager.Create("Progress", "");
             PatchManager.ApplyPatches("iOverLayer");
         }
     }

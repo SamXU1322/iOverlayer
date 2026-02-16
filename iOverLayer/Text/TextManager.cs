@@ -5,13 +5,14 @@ namespace iOverLayer.Text
 {
     public static class TextManager
     {
-        private static Dictionary<int,Text> _texts;
+        private static Dictionary<string,Text> _texts;
         private static int _textCount = 0;
-        public static int Create(string information)
+        public static Dictionary<string, Text> Texts => _texts;
+        public static int Create(string TextName ,string information)
         {
             if (_texts == null)
             {
-                _texts = new Dictionary<int, Text>();
+                _texts = new Dictionary<string, Text>();
             }
 
             if (Canvas.Root == null)
@@ -32,32 +33,32 @@ namespace iOverLayer.Text
             text.SetText(information);
             text.SetId(_textCount);
             _textCount++;
-            _texts[text.ID] = text; 
-            LogSystem.Info($"Text with ID {text.ID} created.");
+            _texts[TextName] = text; 
+            LogSystem.Info($"{TextName} created.");
             return text.ID;
         }
-        public static void Delete(int index)
+        public static void Delete(string TextName)
         {
-            if (_texts.ContainsKey(index))
+            if (_texts.ContainsKey(TextName))
             {
-                _texts.Remove(index);
+                _texts.Remove(TextName);
             }
             else
             {
-                LogSystem.Error($"Text with ID {index} does not exist.");
+                LogSystem.Error($"Text with ID {TextName} does not exist.");
             }
         }
-        public static void SetText(int index, string text)
+        public static void SetText(string TextName, string text)
         {
-            _texts[index].SetText(text);
+            _texts[TextName].SetText(text);
         }
-        public static void SetColor(int index, Color color)
+        public static void SetColor(string TextName, Color color)
         {
-            _texts[index].SetColor(color);
+            _texts[TextName].SetColor(color);
         }
-        public static void SetFont(int index, string FontName)
+        public static void SetFont(string TextName, string FontName)
         {
-            _texts[index].SetFont(FontName);
+            _texts[TextName].SetFont(FontName);
         }
     }
 }
