@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using HarmonyLib;
 namespace iOverLayer.Patch
 {
     public enum PatchType

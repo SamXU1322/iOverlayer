@@ -1,8 +1,4 @@
-﻿using iOverLayer.Patch;
-using iOverLayer.Text;
-using System;
-using System.Runtime.InteropServices.ComTypes;
-using UnityEngine;
+﻿using iOverLayer.Text;
 namespace iOverLayer.ADOFAI
 {
     public static class BPM
