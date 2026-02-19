@@ -5,9 +5,9 @@ namespace iOverLayer.ADOFAI
     {
         private static float _lastTileBPM = -1;
         private static float _lastCurBPM = -1;
-        private static float _tbpm;
-        private static float _cbpm;
-        private static float _kps;
+        private static float _tbpm = -1f;
+        private static float _cbpm = -1f;
+        private static float _kps = -1f;
         public static float TBPM => _tbpm;
         public static float CBPM => _cbpm;
         public static float kps => _kps;

@@ -11,7 +11,7 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("Progress", "");
+            TextManager.Create("Tile", "");
             PatchManager.ApplyPatches("iOverLayer");
         }
     }
