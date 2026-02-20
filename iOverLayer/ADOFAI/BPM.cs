@@ -10,7 +10,7 @@ namespace iOverLayer.ADOFAI
         private static float _kps = -1f;
         public static float TBPM => _tbpm;
         public static float CBPM => _cbpm;
-        public static float kps => _kps;
+        public static float KPS => _kps;
 
 
         public static void UpdateBPM()

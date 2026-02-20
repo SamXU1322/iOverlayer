@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ADOFAI\BPM.cs" />
+    <Compile Include="ADOFAI\ComBo.cs" />
     <Compile Include="ADOFAI\Progress.cs" />
     <Compile Include="ADOFAI\Tile.cs" />
     <Compile Include="AssetLoader.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Patch\PatchAttribute.cs" />
     <Compile Include="Patch\Patches\BPMPatch.cs" />
+    <Compile Include="Patch\Patches\ComBoPatch.cs" />
     <Compile Include="Patch\Patches\ProgressPatch.cs" />
     <Compile Include="Patch\Patches\TilePatch.cs" />
     <Compile Include="Patch\PatchManager.cs" />

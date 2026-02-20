@@ -1,4 +1,5 @@
 ﻿using iOverLayer.Patch;
+using iOverLayer.Patch.Patches;
 using iOverLayer.Text;
 using iOverLayer.UI;
 using UnityModManagerNet;
@@ -11,8 +12,8 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("Tile", "");
-            PatchManager.ApplyPatches("iOverLayer");
+            TextManager.Create("ComBo", "");
+            
         }
     }
 }

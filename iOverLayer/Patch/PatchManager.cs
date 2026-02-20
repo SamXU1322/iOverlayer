@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using System.Reflection;
 
 namespace iOverLayer.Patch
@@ -6,7 +7,7 @@ namespace iOverLayer.Patch
     public static class PatchManager
     {
         private static Harmony _harmony;
-        public static void ApplyPatches(string harmonyID)
+        public static void AddAllPatches(string harmonyID)
         {
             if (_harmony != null)return;
             _harmony = new Harmony(harmonyID);
@@ -51,6 +52,73 @@ namespace iOverLayer.Patch
 
 
                 }
+            }
+        }
+
+        public static bool AddPatch(Type targetType, string targetMethodName, MethodInfo patchMethod, PatchType patchType, bool useDeclaredOnly = false)
+        {
+            if (targetType == null)
+            {
+                LogSystem.Error("AddPatch: targetType is null.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(targetMethodName))
+            {
+                LogSystem.Error("AddPatch: targetMethodName is null or empty.");
+                return false;
+            }
+
+            if (patchMethod == null)
+            {
+                LogSystem.Error("AddPatch: patchMethod is null.");
+                return false;
+            }
+
+            if (_harmony == null)
+            {
+                _harmony = new Harmony("iOverLayer.Dynamic");
+            }
+
+            var targetMethod = useDeclaredOnly
+                ? AccessTools.DeclaredMethod(targetType, targetMethodName)
+                : AccessTools.Method(targetType, targetMethodName);
+
+            if (targetMethod == null)
+            {
+                LogSystem.Error($"AddPatch: target not found: {targetType.FullName}.{targetMethodName}");
+                return false;
+            }
+
+            try
+            {
+                var harmonyMethod = new HarmonyMethod(patchMethod);
+                switch (patchType)
+                {
+                    case PatchType.Prefix:
+                        _harmony.Patch(targetMethod, prefix: harmonyMethod);
+                        break;
+                    case PatchType.Postfix:
+                        _harmony.Patch(targetMethod, postfix: harmonyMethod);
+                        break;
+                    case PatchType.Transpiler:
+                        _harmony.Patch(targetMethod, transpiler: harmonyMethod);
+                        break;
+                    case PatchType.Finalizer:
+                        _harmony.Patch(targetMethod, finalizer: harmonyMethod);
+                        break;
+                    default:
+                        LogSystem.Error($"AddPatch: unsupported patch type: {patchType}");
+                        return false;
+                }
+
+                LogSystem.Info($"AddPatch: patched {targetType.FullName}.{targetMethodName} with {patchMethod.DeclaringType.FullName}.{patchMethod.Name} ({patchType}).");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogSystem.Error($"AddPatch exception: {ex}");
+                return false;
             }
         }
     }
