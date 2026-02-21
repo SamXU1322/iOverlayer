@@ -12,8 +12,9 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("ComBo", "");
-            
+            TextManager.Create("TimingScale", "");
+            PatchManager.AddAllPatches("iOverLayer");
+
         }
     }
 }
