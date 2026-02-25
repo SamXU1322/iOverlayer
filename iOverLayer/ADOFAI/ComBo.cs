@@ -6,18 +6,19 @@ namespace iOverLayer.ADOFAI
     internal static class ComBo
     {
         public static int Combo;
+        private static bool _isPrinted = false;
         public static void UpdateComBo(int combo)
         {
             Combo = combo;
             if (TextManager.Texts.ContainsKey("ComBo"))
             {
-#if DEBUG
                 TextManager.Texts["ComBo"].SetText("Combo: " + Combo);
-#endif
             }
             else
             {
-                LogSystem.Warning("Tile text not found.");
+                if (_isPrinted) return;
+                _isPrinted = true;
+                LogSystem.Warning("ComBo text is not existed.");
             }
         }
     }

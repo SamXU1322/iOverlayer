@@ -8,6 +8,7 @@ namespace iOverLayer.ADOFAI
         private static float _tbpm = -1f;
         private static float _cbpm = -1f;
         private static float _kps = -1f;
+        private static bool _isPrinted = false;
         public static float TBPM => _tbpm;
         public static float CBPM => _cbpm;
         public static float KPS => _kps;
@@ -26,7 +27,9 @@ namespace iOverLayer.ADOFAI
             }
             else
             {
-                LogSystem.Warning("the bpm text is not existed.please create it");
+                if (_isPrinted) return;
+                _isPrinted = true;
+                LogSystem.Warning("The BPM text is not existed");
             }
             if (_lastTileBPM == _tbpm && _lastCurBPM == _cbpm) return;
             _lastTileBPM = _tbpm;

@@ -11,6 +11,7 @@ namespace iOverLayer.Text
         private RectTransform _rectTransform;
         private Vector2 _dragOffset;
         public int ID => _id;
+        public TextMeshProUGUI TextMesh => _textMesh;
         public void Awake()
         {
             _textMesh = GetComponentInChildren<TextMeshProUGUI>(true);
@@ -99,5 +100,6 @@ namespace iOverLayer.Text
             _rectTransform.sizeDelta = preferred;
             LogSystem.Info($"{preferred}");
         }
+        
     }
 }

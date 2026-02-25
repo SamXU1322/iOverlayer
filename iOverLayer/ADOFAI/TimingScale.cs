@@ -9,18 +9,20 @@ namespace iOverLayer.ADOFAI
 {
     internal static class TimingScale
     {
+        private static bool _isPrinted = false;
         public static void UpdateTimingScale()
         {
+
             if (TextManager.Texts.ContainsKey("TimingScale"))
             {
-#if DEBUG
                 TextManager.Texts["TimingScale"].SetText($"Timing Scale - {Math.Round(scrController.instance.currFloor.marginScale * 100, 2)}%");
-#endif
             }
             else
             {
-                LogSystem.Warning("Progress text not found.");
-            }
+                if (_isPrinted) return;
+                _isPrinted = true;
+                LogSystem.Warning("TimingScale text not found.");
+            } 
         }
     }
 }

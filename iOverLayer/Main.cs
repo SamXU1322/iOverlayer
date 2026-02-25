@@ -1,4 +1,5 @@
-﻿using iOverLayer.Patch;
+﻿using iOverLayer.ADOFAI;
+using iOverLayer.Patch;
 using iOverLayer.Patch.Patches;
 using iOverLayer.Text;
 using iOverLayer.UI;
@@ -12,9 +13,12 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("TimingScale", "");
+            TextManager.Create("MusicTime", "");
             PatchManager.AddAllPatches("iOverLayer");
 
         }
+        
+       
+        
     }
 }
