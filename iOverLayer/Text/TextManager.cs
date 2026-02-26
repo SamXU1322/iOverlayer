@@ -33,7 +33,8 @@ namespace iOverLayer.Text
             text.SetText(information);
             text.SetId(_textCount);
             _textCount++;
-            _texts[TextName] = text; 
+            _texts[TextName] = text;
+            text.UnShow();
             LogSystem.Info($"{TextName} created.");
             return text.ID;
         }

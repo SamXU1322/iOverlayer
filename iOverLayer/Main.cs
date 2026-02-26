@@ -13,19 +13,9 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            AccPatch.AddPatch();
-            TextManager.Create("Acc","");
-            
-            
-        }
-        [iOverLayerPatch(typeof(scnGame), "Play", PatchType.Postfix, false)]
-        [iOverLayerPatch(typeof(scrPressToStart), "ShowText", PatchType.Postfix, false)]
-        public static void OnGameStart()
-        {
-            
-            Title.LevelInit();
+            TextManager.Create("TestText", "Hello World!");
+            TextPatch.AddPatch();
             
         }
-
     }
 }

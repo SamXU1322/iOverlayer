@@ -1,4 +1,5 @@
 ﻿using iOverLayer.ADOFAI;
+using System.Reflection;
 using System.Runtime;
 using static UnityEngine.UI.CanvasScaler;
 
@@ -9,7 +10,7 @@ namespace iOverLayer.Patch.Patches
         public static int combo = 0;
         public static void AddPatch()
         {
-            PatchManager.AddPatch(typeof(scrMistakesManager), "AddHit", typeof(ComBoPatch).GetMethod("OnHit"), PatchType.Postfix, true);
+            PatchManager.AddPatch(typeof(scrMistakesManager), "AddHit", typeof(ComBoPatch).GetMethod("OnHit",BindingFlags.NonPublic | BindingFlags.Static), PatchType.Postfix, true);
 
         }
         [iOverLayerPatch(typeof(scrMistakesManager), "AddHit", PatchType.Postfix, true)]

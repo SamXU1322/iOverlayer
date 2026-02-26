@@ -131,6 +131,7 @@
     <Compile Include="Text\TextDeafaultSetting.cs" />
     <Compile Include="Text\TextFont.cs" />
     <Compile Include="Text\TextManager.cs" />
+    <Compile Include="Text\TextPatch.cs" />
     <Compile Include="UI\ButtonBox.cs" />
     <Compile Include="UI\UIController.cs" />
     <Compile Include="UI\UIManager.cs" />

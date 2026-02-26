@@ -5,7 +5,7 @@ namespace iOverLayer.Text
     public class Text : MonoBehaviour
     {
         private int _id;
-        private bool _Editmode = true;
+        private bool _Editmode = false;
         private bool _isDragging = false;
         private TextMeshProUGUI _textMesh;
         private RectTransform _rectTransform;
@@ -39,14 +39,21 @@ namespace iOverLayer.Text
         }
         public void SetFont(string FontName)
         {
-            if (TextFont.FontAsset.ContainsKey(FontName))
+            if (FontName == "Default")
+            {
+                _textMesh.font = TextDefaultSetting.DefaultAssetFont;
+                UpdateHitArea();
+            }
+            else if (TextFont.FontAsset.ContainsKey(FontName))
             {
                 _textMesh.font = TextFont.FontAsset[FontName];
                 UpdateHitArea();
             }
             else
             {
-                // 输出提示
+                LogSystem.Warning($"Font {FontName} not found. Using default font.");
+                _textMesh.font = TextDefaultSetting.DefaultAssetFont;
+                UpdateHitArea();
             }
         }
         public void Update()
@@ -100,6 +107,13 @@ namespace iOverLayer.Text
             _rectTransform.sizeDelta = preferred;
             LogSystem.Info($"{preferred}");
         }
-        
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+        public void UnShow()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
