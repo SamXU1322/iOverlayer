@@ -13,12 +13,19 @@ namespace iOverLayer{
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("MusicTime", "");
-            PatchManager.AddAllPatches("iOverLayer");
-
+            AccPatch.AddPatch();
+            TextManager.Create("Acc","");
+            
+            
         }
-        
-       
-        
+        [iOverLayerPatch(typeof(scnGame), "Play", PatchType.Postfix, false)]
+        [iOverLayerPatch(typeof(scrPressToStart), "ShowText", PatchType.Postfix, false)]
+        public static void OnGameStart()
+        {
+            
+            Title.LevelInit();
+            
+        }
+
     }
 }
