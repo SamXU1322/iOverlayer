@@ -103,6 +103,66 @@ namespace iOverLayer.Text
                 return false;
             }
         }
+        public static bool ExportTextsToJson(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                LogSystem.Error("Export path is empty.");
+                return false;
+            }
+
+            try
+            {
+                var items = new List<TextConfigItem>();
+                int index = 0;
+
+                foreach (var pair in _texts)
+                {
+                    if (pair.Value == null || pair.Value.TextMesh == null)
+                    {
+                        continue;
+                    }
+
+                    var mesh = pair.Value.TextMesh;
+                    var color = mesh.color;
+                    var rect = mesh.rectTransform;
+                    Vector2 pos = rect != null ? rect.anchoredPosition : Vector2.zero;
+
+                    items.Add(new TextConfigItem
+                    {
+                        ID = ++index,
+                        Name = pair.Key,
+                        Information = mesh.text,
+                        FontName = mesh.font != null ? mesh.font.name : "Default",
+                        Color = new float[] { color.r, color.g, color.b, color.a },
+                        Position = new float[] { pos.x, pos.y },
+                        FontSize = (int)mesh.fontSize,
+                        FontType = "Asset"
+                    });
+                }
+
+                TextConfigRoot root = new TextConfigRoot
+                {
+                    Texts = items.ToArray()
+                };
+
+                string dir = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                string json = JsonConvert.SerializeObject(root, Formatting.Indented);
+                File.WriteAllText(filePath, json);
+
+                LogSystem.Info($"Exported {_texts.Count} texts to JSON: {filePath}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogSystem.Error($"Export texts to JSON failed: {ex.Message}");
+                return false;
+            }
         public static bool Create(TextConfigItem textConfigItem)
         {
             
