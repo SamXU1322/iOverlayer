@@ -39,6 +39,11 @@
       <HintPath>..\..\..\steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RDTools">
       <HintPath>..\..\..\steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\RDTools.dll</HintPath>
       <Private>False</Private>
@@ -77,6 +82,10 @@
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>..\..\..\steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>..\..\..\steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextCoreFontEngineModule">
@@ -121,14 +130,15 @@
     <Compile Include="Patch\Patches\AccPatch.cs" />
     <Compile Include="Patch\Patches\BPMPatch.cs" />
     <Compile Include="Patch\Patches\ComBoPatch.cs" />
-    <Compile Include="Patch\Patches\MusicPatch.cs" />
     <Compile Include="Patch\Patches\ProgressPatch.cs" />
     <Compile Include="Patch\Patches\TilePatch.cs" />
     <Compile Include="Patch\Patches\TimingScalePatch.cs" />
     <Compile Include="Patch\PatchManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\TestSetting.cs" />
     <Compile Include="Text\Text.cs" />
-    <Compile Include="Text\TextDeafaultSetting.cs" />
+    <Compile Include="Text\TextConfigItem.cs" />
+    <Compile Include="Text\TextConfigRoot.cs" />
     <Compile Include="Text\TextFont.cs" />
     <Compile Include="Text\TextManager.cs" />
     <Compile Include="Text\TextPatch.cs" />
@@ -136,6 +146,8 @@
     <Compile Include="UI\UIController.cs" />
     <Compile Include="UI\UIManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

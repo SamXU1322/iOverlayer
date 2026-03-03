@@ -106,3 +106,4 @@ desktop.ini
 !README*
 !LICENSE*
 !*.md
+/iOverLayer/iOverLayer.csproj

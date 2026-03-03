@@ -1,21 +1,22 @@
-﻿using iOverLayer.ADOFAI;
-using iOverLayer.Patch;
-using iOverLayer.Patch.Patches;
+﻿using iOverLayer.Setting;
 using iOverLayer.Text;
 using iOverLayer.UI;
+using System.IO;
 using UnityModManagerNet;
-namespace iOverLayer{
+namespace iOverLayer
+{
     public static class Main
     {
+        public static UnityModManager.ModEntry mod;
+        public static TestSetting setting;
         public static void Load(UnityModManager.ModEntry modEntry)
         {
             LogSystem.Init(modEntry);
             AssetLoader.Init(modEntry);
             Canvas.Init();
             UIManager.LoadMainUI();
-            TextManager.Create("TestText", "Hello World!");
-            TextPatch.AddPatch();
-            
+            TextManager.Init(Path.Combine(modEntry.Path,"1.json"));
         }
+        
     }
 }

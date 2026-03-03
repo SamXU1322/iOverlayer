@@ -4,13 +4,11 @@ namespace iOverLayer.Text
 {
     public class Text : MonoBehaviour
     {
-        private int _id;
         private bool _Editmode = false;
         private bool _isDragging = false;
         private TextMeshProUGUI _textMesh;
         private RectTransform _rectTransform;
         private Vector2 _dragOffset;
-        public int ID => _id;
         public TextMeshProUGUI TextMesh => _textMesh;
         public void Awake()
         {
@@ -21,12 +19,7 @@ namespace iOverLayer.Text
                 LogSystem.Error("TextMeshProUGUI component not found on Text GameObject.");
                 return;
             }
-            TextDefaultSetting.SetDefaultText(ref _textMesh, "Asset");
             UpdateHitArea();
-        }
-        public void SetId(int id)
-        {
-            _id = id;
         }
         public void SetText(string text)
         {
@@ -41,7 +34,7 @@ namespace iOverLayer.Text
         {
             if (FontName == "Default")
             {
-                _textMesh.font = TextDefaultSetting.DefaultAssetFont;
+                SetDefaultFont("Asset");
                 UpdateHitArea();
             }
             else if (TextFont.FontAsset.ContainsKey(FontName))
@@ -52,7 +45,7 @@ namespace iOverLayer.Text
             else
             {
                 LogSystem.Warning($"Font {FontName} not found. Using default font.");
-                _textMesh.font = TextDefaultSetting.DefaultAssetFont;
+                SetDefaultFont("OS");
                 UpdateHitArea();
             }
         }
@@ -67,7 +60,6 @@ namespace iOverLayer.Text
                 int charIndex = TMP_TextUtilities.FindIntersectingCharacter(_textMesh, mousePos, null, true);
                 if (charIndex != -1)
                 {
-                    LogSystem.Info($"Text {_id} clicked.");
                     _isDragging = true;
 
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -114,6 +106,19 @@ namespace iOverLayer.Text
         public void UnShow()
         {
             gameObject.SetActive(false);
+        }
+        public void SetDefaultFont(string type)
+        {
+
+            if (type == "Asset")
+            {
+                _textMesh.font = TextFont.FontAsset["Maplestory Bold SDF"];
+            }
+            else if (type == "OS")
+            {
+                TextFont.CreateOSAsset("Arial");
+                _textMesh.font = TextFont.FontAsset["Arial"];
+            }
         }
     }
 }

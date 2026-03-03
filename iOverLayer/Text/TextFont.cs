@@ -23,7 +23,7 @@ namespace iOverLayer.Text
         }
         public static void CreateOSAsset(string fontName)
         {
-            Font osFont = Font.CreateDynamicFontFromOSFont(fontName, TextDefaultSetting.DefaultFontSize);
+            Font osFont = Font.CreateDynamicFontFromOSFont(fontName, 36);
             if(osFont != null)
             {
                 TMP_FontAsset tmpFontAsset = TMP_FontAsset.CreateFontAsset(osFont);
