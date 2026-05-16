@@ -8,22 +8,15 @@ namespace iOverlayer
 {
     public class Core : MelonMod
     {
-        private Rect windowRect = new Rect(20, 20, 240, 80);
-
         public override void OnInitializeMelon()
         {
             LoggerInstance.Msg("iOverlayer loaded");
-        }
+            UIModule.Initialize();
 
-        public override void OnGUI()
-        {
-            windowRect = GUI.Window(0, windowRect, DrawWindow, "iOverlayer");
-        }
+            string fontPath = @"E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\Overlayer\Pretendard-Bold.otf";
 
-        private void DrawWindow(int windowID)
-        {
-            GUI.Label(new Rect(10, 20, 220, 40), "hello iOverlayer");
-            GUI.DragWindow(new Rect(0, 0, 10000, 20));
+            iOverlayText text = UIModule.CreateText("hello iOverlayer");
+            text.SetFont(fontPath);
         }
     }
 }
