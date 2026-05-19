@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="MainUI.uss" />
+    
+    <!-- Root Container -->
+    <ui:VisualElement class="main-container">
+        <!-- Left Sidebar -->
+        <ui:VisualElement class="sidebar">
+            <ui:VisualElement class="logo-container">
+                <ui:VisualElement class="logo-icon"><ui:Label text="i" /></ui:VisualElement>
+                <ui:Label text="iOverlayer" class="logo-text" />
+            </ui:VisualElement>
+            
+            <ui:VisualElement class="nav-menu">
+                <ui:Button text="通用" class="nav-item active" />
+                <ui:Button text="主题样式" class="nav-item" />
+                <ui:Button text="快捷键" class="nav-item" />
+            </ui:VisualElement>
+            
+            <ui:VisualElement class="spacer" />
+            
+            <ui:VisualElement class="bottom-menu">
+                <ui:Button text="设置" class="nav-item" />
+                <ui:Button text="关于" class="nav-item" />
+                <ui:Label text="v0.1.0" class="version-text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Right Content Area -->
+        <ui:VisualElement class="content-area">
+            <ui:VisualElement class="header-row">
+                <ui:Label text="" class="page-title" />
+                <ui:Label text="" class="item-count" />
+                
+                <ui:VisualElement class="json-dropdown-container">
+                    <ui:DropdownField choices="" value="" class="json-dropdown" />
+                </ui:VisualElement>
+                
+                <ui:Button text="打开编辑器" class="open-editor-btn" />
+                <ui:Button text="✕" class="close-btn" />
+            </ui:VisualElement>
+            
+            <!-- List of items -->
+            <ui:ScrollView class="item-list">
+
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

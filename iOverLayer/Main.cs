@@ -1,5 +1,8 @@
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.UI;
+using iOverlayer.UI;
+
 
 [assembly: MelonInfo(typeof(iOverlayer.Core), iOverlayer.Info.Name, iOverlayer.Info.Version, iOverlayer.Info.Author, iOverlayer.Info.DownloadUrl)]
 [assembly: MelonGame("7th Beat Games", "A Dance of Fire and Ice")]
@@ -8,15 +11,43 @@ namespace iOverlayer
 {
     public class Core : MelonMod
     {
+        private GameObject rootGo;
+        private GameObject mainUI;
         public override void OnInitializeMelon()
         {
-            LoggerInstance.Msg("iOverlayer loaded");
-            UIModule.Initialize();
+            MelonLogger.Msg("iOverlayer loaded");
+            InitializeCanvas();
+            
+        }
+        private void InitializeCanvas()
+        {
+            rootGo = new GameObject("iOverlayer_UI_Root");
+            Object.DontDestroyOnLoad(rootGo);
+            var canvas = rootGo.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 100;
+            rootGo.AddComponent<CanvasScaler>();
+            rootGo.AddComponent<GraphicRaycaster>();
+            mainUI = BundleLoader.Instantiate("mainui", "MainUI");
+            if (mainUI != null)
+            {
+                mainUI.transform.SetParent(rootGo.transform, false);
+                mainUI.AddComponent<MainUI>();
+                
+                // 默认隐藏 UI，等按下 F5 才显示。如果需要默认显示可以去调这行。
+                mainUI.SetActive(false);
+            }
+        }
 
-            string fontPath = @"E:\steam\steamapps\common\A Dance of Fire and Ice\Mods\Overlayer\Pretendard-Bold.otf";
-
-            iOverlayText text = UIModule.CreateText("hello iOverlayer");
-            text.SetFont(fontPath);
+        public override void OnUpdate()
+        {
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                if (mainUI != null)
+                {
+                    mainUI.SetActive(!mainUI.activeSelf);
+                }
+            }
         }
     }
 }
