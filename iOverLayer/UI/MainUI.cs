@@ -104,8 +104,6 @@ namespace iOverlayer.UI
             if (_itemList == null) return;
             
             _itemList.Clear();
-            
-            // 填充测试数据，根据类名生成符合 USS 样式的子项
             int dummyCount = 5;
             for (int i = 0; i < dummyCount; i++)
             {

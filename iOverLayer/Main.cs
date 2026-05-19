@@ -33,8 +33,6 @@ namespace iOverlayer
             {
                 mainUI.transform.SetParent(rootGo.transform, false);
                 mainUI.AddComponent<MainUI>();
-                
-                // 默认隐藏 UI，等按下 F5 才显示。如果需要默认显示可以去调这行。
                 mainUI.SetActive(false);
             }
         }
