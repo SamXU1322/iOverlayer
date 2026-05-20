@@ -3,6 +3,7 @@ using System.IO;
 using MelonLoader;
 using MelonLoader.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace iOverlayer
@@ -58,6 +59,15 @@ namespace iOverlayer
                 return null;
 
             return Object.Instantiate(prefab, parent);
+        }
+
+        public static void LoadScene(string bundleName, string sceneName, LoadSceneMode mode = LoadSceneMode.Single)
+        {
+            var bundle = GetBundle(bundleName);
+            if (bundle == null)
+                return;
+
+            SceneManager.LoadScene(sceneName, mode);
         }
 
         public static void UnloadBundle(string bundleName)

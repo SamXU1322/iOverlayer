@@ -150,6 +150,8 @@ namespace iOverlayer.UI
         private void OnOpenEditorClicked()
         {
             MelonLogger.Msg("Open Editor Button Clicked!");
+            gameObject.SetActive(false); // Close the Main UI overlay first when opening the scene optionally.
+            BundleLoader.LoadScene("editorscenes", "EditorScenes", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
     }
 }

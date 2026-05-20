@@ -1,0 +1,326 @@
+/* EditorUI.uss */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.root {
+    flex-direction: column;
+    background-color: #1e1e1e;
+    color: #cccccc;
+    flex-grow: 1;
+}
+
+/* Top Bar */
+#topbar {
+    background-color: #2d2d2d;
+    padding: 6px 12px;
+    flex-direction: row;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: #3d3d3d;
+    min-height: 36px;
+    flex-shrink: 0;
+}
+
+#topbar Label {
+    margin: 0 4px;
+}
+
+.brand {
+    color: #cccccc;
+    font-size: 12px;
+    -unity-font-style: bold;
+}
+
+#topbar Button {
+    background-color: #3d3d3d;
+    color: #cccccc;
+    border-width: 0;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin: 0 4px;
+}
+
+#topbar Button:hover {
+    background-color: #4d4d4d;
+}
+
+#topbar Button.primary {
+    background-color: #0e639c;
+    color: #ffffff;
+}
+
+#topbar Button.primary:hover {
+    background-color: #1177bb;
+}
+
+.close-btn {
+    background-color: transparent;
+    color: #888888;
+    font-size: 14px;
+}
+
+.close-btn:hover {
+    background-color: #aa0000;
+    color: #ffffff;
+}
+
+.filename {
+    color: #888888;
+    font-size: 11px;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+/* Main Area */
+#main {
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Left Toolbar */
+#toolbar {
+    width: 48px;
+    background-color: #2d2d2d;
+    border-right-width: 1px;
+    border-right-color: #3d3d3d;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    flex-shrink: 0;
+}
+
+.tool {
+    width: 34px;
+    height: 34px;
+    background-color: transparent;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    color: #cccccc;
+    font-size: 13px;
+    border-width: 0;
+    margin-bottom: 6px;
+}
+
+.tool:hover {
+    background-color: #3d3d3d;
+}
+
+.tool.active {
+    background-color: #0e639c;
+    color: #ffffff;
+}
+
+.sep {
+    width: 28px;
+    height: 1px;
+    background-color: #3d3d3d;
+    margin: 4px 0 10px 0;
+}
+
+.placeholder {
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: #3d3d3d;
+    color: #555555;
+    font-size: 14px;
+    opacity: 0.4;
+    margin-bottom: 6px;
+    -unity-text-align: middle-center;
+}
+
+/* Canvas */
+#canvas-wrap {
+    flex-grow: 1;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* Right Panel */
+#panel {
+    width: 220px;
+    background-color: #2d2d2d;
+    border-left-width: 1px;
+    border-left-color: #3d3d3d;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.section-title {
+    color: #cccccc;
+    font-size: 11px;
+    -unity-font-style: bold;
+    padding: 10px 10px 6px;
+}
+
+#props {
+    padding: 0 10px 10px;
+    flex-shrink: 0;
+}
+
+.field {
+    margin-bottom: 7px;
+    flex-direction: column;
+}
+
+.field Label {
+    color: #888888;
+    font-size: 9px;
+    margin-bottom: 2px;
+}
+
+.field TextField, .field IntegerField, .field FloatField, .field DropdownField {
+    margin: 0;
+}
+
+.field TextField > .unity-text-field__input, 
+.field IntegerField > .unity-integer-field__input, 
+.field FloatField > .unity-float-field__input, 
+.field DropdownField > .unity-popup-field__input {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border-width: 1px;
+    border-color: #555555;
+    padding: 4px 6px;
+    font-size: 10px;
+    border-radius: 2px;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.row .field {
+    flex-grow: 1;
+    margin-right: 4px;
+}
+
+.color-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.swatch {
+    width: 24px;
+    height: 24px;
+    border-width: 1px;
+    border-color: #555555;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+.toggle-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.no-select {
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.no-select Label {
+    color: #555555;
+    font-size: 10px;
+}
+
+/* Status Bar */
+#statusbar {
+    background-color: #007acc;
+    padding: 3px 12px;
+    flex-direction: row;
+    align-items: center;
+    min-height: 22px;
+    flex-shrink: 0;
+}
+
+#statusbar Label {
+    color: #ffffff;
+    font-size: 10px;
+    margin: 0 8px;
+}
+
+#statusbar .dim {
+    color: #cccccc;
+}
+
+/* Overlay Quick List */
+#overlay-list {
+    flex-grow: 1;
+    padding: 4px 8px;
+}
+
+.row-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 6px;
+    border-radius: 3px;
+}
+
+.row-item:hover {
+    background-color: #3a3a3a;
+}
+
+.row-item.active {
+    background-color: #0e639c;
+}
+
+.row-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-right: 6px;
+}
+
+.row-item .name {
+    flex-grow: 1;
+    overflow: hidden;
+    color: #cccccc;
+    font-size: 10px;
+}
+
+.row-item .eye {
+    font-size: 10px;
+    color: #888888;
+    padding: 0 2px;
+}
+
+.row-item .eye.hidden {
+    color: #555555;
+}
+
+.extend {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    border-top-width: 1px;
+    border-top-style: dashed;
+    border-top-color: #3d3d3d;
+    margin: 0 8px;
+}
+
+.extend Label {
+    color: #555555;
+    font-size: 10px;
+    -unity-text-align: middle-center;
+}
