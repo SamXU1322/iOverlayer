@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iOverlayer Editor</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#1e1e1e; color:#ccc; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+input, select { font-family:inherit; outline:none; }
+input:focus, select:focus { border-color:#0e639c !important; }
+
+/* Top Bar */
+#topbar {
+  background:#2d2d2d; padding:6px 12px; display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid #3d3d3d; min-height:36px; flex-shrink:0;
+}
+#topbar .brand { color:#ccc; font-size:12px; font-weight:600; }
+#topbar button {
+  background:#3d3d3d; color:#ccc; border:none; padding:4px 12px; border-radius:3px;
+  font-size:11px; cursor:pointer;
+}
+#topbar button:hover { background:#4d4d4d; }
+#topbar button.primary { background:#0e639c; color:#fff; }
+#topbar button.primary:hover { background:#1177bb; }
+#topbar .close-btn { background:transparent; color:#888; font-size:14px; padding:4px 8px; }
+#topbar .close-btn:hover { background:#a00; color:#fff; }
+#topbar .filename { color:#888; font-size:11px; margin-left:4px; }
+#topbar .spacer { flex:1; }
+
+/* Main Area */
+#main { display:flex; flex:1; overflow:hidden; }
+
+/* Left Toolbar */
+#toolbar {
+  width:48px; background:#2d2d2d; border-right:1px solid #3d3d3d;
+  display:flex; flex-direction:column; align-items:center; padding-top:8px; gap:6px; flex-shrink:0;
+}
+#toolbar .tool {
+  width:34px; height:34px; background:transparent; border-radius:4px;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  color:#ccc; font-size:13px; border:none; transition:background .15s;
+}
+#toolbar .tool:hover { background:#3d3d3d; }
+#toolbar .tool.active { background:#0e639c; color:#fff; }
+#toolbar .sep { width:28px; height:1px; background:#3d3d3d; margin:4px 0; }
+#toolbar .placeholder {
+  width:34px; height:34px; border-radius:4px; display:flex; align-items:center;
+  justify-content:center; border:1px dashed #3d3d3d; color:#555; font-size:14px; opacity:0.4;
+}
+
+/* Canvas */
+#canvas-wrap { flex:1; background:#fff; position:relative; overflow:hidden; }
+#canvas { width:100%; height:100%; position:relative; }
+#canvas .overlay-text {
+  position:absolute; cursor:move; user-select:none; white-space:nowrap;
+  padding:2px 4px; border:2px solid transparent; border-radius:2px;
+}
+#canvas .overlay-text:hover { border-color:rgba(14,99,156,0.4); }
+#canvas .overlay-text.selected { border-color:#0e639c; background:rgba(14,99,156,0.08); }
+#canvas .overlay-text.disabled { opacity:0.3; pointer-events:none; }
+
+/* Right Panel */
+#panel {
+  width:220px; background:#2d2d2d; border-left:1px solid #3d3d3d;
+  display:flex; flex-direction:column; flex-shrink:0; overflow:hidden;
+}
+#panel .section-title {
+  color:#ccc; font-size:11px; font-weight:600; padding:10px 10px 6px;
+  text-transform:uppercase; letter-spacing:0.5px;
+}
+#props { padding:0 10px 10px; overflow-y:auto; flex-shrink:0; }
+#props .field { margin-bottom:7px; }
+#props label { color:#888; font-size:9px; display:block; margin-bottom:2px; }
+#props input, #props select {
+  width:100%; background:#3d3d3d; color:#fff; border:1px solid #555;
+  padding:4px 6px; font-size:10px; border-radius:2px;
+}
+#props .row { display:flex; gap:4px; }
+#props .row .field { flex:1; }
+#props .color-row { display:flex; gap:4px; align-items:center; }
+#props .color-row input { flex:1; }
+#props .swatch {
+  width:24px; height:24px; border:1px solid #555; border-radius:3px; flex-shrink:0;
+}
+#props .toggle-row { display:flex; align-items:center; justify-content:space-between; }
+#panel .extend {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  border-top:1px dashed #3d3d3d; margin:0 8px; color:#555; font-size:10px; text-align:center;
+}
+#panel .no-select {
+  display:flex; align-items:center; justify-content:center; height:100px;
+  color:#555; font-size:10px;
+}
+
+/* Status Bar */
+#statusbar {
+  background:#007acc; padding:3px 12px; display:flex; align-items:center; gap:16px;
+  min-height:22px; flex-shrink:0;
+}
+#statusbar span { color:#fff; font-size:10px; }
+#statusbar .dim { color:#ccc; }
+
+/* Overlay List (in extend area, shown when populated) */
+#overlay-list { flex:1; overflow-y:auto; padding:4px 8px; min-height:0; }
+#overlay-list .row-item {
+  display:flex; align-items:center; gap:6px; padding:5px 6px; border-radius:3px;
+  cursor:pointer; font-size:10px;
+}
+#overlay-list .row-item:hover { background:#3a3a3a; }
+#overlay-list .row-item.active { background:#0e639c; }
+#overlay-list .row-item .dot {
+  width:6px; height:6px; border-radius:50%; flex-shrink:0;
+}
+#overlay-list .row-item .name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#ccc; }
+#overlay-list .row-item .eye {
+  font-size:10px; cursor:pointer; color:#888; padding:0 2px;
+}
+#overlay-list .row-item .eye.hidden { color:#555; }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div id="topbar">
+  <span class="brand">iOverlayer</span>
+  <button class="primary" onclick="newFile()">新建 JSON</button>
+  <button onclick="openFile()">打开 JSON</button>
+  <span class="filename" id="filename">未保存</span>
+  <span class="spacer"></span>
+  <button class="primary" onclick="saveFile()">保存</button>
+  <button class="close-btn" onclick="exitEditor()" title="退出">✕</button>
+</div>
+
+<!-- Main Area -->
+<div id="main">
+  <!-- Toolbar -->
+  <div id="toolbar">
+    <button class="tool active" id="tool-text" onclick="setTool('text')" title="文字工具">T</button>
+    <button class="tool" id="tool-select" onclick="setTool('select')" title="选择工具">↖</button>
+    <div class="sep"></div>
+    <div class="placeholder">+</div>
+    <div class="placeholder">+</div>
+    <div class="placeholder">+</div>
+  </div>
+
+  <!-- Canvas -->
+  <div id="canvas-wrap">
+    <div id="canvas"></div>
+  </div>
+
+  <!-- Right Panel -->
+  <div id="panel">
+    <div class="section-title">属性</div>
+    <div id="props">
+      <div id="no-selection" class="no-select">选择文字以编辑属性</div>
+      <div id="prop-fields" style="display:none;">
+        <div class="field">
+          <label>文字内容</label>
+          <input id="prop-text" oninput="propChanged('text',this.value)">
+        </div>
+        <div class="row">
+          <div class="field"><label>X</label><input id="prop-x" type="number" oninput="propChanged('x',parseFloat(this.value))"></div>
+          <div class="field"><label>Y</label><input id="prop-y" type="number" oninput="propChanged('y',parseFloat(this.value))"></div>
+        </div>
+        <div class="field">
+          <label>字号</label>
+          <input id="prop-fontSize" type="number" min="1" max="500" oninput="propChanged('fontSize',parseInt(this.value))">
+        </div>
+        <div class="field">
+          <label>颜色</label>
+          <div class="color-row">
+            <input id="prop-color" oninput="propChanged('color',this.value)">
+            <div class="swatch" id="color-swatch"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>字体</label>
+          <select id="prop-font" onchange="propChanged('font',this.value)">
+            <option>Arial</option><option>Consolas</option><option>微软雅黑</option>
+            <option>SimSun</option><option>KaiTi</option><option>Times New Roman</option>
+            <option>Courier New</option><option>Verdana</option><option>Georgia</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="toggle-row">
+            <label>显示</label>
+            <input type="checkbox" id="prop-enabled" onchange="propChanged('enabled',this.checked)" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay quick list -->
+    <div id="overlay-list"></div>
+
+    <div class="extend" style="flex:0 0 auto; min-height:40px;" id="extend-hint">
+      ← 图层快速选择 →
+    </div>
+  </div>
+</div>
+
+<!-- Status Bar -->
+<div id="statusbar">
+  <span>画布: 1920×1080</span>
+  <span id="sel-info" class="dim">未选中</span>
+  <span id="pos-info" class="dim"></span>
+  <span class="spacer" style="flex:1;"></span>
+  <span id="count-info" class="dim">0 个叠加层</span>
+</div>
+
+<script>
+// ── Data ──
+let overlays = [];
+let selectedId = null;
+let currentTool = 'select';
+let currentFile = null;
+
+// ── ID generator ──
+function genId() { return Math.random().toString(36).slice(2,10); }
+
+// ── Render Canvas ──
+function renderCanvas() {
+  const canvas = document.getElementById('canvas');
+  canvas.innerHTML = '';
+  overlays.forEach(o => {
+    const el = document.createElement('div');
+    el.className = 'overlay-text' + (o.id === selectedId ? ' selected' : '') + (o.enabled ? '' : ' disabled');
+    el.id = 'el-' + o.id;
+    el.textContent = o.text;
+    el.style.left = o.x + 'px';
+    el.style.top = o.y + 'px';
+    el.style.fontSize = o.fontSize + 'px';
+    el.style.color = o.color;
+    el.style.fontFamily = o.font;
+
+    el.addEventListener('mousedown', e => onTextMouseDown(e, o.id));
+    canvas.appendChild(el);
+  });
+  updateStatus();
+  updateOverlayList();
+}
+
+// ── Selection ──
+function selectOverlay(id) {
+  selectedId = id;
+  document.querySelectorAll('#canvas .overlay-text').forEach(el => el.classList.remove('selected'));
+  if (id) {
+    const el = document.getElementById('el-' + id);
+    if (el) el.classList.add('selected');
+  }
+  showProps(id);
+  updateStatus();
+  updateOverlayList();
+}
+
+// ── Drag ──
+let dragTarget = null, dragStartX = 0, dragStartY = 0, dragOrigX = 0, dragOrigY = 0;
+
+function onTextMouseDown(e, id) {
+  if (currentTool === 'text') return;
+  e.preventDefault();
+  selectOverlay(id);
+  dragTarget = document.getElementById('el-' + id);
+  if (!dragTarget) return;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  const ov = overlays.find(o => o.id === id);
+  dragOrigX = ov.x;
+  dragOrigY = ov.y;
+  document.addEventListener('mousemove', onDrag);
+  document.addEventListener('mouseup', onDragEnd);
+}
+
+function onDrag(e) {
+  if (!dragTarget) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  const nx = dragOrigX + dx;
+  const ny = dragOrigY + dy;
+  const ov = overlays.find(o => o.id === selectedId);
+  if (ov) { ov.x = nx; ov.y = ny; }
+  dragTarget.style.left = nx + 'px';
+  dragTarget.style.top = ny + 'px';
+  showProps(selectedId); // sync
+  updateStatus();
+}
+
+function onDragEnd() {
+  dragTarget = null;
+  document.removeEventListener('mousemove', onDrag);
+  document.removeEventListener('mouseup', onDragEnd);
+}
+
+// ── Canvas click to deselect ──
+document.getElementById('canvas-wrap').addEventListener('mousedown', function(e) {
+  if (e.target === this || e.target.id === 'canvas') {
+    selectOverlay(null);
+  }
+});
+
+// ── Props Panel ──
+function showProps(id) {
+  const noSel = document.getElementById('no-selection');
+  const fields = document.getElementById('prop-fields');
+  if (!id) {
+    noSel.style.display = 'flex';
+    fields.style.display = 'none';
+    return;
+  }
+  noSel.style.display = 'none';
+  fields.style.display = 'block';
+  const o = overlays.find(o => o.id === id);
+  if (!o) return;
+  document.getElementById('prop-text').value = o.text;
+  document.getElementById('prop-x').value = o.x;
+  document.getElementById('prop-y').value = o.y;
+  document.getElementById('prop-fontSize').value = o.fontSize;
+  document.getElementById('prop-color').value = o.color;
+  document.getElementById('prop-font').value = o.font;
+  document.getElementById('prop-enabled').checked = o.enabled;
+  document.getElementById('color-swatch').style.background = o.color;
+}
+
+function propChanged(field, val) {
+  if (!selectedId) return;
+  const o = overlays.find(o => o.id === selectedId);
+  if (!o) return;
+  o[field] = val;
+  if (field === 'color') document.getElementById('color-swatch').style.background = val;
+  if (field === 'enabled' || field === 'color' || field === 'fontSize' || field === 'font' || field === 'text') {
+    renderCanvas();
+    selectOverlay(selectedId); // re-select after re-render
+  }
+  if (field === 'x' || field === 'y') {
+    const el = document.getElementById('el-' + selectedId);
+    if (el) { el.style.left = o.x + 'px'; el.style.top = o.y + 'px'; }
+  }
+  updateStatus();
+}
+
+// ── Tools ──
+function setTool(tool) {
+  currentTool = tool;
+  document.getElementById('tool-text').classList.toggle('active', tool === 'text');
+  document.getElementById('tool-select').classList.toggle('active', tool === 'select');
+
+  if (tool === 'text') {
+    const id = genId();
+    overlays.push({ id, text:'New Text', x:200, y:200, fontSize:32, color:'#333333', font:'Arial', enabled:true });
+    renderCanvas();
+    selectOverlay(id);
+    setTool('select');
+  }
+}
+
+// ── Keyboard ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (selectedId && document.activeElement === document.body) {
+      overlays = overlays.filter(o => o.id !== selectedId);
+      selectedId = null;
+      renderCanvas();
+      showProps(null);
+    }
+  }
+  if (e.key === 'Escape') { selectOverlay(null); }
+});
+
+// ── Overlay Quick List ──
+function updateOverlayList() {
+  const list = document.getElementById('overlay-list');
+  list.innerHTML = overlays.map(o =>
+    `<div class="row-item${o.id===selectedId?' active':''}" onclick="selectOverlay('${o.id}')">
+      <span class="dot" style="background:${o.color}"></span>
+      <span class="name">${o.text}</span>
+      <span class="eye${o.enabled?'':' hidden'}" onclick="event.stopPropagation();toggleOverlay('${o.id}')">${o.enabled?'👁':'─'}</span>
+    </div>`
+  ).join('');
+  document.getElementById('extend-hint').style.display = overlays.length ? 'none' : 'flex';
+}
+
+function toggleOverlay(id) {
+  const o = overlays.find(o => o.id === id);
+  if (o) { o.enabled = !o.enabled; renderCanvas(); }
+}
+
+// ── Status Bar ──
+function updateStatus() {
+  const sel = selectedId ? overlays.find(o => o.id === selectedId) : null;
+  document.getElementById('sel-info').textContent = sel ? '已选中: ' + sel.text : '未选中';
+  document.getElementById('pos-info').textContent = sel ? '位置: (' + Math.round(sel.x) + ', ' + Math.round(sel.y) + ')' : '';
+  document.getElementById('count-info').textContent = overlays.length + ' 个叠加层';
+}
+
+// ── File Operations ──
+function newFile() {
+  if (overlays.length && !confirm('当前内容未保存，确定新建？')) return;
+  overlays = [];
+  selectedId = null;
+  currentFile = null;
+  document.getElementById('filename').textContent = '未保存';
+  renderCanvas();
+  showProps(null);
+}
+
+function openFile() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        overlays = (data.overlays || []).map(o => ({ ...o, id: o.id || genId() }));
+        selectedId = null;
+        currentFile = file.name;
+        document.getElementById('filename').textContent = file.name;
+        renderCanvas();
+        showProps(null);
+      } catch (err) { alert('JSON 解析失败: ' + err.message); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function saveFile() {
+  const data = { version:'1.0', overlays };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = currentFile || 'overlays.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('filename').textContent = a.download;
+  currentFile = a.download;
+}
+
+// ── Exit ──
+function exitEditor() {
+  if (overlays.length && !confirm('确定退出？未保存的内容将丢失。')) return;
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#888;font-size:14px;">编辑器已关闭</div>';
+}
+
+// ── Init with sample ──
+overlays.push(
+  { id:genId(), text:'Welcome!', x:120, y:80, fontSize:36, color:'#333333', font:'Arial', enabled:true },
+  { id:genId(), text:'Speed: 120 BPM', x:180, y:160, fontSize:18, color:'#888888', font:'Consolas', enabled:true },
+);
+renderCanvas();
+showProps(null);
+</script>
+</body>
+</html>
