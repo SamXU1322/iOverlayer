@@ -16,7 +16,7 @@
             <ui:Label text="未保存" class="filename" name="lbl-filename" />
             <ui:VisualElement class="spacer" />
             <ui:Button text="保存" class="primary" name="btn-save" />
-            <ui:Button text="✕" class="close-btn" name="btn-close" tooltip="退出" />
+            <ui:Button text="×" class="close-btn" name="btn-close" tooltip="退出" />
         </ui:VisualElement>
 
         <!-- Main Area -->
@@ -39,18 +39,18 @@
             <!-- Right Panel -->
             <ui:VisualElement name="panel">
                 <ui:Label text="属性" class="section-title" />
-                
+
                 <ui:VisualElement name="props">
                     <ui:VisualElement name="no-selection" class="no-select">
                         <ui:Label text="选择文字以编辑属性" />
                     </ui:VisualElement>
-                    
+
                     <ui:VisualElement name="prop-fields" style="display: none;">
                         <ui:VisualElement class="field">
                             <ui:Label text="文字内容" />
                             <ui:TextField name="prop-text" />
                         </ui:VisualElement>
-                        
+
                         <ui:VisualElement class="row">
                             <ui:VisualElement class="field">
                                 <ui:Label text="X" />
@@ -61,12 +61,12 @@
                                 <ui:FloatField name="prop-y" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        
+
                         <ui:VisualElement class="field">
                             <ui:Label text="字号" />
                             <ui:IntegerField name="prop-fontSize" />
                         </ui:VisualElement>
-                        
+
                         <ui:VisualElement class="field">
                             <ui:Label text="颜色" />
                             <ui:VisualElement class="color-row">
@@ -74,12 +74,12 @@
                                 <ui:VisualElement name="color-swatch" class="swatch" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        
+
                         <ui:VisualElement class="field">
                             <ui:Label text="字体" />
                             <ui:DropdownField name="prop-font" choices="Arial,Consolas,微软雅黑,SimSun,KaiTi,Times New Roman,Courier New,Verdana,Georgia" />
                         </ui:VisualElement>
-                        
+
                         <ui:VisualElement class="field">
                             <ui:VisualElement class="toggle-row">
                                 <ui:Label text="显示" />
@@ -89,7 +89,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
 
-                <!-- Overlay Quick List -->
+                <!-- Overlay quick list -->
                 <ui:ScrollView name="overlay-list" />
 
                 <ui:VisualElement class="extend" name="extend-hint">

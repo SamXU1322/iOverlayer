@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iOverlayer Management Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  --bg-hover: #475569;
+  --border: #334155;
+  --border-focus: #3B82F6;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --success: #22C55E;
+  --success-hover: #16A34A;
+  --danger: #EF4444;
+  --danger-hover: #DC2626;
+  --card-bg: #0F172A;
+  --card-border: #334155;
+}
+
+body {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ── Mockup frame ── */
+.mockup {
+  max-width: 880px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+.mockup-header {
+  background: var(--bg-secondary);
+  padding: 8px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+
+.mockup-body {
+  display: flex;
+  background: var(--bg-secondary);
+  font-size: 12px;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 180px;
+  min-width: 180px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo .logo-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+}
+
+.sidebar-logo .logo-text {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Nav items ── */
+.sidebar-nav {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  margin: 2px 8px;
+  border-radius: 5px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav-item svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.nav-item.active svg {
+  stroke: #fff;
+}
+
+.nav-item:focus-visible {
+  box-shadow: 0 0 0 2px var(--border-focus);
+  outline: none;
+}
+
+.sidebar-spacer { flex: 1; }
+
+.sidebar-bottom {
+  border-top: 1px solid var(--border);
+  padding: 4px 0;
+}
+
+.sidebar-version {
+  padding: 8px 14px;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+/* ── Content area ── */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.content-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+}
+
+/* ── Header row ── */
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.item-count {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+/* ── JSON Dropdown ── */
+.json-dropdown {
+  position: relative;
+  flex: 1;
+  max-width: 260px;
+}
+
+.json-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 10px;
+  color: var(--text-primary);
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.json-dropdown-trigger:focus-visible {
+  box-shadow: 0 0 0 2px var(--border-focus);
+  outline: none;
+}
+
+.json-dropdown-trigger .folder-icon {
+  flex-shrink: 0;
+}
+
+.json-dropdown-trigger .folder-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.json-dropdown-trigger .file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+.json-dropdown-trigger .chevron {
+  margin-left: auto;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.json-dropdown-trigger .chevron svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.json-dropdown-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--accent);
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.json-dropdown-menu .dd-item {
+  padding: 6px 8px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.json-dropdown-menu .dd-item:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.json-dropdown-menu .dd-item.selected {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Editor button ── */
+.editor-btn {
+  background: var(--success);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.editor-btn:hover {
+  background: var(--success-hover);
+}
+
+.editor-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--border-focus);
+  outline: none;
+}
+
+.editor-btn svg {
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+/* ── Item card ── */
+.item-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 7px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.15s ease;
+}
+
+.item-card:hover {
+  border-color: var(--bg-hover);
+}
+
+.item-index {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  min-width: 20px;
+  flex-shrink: 0;
+}
+
+.item-index.active-index { color: var(--accent); }
+.item-index.inactive-index { color: var(--text-muted); }
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-title.active-title { color: var(--text-primary); }
+.item-title.inactive-title { color: var(--text-secondary); }
+
+.item-meta {
+  color: var(--text-muted);
+  font-size: 10px;
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Toggle switch ── */
+.toggle-sw {
+  width: 36px;
+  height: 20px;
+  background: var(--bg-hover);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggle-sw.on { background: var(--success); }
+
+.toggle-sw::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.2s ease;
+}
+
+.toggle-sw.on::after { left: 18px; }
+
+.toggle-sw:focus-visible {
+  box-shadow: 0 0 0 2px var(--border-focus);
+  outline: none;
+}
+
+/* ── Icon buttons ── */
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.icon-btn svg {
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.icon-btn.delete-btn { color: var(--danger); }
+
+.icon-btn.delete-btn:hover {
+  color: #fff;
+  background: var(--danger);
+}
+
+.icon-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--border-focus);
+  outline: none;
+}
+
+/* ── Extension area ── */
+.extension-area {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 7px;
+}
+
+.extension-area span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ── Info box ── */
+.info-box {
+  margin-top: 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 14px;
+}
+
+.info-box h3 {
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-box p {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.info-box code {
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--bg-tertiary);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="mockup">
+  <div class="mockup-header">iOverlayer</div>
+  <div class="mockup-body">
+
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">i</div>
+        <span class="logo-text">iOverlayer</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" aria-current="page">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4h4v10H2z"/><path d="M10 2h4v12h-4z"/>
+            <line x1="6" y1="7" x2="10" y2="7"/><line x1="6" y1="10" x2="10" y2="10"/>
+          </svg>
+          文本覆盖层
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="6"/><path d="M8 2v12M2 8h12"/><circle cx="8" cy="8" r="2.5"/>
+          </svg>
+          主题样式
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="12" height="8" rx="1.5"/>
+            <path d="M6 8h4M8 6v4"/>
+          </svg>
+          快捷键
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 2l2 4h4l-3 3 1 5-4-2.5L4 14l1-5-3-3h4z"/>
+          </svg>
+          插件
+        </button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-bottom">
+        <button class="nav-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="2.5"/>
+            <path d="M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1"/>
+          </svg>
+          设置
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="6"/><path d="M8 5v3.5"/><circle cx="8" cy="11" r="0.5" fill="currentColor"/>
+          </svg>
+          关于
+        </button>
+      </div>
+      <div class="sidebar-version">v0.1.0</div>
+    </div>
+
+    <!-- Right Content -->
+    <div class="content">
+      <div class="content-inner">
+
+        <!-- Header row -->
+        <div class="header-row">
+          <span class="page-title">文本覆盖层</span>
+          <span class="item-count">3 项</span>
+
+          <!-- JSON dropdown (expanded) -->
+          <div class="json-dropdown">
+            <div class="json-dropdown-trigger" tabindex="0" role="combobox" aria-label="选择配置文件" aria-expanded="true">
+              <span class="folder-icon">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 4v9a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H8L6.5 2.5H3a1 1 0 00-1 1z"/>
+                </svg>
+              </span>
+              <span class="file-name">overlays.json</span>
+              <span class="chevron">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M2 4l4 4 4-4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="json-dropdown-menu">
+              <div class="dd-item selected">overlays.json</div>
+              <div class="dd-item">hud.json</div>
+              <div class="dd-item">speedrun.json</div>
+              <div class="dd-item">debug.json</div>
+            </div>
+          </div>
+
+          <button class="editor-btn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11.5 2.5l2 2L5 13H3v-2z"/>
+            </svg>
+            打开编辑器
+          </button>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="item-card">
+          <span class="item-index active-index">1</span>
+          <div class="item-info">
+            <div class="item-title active-title">Welcome to iOverlayer!</div>
+            <div class="item-meta">(960, 100) · 36px · #ffffff · Arial</div>
+          </div>
+          <div class="item-actions">
+            <button class="toggle-sw on" aria-label="禁用覆盖层" title="已启用"></button>
+            <button class="icon-btn" aria-label="设置" title="设置">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="2.5"/>
+                <path d="M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1"/>
+              </svg>
+            </button>
+            <button class="icon-btn delete-btn" aria-label="删除" title="删除">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 3l10 10M13 3l-10 10"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Item 2 (disabled) -->
+        <div class="item-card">
+          <span class="item-index inactive-index">2</span>
+          <div class="item-info">
+            <div class="item-title inactive-title">Speed: {speed} BPM</div>
+            <div class="item-meta">(100, 540) · 24px · #00ff00 · Consolas</div>
+          </div>
+          <div class="item-actions">
+            <button class="toggle-sw" aria-label="启用覆盖层" title="已禁用"></button>
+            <button class="icon-btn" aria-label="设置" title="设置">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="2.5"/>
+                <path d="M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1"/>
+              </svg>
+            </button>
+            <button class="icon-btn delete-btn" aria-label="删除" title="删除">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 3l10 10M13 3l-10 10"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="item-card">
+          <span class="item-index inactive-index">3</span>
+          <div class="item-info">
+            <div class="item-title inactive-title">Timer: 00:00.000</div>
+            <div class="item-meta">(1700, 80) · 28px · #ffcc00 · Arial</div>
+          </div>
+          <div class="item-actions">
+            <button class="toggle-sw on" aria-label="禁用覆盖层" title="已启用"></button>
+            <button class="icon-btn" aria-label="设置" title="设置">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="2.5"/>
+                <path d="M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2.1 2.1M10.5 10.5l2.1 2.1M3.4 12.6l2.1-2.1M10.5 5.5l2.1-2.1"/>
+              </svg>
+            </button>
+            <button class="icon-btn delete-btn" aria-label="删除" title="删除">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 3l10 10M13 3l-10 10"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Extension area -->
+        <div class="extension-area">
+          <span>预留扩展区域</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Info box -->
+<div class="info-box" style="max-width:880px; width:100%;">
+  <h3>下拉框行为</h3>
+  <p>
+    点击下拉框 → 读取 <code>UserData/</code> 目录下所有 <code>*.json</code> 文件 → 展示为下拉列表<br>
+    选中某个文件后 → 重新加载对应的覆盖层配置 → 列表刷新
+  </p>
+</div>
+
+<script>
+(function() {
+  // Toggle switches
+  document.querySelectorAll('.toggle-sw').forEach(sw => {
+    sw.addEventListener('click', function() {
+      this.classList.toggle('on');
+      const isOn = this.classList.contains('on');
+      this.setAttribute('aria-label', isOn ? '禁用覆盖层' : '启用覆盖层');
+      this.title = isOn ? '已启用' : '已禁用';
+    });
+  });
+
+  // Nav items
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function() {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // JSON dropdown trigger
+  const trigger = document.querySelector('.json-dropdown-trigger');
+  const menu = document.querySelector('.json-dropdown-menu');
+  if (trigger && menu) {
+    trigger.addEventListener('click', function() {
+      const isOpen = menu.style.display !== 'none';
+      menu.style.display = isOpen ? 'none' : 'block';
+      trigger.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // Dropdown item selection
+    menu.querySelectorAll('.dd-item').forEach(item => {
+      item.addEventListener('click', function() {
+        menu.querySelectorAll('.dd-item').forEach(i => i.classList.remove('selected'));
+        this.classList.add('selected');
+        trigger.querySelector('.file-name').textContent = this.textContent;
+        menu.style.display = 'none';
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Delete buttons
+  document.querySelectorAll('.icon-btn.delete-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const card = this.closest('.item-card');
+      if (card) card.style.display = 'none';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

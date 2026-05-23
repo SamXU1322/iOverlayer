@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using MelonLoader;
 
@@ -7,6 +8,10 @@ namespace iOverlayer.UI
 {
     public class MainUI : MonoBehaviour
     {
+        private static string _gameSceneName;
+
+        public static string GameSceneName => _gameSceneName;
+
         private UIDocument _uiDocument;
         private VisualElement _root;
         private Label _pageTitle;
@@ -29,7 +34,6 @@ namespace iOverlayer.UI
             BindElements();
             RegisterCallbacks();
 
-            // 初始化默认选中第一个标签
             if (_navButtons != null && _navButtons.Count > 0)
             {
                 SelectNavTab(_navButtons[0]);
@@ -80,13 +84,11 @@ namespace iOverlayer.UI
 
         private void SelectNavTab(Button selectedBtn)
         {
-            // 移除所有按钮的 active 状态
             foreach (var btn in _navButtons)
             {
                 btn.RemoveFromClassList("active");
             }
             
-            // 激活当前按钮
             selectedBtn.AddToClassList("active");
             
             // 更新标题
@@ -95,7 +97,6 @@ namespace iOverlayer.UI
                 _pageTitle.text = selectedBtn.text;
             }
 
-            // 根据不同的标签页加载内容
             RefreshContent(selectedBtn.text);
         }
 
@@ -150,8 +151,12 @@ namespace iOverlayer.UI
         private void OnOpenEditorClicked()
         {
             MelonLogger.Msg("Open Editor Button Clicked!");
-            gameObject.SetActive(false); // Close the Main UI overlay first when opening the scene optionally.
-            BundleLoader.LoadScene("editorscenes", "EditorScenes", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            _gameSceneName = SceneManager.GetActiveScene().name;
+            gameObject.SetActive(false);
+
+            AudioListener.pause = true;
+
+            BundleLoader.LoadScene("editorscenes", "EditorScenes", LoadSceneMode.Single);
         }
     }
 }

@@ -1,84 +1,86 @@
-﻿/* Variables for easy maintenance if needed */
+/* MainUI.uss — iOverlayer design system */
+
 .main-container {
-    width: 1080px;
-    height: 720px;
+    width: 880px;
+    height: 600px;
     flex-direction: row;
-    background-color: #1a1a2e;
-    color: #c9d1d9;
-    font-size: 11px;
-    
-    /* 绝对定位使其居中 */
+    background-color: #1E293B;
+    color: #F1F5F9;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow: hidden;
     position: absolute;
     left: 50%;
     top: 50%;
     translate: -50% -50%;
 }
 
-/* --- Sidebar --- */
+/* ── Sidebar ── */
 .sidebar {
-    width: 150px;
-    min-width: 150px;
-    background-color: #16213e;
+    width: 180px;
+    min-width: 180px;
+    background-color: #1E293B;
     border-right-width: 1px;
-    border-right-color: #0f3460;
+    border-right-color: #334155;
     flex-direction: column;
 }
 
 .logo-container {
     flex-direction: row;
     align-items: center;
-    padding: 10px 10px 8px 10px;
+    padding: 14px 14px 10px;
     border-bottom-width: 1px;
-    border-bottom-color: #0f3460;
+    border-bottom-color: #334155;
 }
 
 .logo-icon {
-    width: 24px;
-    height: 24px;
-    background-color: #1f6feb;
-    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    background-color: #3B82F6;
+    border-radius: 6px;
     align-items: center;
     justify-content: center;
 }
 
 .logo-icon > .unity-label {
-    color: #ffffff;
-    font-size: 12px;
+    color: #FFFFFF;
+    font-size: 14px;
     -unity-font-style: bold;
     padding: 0;
     margin: 0;
 }
 
 .logo-text {
-    color: #c9d1d9;
-    font-size: 13px;
+    color: #F1F5F9;
+    font-size: 14px;
     -unity-font-style: bold;
-    margin-left: 6px;
+    margin-left: 8px;
 }
 
+/* ── Nav menu ── */
 .nav-menu {
-    padding: 6px 0;
+    padding: 8px 0;
 }
 
 .nav-item {
     background-color: transparent;
     border-width: 0;
-    border-radius: 4px;
-    color: #8b949e;
-    font-size: 11px;
-    padding: 5px 10px;
-    margin: 2px 6px;
-    text-align: left;
+    border-radius: 5px;
+    color: #94A3B8;
+    font-size: 12px;
+    padding: 7px 14px;
+    margin: 2px 8px;
     -unity-text-align: middle-left;
 }
 
 .nav-item:hover {
-    background-color: #1f2937;
+    background-color: #334155;
+    color: #F1F5F9;
 }
 
 .nav-item.active {
-    background-color: #1f6feb;
-    color: #ffffff;
+    background-color: #3B82F6;
+    color: #FFFFFF;
 }
 
 .spacer {
@@ -87,48 +89,49 @@
 
 .bottom-menu {
     border-top-width: 1px;
-    border-top-color: #0f3460;
+    border-top-color: #334155;
     padding: 4px 0;
 }
 
 .version-text {
-    padding: 6px 10px;
-    color: #484f58;
-    font-size: 9px;
+    padding: 8px 14px;
+    color: #64748B;
+    font-size: 10px;
     margin: 0;
 }
 
-/* --- Content Area --- */
+/* ── Content area ── */
 .content-area {
     flex-grow: 1;
     flex-direction: column;
-    padding: 10px;
+    padding: 14px;
+    min-width: 0;
 }
 
 .header-row {
     flex-direction: row;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .page-title {
-    color: #c9d1d9;
-    font-size: 13px;
+    color: #F1F5F9;
+    font-size: 14px;
     -unity-font-style: bold;
     margin: 0;
     padding: 0;
 }
 
 .item-count {
-    color: #8b949e;
-    font-size: 10px;
-    margin-left: 8px;
+    color: #94A3B8;
+    font-size: 11px;
+    margin-left: 10px;
 }
 
 .json-dropdown-container {
     flex-grow: 1;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
     max-width: 220px;
 }
 
@@ -137,81 +140,86 @@
 }
 
 .json-dropdown > .unity-base-field__input {
-    background-color: #0d1117;
-    border-color: #58a6ff;
+    background-color: #0F172A;
+    border-color: #3B82F6;
     border-width: 1px;
     border-radius: 4px;
-    color: #c9d1d9;
+    color: #F1F5F9;
     font-size: 10px;
-    padding: 2px 4px;
+    padding: 5px 8px;
+}
+
+.json-dropdown > .unity-base-field__input:focus {
+    border-color: #60A5FA;
 }
 
 .open-editor-btn {
-    background-color: #238636;
-    color: #ffffff;
+    background-color: #22C55E;
+    color: #FFFFFF;
     border-width: 0;
-    border-radius: 4px;
-    padding: 4px 10px;
-    font-size: 11px;
+    border-radius: 5px;
+    padding: 5px 14px;
+    font-size: 12px;
     margin: 0;
 }
 
 .open-editor-btn:hover {
-    background-color: #2ea043;
+    background-color: #16A34A;
 }
 
 .close-btn {
     background-color: transparent;
-    color: #8b949e;
+    color: #94A3B8;
     border-width: 0;
     border-radius: 4px;
     padding: 4px 8px;
-    font-size: 13px;
-    margin-left: auto;
+    font-size: 14px;
+    margin-left: 6px;
 }
 
 .close-btn:hover {
-    background-color: #f85149;
-    color: #ffffff;
+    background-color: #EF4444;
+    color: #FFFFFF;
 }
 
-/* --- Item List --- */
+/* ── Item list (populated by C#) ── */
 .item-list {
     flex-grow: 1;
 }
 
 .list-item {
-    background-color: #0d1117;
+    background-color: #0F172A;
     border-width: 1px;
-    border-color: #30363d;
-    border-radius: 6px;
-    padding: 8px 10px;
+    border-color: #334155;
+    border-radius: 7px;
+    padding: 12px;
     flex-direction: row;
     align-items: center;
     margin-bottom: 6px;
 }
 
-.item-index {
-    color: #8b949e;
-    font-size: 12px;
-    min-width: 18px;
-    padding: 0;
-    margin: 0;
+.list-item:hover {
+    border-color: #475569;
 }
 
-.item-index.active-index {
-    color: #58a6ff;
+.item-index {
+    font-size: 13px;
+    min-width: 20px;
+    padding: 0;
+    margin: 0;
+    color: #3B82F6;
 }
 
 .item-info {
     flex-grow: 1;
     flex-direction: column;
     overflow: hidden;
+    margin-left: 10px;
 }
 
 .item-title {
-    color: #c9d1d9;
-    font-size: 12px;
+    color: #F1F5F9;
+    font-size: 13px;
     padding: 0;
     margin: 0;
     overflow: hidden;
@@ -219,58 +227,25 @@
     white-space: nowrap;
 }
 
-.item-title.inactive-title {
-    color: #8b949e;
-}
-
 .item-subtitle {
-    color: #8b949e;
-    font-size: 9px;
+    color: #94A3B8;
+    font-size: 10px;
     margin-top: 2px;
     padding: 0;
 }
 
-.item-actions {
-    flex-direction: row;
-    align-items: center;
-}
-
-.custom-toggle {
-    margin-right: 4px;
-}
-
-.icon-btn {
-    background-color: transparent;
-    border-width: 0;
-    color: #8b949e;
-    font-size: 12px;
-    padding: 2px 4px;
-    margin: 0 2px;
-}
-
-.icon-btn:hover {
-    color: #c9d1d9;
-}
-
-.icon-btn.delete-btn {
-    color: #f85149;
-}
-
-.icon-btn.delete-btn:hover {
-    color: #ff7b72;
-}
-
+/* ── Extension area ── */
 .extension-area {
     min-height: 80px;
     border-width: 1px;
-    border-color: #484f58;
-    border-radius: 6px;
+    border-color: #334155;
+    border-radius: 7px;
     align-items: center;
     justify-content: center;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .extension-area > .unity-label {
-    color: #484f58;
-    font-size: 11px;
+    color: #64748B;
+    font-size: 12px;
 }
