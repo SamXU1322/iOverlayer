@@ -96,6 +96,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="BundleLoader.cs" />
     <Compile Include="UI\MainUI.cs" />
+    <Compile Include="UI\EditorUI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

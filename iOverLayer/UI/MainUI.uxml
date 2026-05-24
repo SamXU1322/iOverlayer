@@ -44,6 +44,7 @@
                     <ui:DropdownField choices="" value="" class="json-dropdown" />
                 </ui:VisualElement>
 
+                <ui:Button text="刷新" class="refresh-btn" />
                 <ui:Button text="打开编辑器" class="open-editor-btn" />
                 <ui:Button text="×" class="close-btn" tooltip="关闭" />
             </ui:VisualElement>

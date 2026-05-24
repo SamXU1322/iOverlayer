@@ -153,6 +153,20 @@
     border-color: #60A5FA;
 }
 
+.refresh-btn {
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    border-width: 0;
+    border-radius: 5px;
+    padding: 5px 14px;
+    font-size: 12px;
+    margin: 0;
+}
+
+.refresh-btn:hover {
+    background-color: #2563EB;
+}
+
 .open-editor-btn {
     background-color: #22C55E;
     color: #FFFFFF;
@@ -160,7 +174,7 @@
     border-radius: 5px;
     padding: 5px 14px;
     font-size: 12px;
-    margin: 0;
+    margin-left: 6px;
 }
 
 .open-editor-btn:hover {

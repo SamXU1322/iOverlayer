@@ -39,7 +39,6 @@ namespace iOverlayer.UI
         private Label _countInfo;
 
         private enum Tool { Text, Select }
-        private Tool _currentTool = Tool.Text;
 
         private void OnEnable()
         {
@@ -176,30 +175,24 @@ namespace iOverlayer.UI
         private void OnCloseClicked()
         {
             var gameSceneName = MainUI.GameSceneName;
+            AudioListener.pause = false;
+
             if (!string.IsNullOrEmpty(gameSceneName))
             {
                 SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
             }
-
-            AudioListener.pause = false;
-
-            var mainUI = Object.FindObjectOfType<MainUI>(true);
-            if (mainUI is not null)
-                mainUI.gameObject.SetActive(true);
         }
 
 
         private void OnToolTextClicked()
         {
             SetActiveTool(_toolText);
-            _currentTool = Tool.Text;
             MelonLogger.Msg("Editor: 切换到文字工具");
         }
 
         private void OnToolSelectClicked()
         {
             SetActiveTool(_toolSelect);
-            _currentTool = Tool.Select;
             MelonLogger.Msg("Editor: 切换到选择工具");
         }
 
