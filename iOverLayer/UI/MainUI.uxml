@@ -40,10 +40,10 @@
                 <ui:Label text="" class="page-title" />
                 <ui:Label text="" class="item-count" />
 
-                <ui:VisualElement class="json-dropdown-container">
-                    <ui:DropdownField choices="" value="" class="json-dropdown" />
+                <ui:VisualElement class="json-select-container">
+                    <ui:TextField value="" class="json-select-text" is-read-only="true" />
+                    <ui:Button text="▼" class="json-arrow-btn" tooltip="选择文件" />
                 </ui:VisualElement>
-
                 <ui:Button text="刷新" class="refresh-btn" />
                 <ui:Button text="打开编辑器" class="open-editor-btn" />
                 <ui:Button text="×" class="close-btn" tooltip="关闭" />
@@ -57,5 +57,8 @@
                 <ui:Label text="预留扩展区域" />
             </ui:VisualElement>
         </ui:VisualElement>
+
+        <!-- Dropdown overlay (last child = renders on top) -->
+        <ui:VisualElement class="json-dropdown-panel" style="display:none;" />
     </ui:VisualElement>
 </ui:UXML>

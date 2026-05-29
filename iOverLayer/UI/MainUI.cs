@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -17,11 +18,17 @@ namespace iOverlayer.UI
         private VisualElement _root;
         private Label _pageTitle;
         private Label _itemCount;
-        private DropdownField _jsonDropdown;
+        private TextField _jsonTextField;
+        private Button _jsonArrowBtn;
+        private List<string> _jsonFiles;
+        private volatile bool _filesLoaded;
+        private List<string> _pendingFiles;
+        private readonly object _fileLock = new object();
         private Button _refreshBtn;
         private Button _openEditorBtn;
         private Button _closeBtn;
 
+        private VisualElement _jsonDetailPanel;
         private ScrollView _itemList;
 
         private List<Button> _navButtons;
@@ -56,16 +63,21 @@ namespace iOverlayer.UI
         {
             _pageTitle = _root.Q<Label>(className: "page-title");
             _itemCount = _root.Q<Label>(className: "item-count");
-            _jsonDropdown = _root.Q<DropdownField>(className: "json-dropdown");
+            _jsonTextField = _root.Q<TextField>(className: "json-select-text");
+            _jsonArrowBtn = _root.Q<Button>(className: "json-arrow-btn");
             _refreshBtn = _root.Q<Button>(className: "refresh-btn");
             _openEditorBtn = _root.Q<Button>(className: "open-editor-btn");
             _closeBtn = _root.Q<Button>(className: "close-btn");
+            _jsonDetailPanel = _root.Q<VisualElement>(className: "json-dropdown-panel");
             _itemList = _root.Q<ScrollView>(className: "item-list");
             _navButtons = _root.Query<Button>(className: "nav-item").ToList();
         }
 
         private void RegisterCallbacks()
         {
+            if (_jsonArrowBtn != null)
+                _jsonArrowBtn.clicked += OnJsonArrowClicked;
+
             if (_closeBtn != null)
                 _closeBtn.clicked += OnCloseClicked;
 
@@ -86,6 +98,9 @@ namespace iOverlayer.UI
 
         private void UnregisterCallbacks()
         {
+            if (_jsonArrowBtn != null)
+                _jsonArrowBtn.clicked -= OnJsonArrowClicked;
+
             if (_closeBtn != null)
                 _closeBtn.clicked -= OnCloseClicked;
 
@@ -116,19 +131,7 @@ namespace iOverlayer.UI
 
         private void RefreshContent(string tabName)
         {
-            if (_itemList == null) return;
             
-            _itemList.Clear();
-            int dummyCount = 5;
-            for (int i = 0; i < dummyCount; i++)
-            {
-                _itemList.Add(CreateDummyListItem(i + 1, $"{tabName} Item {i+1}"));
-            }
-
-            if (_itemCount != null)
-            {
-                _itemCount.text = $"{dummyCount} Items";
-            }
         }
 
         private VisualElement CreateDummyListItem(int index, string title)
@@ -157,9 +160,144 @@ namespace iOverlayer.UI
             return item;
         }
 
+        private bool _jsonPanelExpanded;
+
+        private void OnJsonArrowClicked()
+        {
+            if (_jsonDetailPanel == null || _jsonArrowBtn == null) return;
+            _jsonPanelExpanded = !_jsonPanelExpanded;
+
+            if (_jsonPanelExpanded)
+            {
+                PositionDropdownPanel();
+                _jsonDetailPanel.style.display = DisplayStyle.Flex;
+                _jsonDetailPanel.schedule.Execute(() =>
+                {
+                    _jsonDetailPanel.AddToClassList("expanded");
+                    _jsonArrowBtn.AddToClassList("expanded");
+                }).StartingIn(16);
+                _jsonArrowBtn.text = "▲";
+                PopulateJsonDetailPanel();
+            }
+            else
+            {
+                _jsonDetailPanel.RemoveFromClassList("expanded");
+                _jsonArrowBtn.RemoveFromClassList("expanded");
+                _jsonArrowBtn.text = "▼";
+                _jsonDetailPanel.schedule.Execute(() =>
+                {
+                    if (!_jsonPanelExpanded)
+                        _jsonDetailPanel.style.display = DisplayStyle.None;
+                }).StartingIn(210);
+            }
+        }
+
+        private void PositionDropdownPanel()
+        {
+            if (_jsonTextField == null || _jsonDetailPanel == null) return;
+
+            var selectWorld = _jsonTextField.parent.worldBound;
+            var rootWorld = _root.worldBound;
+
+            _jsonDetailPanel.style.left = selectWorld.x - rootWorld.x;
+            _jsonDetailPanel.style.top = selectWorld.yMax - rootWorld.y + 4;
+            _jsonDetailPanel.style.width = selectWorld.width;
+        }
+
+        private void PopulateJsonDetailPanel()
+        {
+            _jsonDetailPanel.Clear();
+
+            _jsonFiles = Config.ConfigManager.GetJsonFiles();
+
+            if (_jsonFiles == null || _jsonFiles.Count == 0)
+            {
+                var empty = new Label("No JSON files found");
+                empty.AddToClassList("json-detail-empty");
+                _jsonDetailPanel.Add(empty);
+                return;
+            }
+
+            foreach (var file in _jsonFiles)
+            {
+                var item = new VisualElement();
+                item.AddToClassList("json-file-item");
+                item.userData = file;
+
+                var icon = new Label("{}");
+                icon.AddToClassList("json-file-icon");
+
+                var name = new Label(file);
+                name.AddToClassList("json-file-name");
+
+                item.Add(icon);
+                item.Add(name);
+
+                var isSelected = file == (_jsonTextField?.value ?? "");
+                if (isSelected)
+                    item.AddToClassList("json-file-item--selected");
+
+                item.RegisterCallback<ClickEvent>(OnJsonFileClicked);
+
+                _jsonDetailPanel.Add(item);
+            }
+        }
+
+        private void OnJsonFileClicked(ClickEvent evt)
+        {
+            if (evt.target is VisualElement target && target.userData is string fileName)
+            {
+                if (_jsonTextField != null)
+                    _jsonTextField.value = fileName;
+
+                CollapseJsonPanel();
+            }
+        }
+
+        private void CollapseJsonPanel()
+        {
+            _jsonPanelExpanded = false;
+            _jsonDetailPanel.RemoveFromClassList("expanded");
+            _jsonArrowBtn.RemoveFromClassList("expanded");
+            _jsonArrowBtn.text = "▼";
+            _jsonDetailPanel.schedule.Execute(() =>
+            {
+                if (!_jsonPanelExpanded)
+                    _jsonDetailPanel.style.display = DisplayStyle.None;
+            }).StartingIn(210);
+        }
+
+        private void Update()
+        {
+            if (!_filesLoaded) return;
+
+            List<string> files;
+            lock (_fileLock)
+            {
+                files = _pendingFiles;
+                _pendingFiles = null;
+                _filesLoaded = false;
+            }
+
+            _jsonFiles = files ?? new List<string>();
+
+            if (_jsonFiles.Count > 0 && _jsonTextField != null)
+                _jsonTextField.value = _jsonFiles[0];
+            else if (_jsonTextField != null)
+                _jsonTextField.value = "";
+        }
+
         private void OnRefreshClicked()
         {
-            MelonLogger.Msg("Refresh Button Clicked!");
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                var files = Config.ConfigManager.GetJsonFiles();
+                lock (_fileLock)
+                {
+                    _pendingFiles = files;
+                    _filesLoaded = true;
+                }
+            });
         }
 
         private void OnCloseClicked()
