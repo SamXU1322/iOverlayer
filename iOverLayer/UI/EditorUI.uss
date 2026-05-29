@@ -1,66 +1,79 @@
-/* EditorUI.uss — iOverlayer design system */
+/* EditorUI.uss — High-end dark glass design system */
 
 * {
     margin: 0;
     padding: 0;
 }
 
+/* ── Root ── */
 .root {
     flex-direction: column;
-    background-color: #0F172A;
+    background-color: #090D14;
     color: #F1F5F9;
     flex-grow: 1;
 }
 
 /* ── Top Bar ── */
 #topbar {
-    background-color: #1E293B;
-    padding: 6px 12px;
+    background-color: #0D1220;
+    padding: 7px 14px;
     flex-direction: row;
     align-items: center;
     border-bottom-width: 1px;
-    border-bottom-color: #334155;
-    min-height: 36px;
+    border-bottom-color: #1E293B;
+    min-height: 38px;
     flex-shrink: 0;
 }
 
 .brand {
     color: #F1F5F9;
-    font-size: 12px;
+    font-size: 13px;
     -unity-font-style: bold;
-    margin-right: 8px;
+    margin-right: 10px;
+    opacity: 0.9;
 }
 
 #topbar Button {
-    background-color: #334155;
-    color: #F1F5F9;
+    background-color: #1A2235;
+    color: #CBD5E1;
     border-width: 0;
-    padding: 5px 12px;
-    border-radius: 4px;
+    padding: 6px 14px;
+    border-radius: 6px;
     font-size: 11px;
-    margin: 0 4px;
+    margin: 0 5px;
+    transition-property: background-color, color, opacity;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
 }
 
 #topbar Button:hover {
-    background-color: #475569;
+    background-color: #232D42;
+    color: #F1F5F9;
 }
 
 #topbar Button.primary {
     background-color: #3B82F6;
     color: #FFFFFF;
+    opacity: 0.93;
 }
 
 #topbar Button.primary:hover {
-    background-color: #2563EB;
+    background-color: #4F8BFF;
+    opacity: 1;
 }
 
 .close-btn {
     background-color: transparent;
-    color: #94A3B8;
-    font-size: 14px;
-    padding: 4px 6px;
-    width: 28px;
-    height: 28px;
+    color: #475569;
+    font-size: 15px;
+    padding: 5px 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border-width: 0;
+    transition-property: background-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
 }
 
 .close-btn:hover {
@@ -69,9 +82,9 @@
 }
 
 .filename {
-    color: #64748B;
+    color: #475569;
     font-size: 11px;
-    margin: 0 4px;
+    margin: 0 6px;
 }
 
 .spacer {
@@ -87,13 +100,13 @@
 
 /* ── Left Toolbar ── */
 #toolbar {
-    width: 44px;
-    background-color: #1E293B;
+    width: 46px;
+    background-color: #0D1220;
     border-right-width: 1px;
-    border-right-color: #334155;
+    border-right-color: #1E293B;
     flex-direction: column;
     align-items: center;
-    padding-top: 8px;
+    padding-top: 10px;
     flex-shrink: 0;
 }
 
@@ -101,41 +114,45 @@
     width: 34px;
     height: 34px;
     background-color: transparent;
-    border-radius: 4px;
-    color: #94A3B8;
+    border-radius: 6px;
+    color: #475569;
     font-size: 14px;
     border-width: 0;
     margin-bottom: 4px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
+    transition-property: background-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
 }
 
 .tool:hover {
-    background-color: #334155;
-    color: #F1F5F9;
+    background-color: #1A2235;
+    color: #CBD5E1;
 }
 
 .tool.active {
     background-color: #3B82F6;
     color: #FFFFFF;
+    opacity: 0.93;
 }
 
 .sep {
     width: 24px;
     height: 1px;
-    background-color: #334155;
-    margin: 4px 0;
+    background-color: #1E293B;
+    margin: 5px 0;
 }
 
 .placeholder {
     width: 34px;
     height: 34px;
-    border-radius: 4px;
+    border-radius: 6px;
     border-width: 1px;
-    border-color: #334155;
-    color: #64748B;
+    border-color: #1E293B;
+    color: #334155;
     font-size: 14px;
-    opacity: 0.4;
+    opacity: 0.35;
     margin-bottom: 4px;
     -unity-text-align: middle-center;
 }
@@ -143,7 +160,7 @@
 /* ── Canvas ── */
 #canvas-wrap {
     flex-grow: 1;
-    background-color: #FFFFFF;
+    background-color: #0B1018;
     overflow: hidden;
 }
 
@@ -155,9 +172,9 @@
 /* ── Right Panel ── */
 #panel {
     width: 220px;
-    background-color: #1E293B;
+    background-color: #0D1220;
     border-left-width: 1px;
-    border-left-color: #334155;
+    border-left-color: #1E293B;
     flex-direction: column;
     flex-shrink: 0;
     overflow: hidden;
@@ -167,24 +184,25 @@
     color: #F1F5F9;
     font-size: 11px;
     -unity-font-style: bold;
-    padding: 10px 10px 6px;
+    padding: 12px 12px 8px;
+    opacity: 0.9;
 }
 
 /* ── Properties ── */
 #props {
-    padding: 0 10px 10px;
+    padding: 0 12px 12px;
     flex-shrink: 0;
 }
 
 .field {
-    margin-bottom: 7px;
+    margin-bottom: 8px;
     flex-direction: column;
 }
 
 .field > Label {
-    color: #94A3B8;
+    color: #64748B;
     font-size: 10px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
 .field TextField,
@@ -199,13 +217,16 @@
 .field IntegerField > .unity-integer-field__input,
 .field FloatField > .unity-float-field__input,
 .field DropdownField > .unity-popup-field__input {
-    background-color: #334155;
-    color: #F1F5F9;
+    background-color: #060B14;
+    color: #CBD5E1;
     border-width: 1px;
-    border-color: #334155;
-    padding: 5px 6px;
+    border-color: #1E293B;
+    padding: 6px 8px;
     font-size: 11px;
-    border-radius: 3px;
+    border-radius: 5px;
+    transition-property: border-color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
 }
 
 .field TextField > .unity-text-field__input:focus,
@@ -221,7 +242,7 @@
 
 .row .field {
     flex-grow: 1;
-    margin-right: 4px;
+    margin-right: 6px;
 }
 
 .color-row {
@@ -230,13 +251,13 @@
 }
 
 .swatch {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-width: 1px;
-    border-color: #334155;
-    border-radius: 4px;
+    border-color: #2A3A52;
+    border-radius: 5px;
     flex-shrink: 0;
-    margin-left: 4px;
+    margin-left: 6px;
 }
 
 .toggle-row {
@@ -252,50 +273,55 @@
 }
 
 .no-select Label {
-    color: #64748B;
+    color: #475569;
     font-size: 10px;
 }
 
 /* ── Status Bar ── */
 #statusbar {
-    background-color: #2563EB;
-    padding: 3px 12px;
+    background-color: #1D4ED8;
+    padding: 4px 14px;
     flex-direction: row;
     align-items: center;
-    min-height: 22px;
+    min-height: 24px;
     flex-shrink: 0;
 }
 
 #statusbar > Label {
     color: #FFFFFF;
     font-size: 10px;
-    margin: 0 8px;
+    margin: 0 10px;
+    opacity: 0.9;
 }
 
 #statusbar .dim {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 /* ── Overlay Quick List ── */
 #overlay-list {
     flex-grow: 1;
-    padding: 4px 8px;
+    padding: 6px 10px;
 }
 
 .row-item {
     flex-direction: row;
     align-items: center;
-    padding: 5px 6px;
-    border-radius: 4px;
+    padding: 6px 8px;
+    border-radius: 5px;
     margin-bottom: 2px;
+    transition-property: background-color;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
 }
 
 .row-item:hover {
-    background-color: #334155;
+    background-color: #1A2235;
 }
 
 .row-item.active {
     background-color: #3B82F6;
+    opacity: 0.93;
 }
 
 .row-item .dot {
@@ -303,24 +329,24 @@
     height: 6px;
     border-radius: 3px;
     flex-shrink: 0;
-    margin-right: 6px;
+    margin-right: 8px;
 }
 
 .row-item .name {
     flex-grow: 1;
     overflow: hidden;
-    color: #F1F5F9;
+    color: #CBD5E1;
     font-size: 10px;
 }
 
 .row-item .eye {
     font-size: 10px;
-    color: #94A3B8;
+    color: #64748B;
     padding: 0 2px;
 }
 
 .row-item .eye.hidden {
-    color: #64748B;
+    color: #334155;
 }
 
 /* ── Extend area ── */
@@ -329,12 +355,12 @@
     align-items: center;
     justify-content: center;
     border-top-width: 1px;
-    border-top-color: #334155;
-    margin: 0 8px;
+    border-top-color: #1E293B;
+    margin: 0 10px;
 }
 
 .extend Label {
-    color: #64748B;
+    color: #475569;
     font-size: 10px;
     -unity-text-align: middle-center;
 }

@@ -95,6 +95,8 @@
     <Compile Include="Info.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="BundleLoader.cs" />
+    <Compile Include="Config\OverlayConfig.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="UI\MainUI.cs" />
     <Compile Include="UI\EditorUI.cs" />
   </ItemGroup>
