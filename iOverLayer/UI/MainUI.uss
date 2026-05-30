@@ -237,9 +237,9 @@
 .json-file-item {
     flex-direction: row;
     align-items: center;
-    padding: 7px 10px;
+    padding: 4px 10px;
     border-radius: 7px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     background-color: transparent;
     transition-property: background-color;
     transition-duration: 0.12s;

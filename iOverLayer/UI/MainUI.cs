@@ -169,15 +169,17 @@ namespace iOverlayer.UI
 
             if (_jsonPanelExpanded)
             {
-                PositionDropdownPanel();
+                _jsonArrowBtn.text = "▲";
+                PopulateJsonDetailPanel();
                 _jsonDetailPanel.style.display = DisplayStyle.Flex;
-                _jsonDetailPanel.schedule.Execute(() =>
+
+                // Position and animate after layout is computed
+                _root.schedule.Execute(() =>
                 {
+                    PositionDropdownPanel();
                     _jsonDetailPanel.AddToClassList("expanded");
                     _jsonArrowBtn.AddToClassList("expanded");
                 }).StartingIn(16);
-                _jsonArrowBtn.text = "▲";
-                PopulateJsonDetailPanel();
             }
             else
             {
@@ -196,12 +198,12 @@ namespace iOverlayer.UI
         {
             if (_jsonTextField == null || _jsonDetailPanel == null) return;
 
-            var selectWorld = _jsonTextField.parent.worldBound;
-            var rootWorld = _root.worldBound;
+            var containerWorld = _jsonTextField.parent.worldBound;
+            var parentWorld = _jsonDetailPanel.parent.worldBound;
 
-            _jsonDetailPanel.style.left = selectWorld.x - rootWorld.x;
-            _jsonDetailPanel.style.top = selectWorld.yMax - rootWorld.y + 4;
-            _jsonDetailPanel.style.width = selectWorld.width;
+            _jsonDetailPanel.style.left = containerWorld.x - parentWorld.x;
+            _jsonDetailPanel.style.top = containerWorld.yMax - parentWorld.y + 4;
+            _jsonDetailPanel.style.width = containerWorld.width;
         }
 
         private void PopulateJsonDetailPanel()
@@ -245,12 +247,18 @@ namespace iOverlayer.UI
 
         private void OnJsonFileClicked(ClickEvent evt)
         {
-            if (evt.target is VisualElement target && target.userData is string fileName)
+            var element = evt.target as VisualElement;
+            while (element != null)
             {
-                if (_jsonTextField != null)
-                    _jsonTextField.value = fileName;
+                if (element.userData is string fileName)
+                {
+                    if (_jsonTextField != null)
+                        _jsonTextField.value = fileName;
 
-                CollapseJsonPanel();
+                    CollapseJsonPanel();
+                    return;
+                }
+                element = element.parent;
             }
         }
 
