@@ -44,17 +44,59 @@
                     <ui:TextField value="" class="json-select-text" is-read-only="true" />
                     <ui:Button text="▼" class="json-arrow-btn" tooltip="选择文件" />
                 </ui:VisualElement>
+                <ui:VisualElement class="header-spacer" />
                 <ui:Button text="刷新" class="refresh-btn" />
                 <ui:Button text="打开编辑器" class="open-editor-btn" />
                 <ui:Button text="×" class="close-btn" tooltip="关闭" />
             </ui:VisualElement>
 
-            <!-- Item list (populated at runtime) -->
-            <ui:ScrollView class="item-list" />
+            <!-- Page: Main (default) -->
+            <ui:VisualElement class="page-panel" name="page-main">
+                <!-- Item list (populated at runtime) -->
+                <ui:ScrollView class="item-list" />
 
-            <!-- Extension area -->
-            <ui:VisualElement class="extension-area">
-                <ui:Label text="预留扩展区域" />
+                <!-- Extension area -->
+                <ui:VisualElement class="extension-area">
+                    <ui:Label text="预留扩展区域" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Page: About (hidden by default) -->
+            <ui:VisualElement class="page-panel" name="page-about" style="display:none;">
+                <ui:VisualElement class="about-content">
+                    <ui:VisualElement class="about-logo">
+                        <ui:Label text="i" />
+                    </ui:VisualElement>
+                    <ui:Label text="iOverlayer" class="about-name" />
+                    <ui:Label text="Version 0.1.0" class="about-version" />
+
+                    <ui:VisualElement class="about-meta">
+                        <ui:VisualElement class="about-meta-row">
+                            <ui:VisualElement class="about-meta-item">
+                                <ui:Label text="构建版本" class="about-meta-label" />
+                                <ui:Label text="2026.0519.1" class="about-meta-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="about-meta-item">
+                                <ui:Label text="引擎" class="about-meta-label" />
+                                <ui:Label text="Unity 6000.0" class="about-meta-value" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="about-meta-row">
+                            <ui:VisualElement class="about-meta-item">
+                                <ui:Label text="运行环境" class="about-meta-label" />
+                                <ui:Label text="Windows 11" class="about-meta-value" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="about-meta-item">
+                                <ui:Label text="作者" class="about-meta-label" />
+                                <ui:Label text="starriver &amp; Sam1na" class="about-meta-value" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="extension-area about-extension">
+                        <ui:Label text="检查更新 / 反馈 / 许可协议" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 

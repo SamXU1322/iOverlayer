@@ -32,6 +32,10 @@ namespace iOverlayer.UI
         private ScrollView _itemList;
 
         private List<Button> _navButtons;
+        private VisualElement _pageMain;
+        private VisualElement _pageAbout;
+        private VisualElement _jsonSelectContainer;
+        private Label _itemCountLabel;
 
         private void Awake()
         {
@@ -71,6 +75,10 @@ namespace iOverlayer.UI
             _jsonDetailPanel = _root.Q<VisualElement>(className: "json-dropdown-panel");
             _itemList = _root.Q<ScrollView>(className: "item-list");
             _navButtons = _root.Query<Button>(className: "nav-item").ToList();
+            _pageMain = _root.Q<VisualElement>(name: "page-main");
+            _pageAbout = _root.Q<VisualElement>(name: "page-about");
+            _jsonSelectContainer = _root.Q<VisualElement>(className: "json-select-container");
+            _itemCountLabel = _itemCount;
         }
 
         private void RegisterCallbacks()
@@ -131,7 +139,23 @@ namespace iOverlayer.UI
 
         private void RefreshContent(string tabName)
         {
-            
+            var isAbout = tabName == "关于";
+
+            // Toggle page panels
+            if (_pageMain != null)
+                _pageMain.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_pageAbout != null)
+                _pageAbout.style.display = isAbout ? DisplayStyle.Flex : DisplayStyle.None;
+
+            // Toggle header controls
+            if (_jsonSelectContainer != null)
+                _jsonSelectContainer.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_refreshBtn != null)
+                _refreshBtn.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_openEditorBtn != null)
+                _openEditorBtn.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_itemCountLabel != null)
+                _itemCountLabel.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
         private VisualElement CreateDummyListItem(int index, string title)

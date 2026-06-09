@@ -139,12 +139,15 @@
 
 /* ── JSON select ── */
 .json-select-container {
-    flex-grow: 1;
     flex-direction: row;
     align-items: center;
     margin-left: 12px;
     margin-right: 12px;
-    max-width: 240px;
+    width: 240px;
+}
+
+.header-spacer {
+    flex-grow: 1;
 }
 
 .json-select-text {
@@ -404,4 +407,85 @@
 .extension-area > .unity-label {
     color: #475569;
     font-size: 12px;
+}
+
+/* ── Page panels ── */
+.page-panel {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+/* ── About page ── */
+.about-content {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-logo {
+    width: 48px;
+    height: 48px;
+    background-color: #3B82F6;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    opacity: 0.95;
+}
+
+.about-logo > .unity-label {
+    color: #FFFFFF;
+    font-size: 24px;
+    -unity-font-style: bold;
+}
+
+.about-name {
+    color: #F1F5F9;
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+    opacity: 0.9;
+}
+
+.about-version {
+    color: #64748B;
+    font-size: 11px;
+    margin-bottom: 16px;
+}
+
+.about-meta {
+    flex-direction: column;
+    width: 320px;
+}
+
+.about-meta-row {
+    flex-direction: row;
+}
+
+.about-meta-item {
+    flex-grow: 1;
+    background-color: #111827;
+    border-width: 1px;
+    border-color: #1E293B;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 3px;
+}
+
+.about-meta-label {
+    color: #64748B;
+    font-size: 9px;
+}
+
+.about-meta-value {
+    color: #F1F5F9;
+    font-size: 12px;
+    margin-top: 3px;
+    opacity: 0.9;
+}
+
+.about-extension {
+    width: 320px;
+    margin-top: 16px;
 }

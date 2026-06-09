@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="MainUI.uss" />
+
+    <ui:VisualElement class="about-content">
+        <ui:VisualElement class="about-logo">
+            <ui:Label text="i" />
+        </ui:VisualElement>
+        <ui:Label text="iOverlayer" class="about-name" />
+        <ui:Label text="Version 0.1.0" class="about-version" />
+
+        <ui:VisualElement class="about-meta">
+            <ui:VisualElement class="about-meta-row">
+                <ui:VisualElement class="about-meta-item">
+                    <ui:Label text="构建版本" class="about-meta-label" />
+                    <ui:Label text="2026.0519.1" class="about-meta-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="about-meta-item">
+                    <ui:Label text="引擎" class="about-meta-label" />
+                    <ui:Label text="Unity 6000.0" class="about-meta-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="about-meta-row">
+                <ui:VisualElement class="about-meta-item">
+                    <ui:Label text="运行环境" class="about-meta-label" />
+                    <ui:Label text="Windows 11" class="about-meta-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="about-meta-item">
+                    <ui:Label text="作者" class="about-meta-label" />
+                    <ui:Label text="starriver &amp; Sam1na" class="about-meta-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="extension-area about-extension">
+            <ui:Label text="检查更新 / 反馈 / 许可协议" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
