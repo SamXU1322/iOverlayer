@@ -100,7 +100,13 @@
     <Compile Include="Config\OverlayConfig.cs" />
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="UI\MainUI.cs" />
-    <Compile Include="UI\EditorUI.cs" />
+    <Compile Include="Editor\EditorUI.cs" />
+    <Compile Include="Editor\TopBar.cs" />
+    <Compile Include="Editor\Toolbar.cs" />
+    <Compile Include="Editor\PropertyPanel.cs" />
+    <Compile Include="Editor\StatusBar.cs" />
+    <Compile Include="Editor\FileDialog.cs" />
+    <Compile Include="Editor\CanvasArea.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
