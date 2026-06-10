@@ -107,6 +107,7 @@
     <Compile Include="Editor\StatusBar.cs" />
     <Compile Include="Editor\FileDialog.cs" />
     <Compile Include="Editor\CanvasArea.cs" />
+    <Compile Include="Editor\EditorTool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

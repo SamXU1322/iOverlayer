@@ -24,10 +24,12 @@ namespace iOverlayer.Editor
             _topBar = new TopBar();
             _topBar.Bind(_root);
 
+            _canvasArea = new CanvasArea();
+
             _toolbar = new Toolbar();
             _toolbar.Bind(_root);
+            _toolbar.ToolChanged += tool => _canvasArea.CurrentTool = tool;
 
-            _canvasArea = new CanvasArea();
             _canvasArea.Bind(_root);
 
             _propertyPanel = new PropertyPanel();
