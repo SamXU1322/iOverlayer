@@ -21,6 +21,7 @@ namespace iOverlayer.Editor
             _toolText = root.Q<Button>("tool-text");
             _toolSelect = root.Q<Button>("tool-select");
             RegisterCallbacks();
+            _currentTool = EditorTool.Text;
             SetTool(EditorTool.Select);
         }
 
@@ -48,8 +49,9 @@ namespace iOverlayer.Editor
             _onSelectClicked = null;
         }
 
-        private void SetTool(EditorTool tool)
+        public void SetTool(EditorTool tool)
         {
+            if (_currentTool == tool) return;
             _currentTool = tool;
 
             _toolText?.EnableInClassList("active", tool == EditorTool.Text);

@@ -5,18 +5,53 @@ namespace iOverlayer.Editor
 {
     public static class FileDialog
     {
-        public static string ShowFilePicker(string title, string fileTypeFilter)
+        public static string ShowFilePicker(string title, string fileTypeFilter, string initialDirectory = null)
         {
             var dialog = (IFileOpenDialog)Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid("DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7")));
             try
             {
-                var docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                SHCreateItemFromParsingName(docsPath, IntPtr.Zero, typeof(IShellItem).GUID, out IShellItem initialFolder);
+                var okLabel = "打开";
+                var startPath = initialDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                SHCreateItemFromParsingName(startPath, IntPtr.Zero, typeof(IShellItem).GUID, out IShellItem initialFolder);
 
                 dialog.SetOptions(FOS.FORCEFILESYSTEM | FOS.FILEMUSTEXIST | FOS.DONTADDTORECENT);
                 dialog.SetTitle(title);
                 dialog.SetFileName("");
-                dialog.SetOkButtonLabel("打开");
+                dialog.SetOkButtonLabel(okLabel);
+
+                var filter = new COMDLG_FILTERSPEC { pszName = "JSON Files", pszSpec = fileTypeFilter };
+                dialog.SetFileTypes(1, ref filter);
+
+                if (initialFolder != null)
+                    dialog.SetFolder(initialFolder);
+
+                if (dialog.Show(IntPtr.Zero) != 0)
+                    return null;
+
+                dialog.GetResult(out IShellItem result);
+                result.GetDisplayName(SIGDN.FILESYSPATH, out string path);
+                return path;
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(dialog);
+            }
+        }
+
+        public static string ShowFileSavePicker(string title, string fileTypeFilter, string defaultName, string initialDirectory = null)
+        {
+            var dialogType = Type.GetTypeFromCLSID(new Guid("C0B4E2F3-BA21-4773-8DBA-335EC946EB8B"));
+            var dialog = (IFileOpenDialog)Activator.CreateInstance(dialogType);
+            try
+            {
+                var okLabel = "保存";
+                var startPath = initialDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                SHCreateItemFromParsingName(startPath, IntPtr.Zero, typeof(IShellItem).GUID, out IShellItem initialFolder);
+
+                dialog.SetOptions(FOS.OVERWRITEPROMPT | FOS.FORCEFILESYSTEM | FOS.DONTADDTORECENT);
+                dialog.SetTitle(title);
+                dialog.SetFileName(defaultName);
+                dialog.SetOkButtonLabel(okLabel);
 
                 var filter = new COMDLG_FILTERSPEC { pszName = "JSON Files", pszSpec = fileTypeFilter };
                 dialog.SetFileTypes(1, ref filter);

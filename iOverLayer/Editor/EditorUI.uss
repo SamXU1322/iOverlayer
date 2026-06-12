@@ -169,6 +169,12 @@
     height: 100%;
 }
 
+#canvas > Label.selected {
+    background-color: rgba(59, 130, 246, 0.12);
+    outline-width: 1px;
+    outline-color: #3B82F6;
+}
+
 /* ── Right Panel ── */
 #panel {
     width: 220px;
