@@ -38,5 +38,5 @@
 
 ## 📝 制作名单 (Credits)
 
-- **作者**: Sam1na & StarRiver
+- **作者**: Sam1nA & StarRiver
 - **开源地址**: [https://github.com/SamXU1322/iOverlayer](https://github.com/SamXU1322/iOverlayer)
