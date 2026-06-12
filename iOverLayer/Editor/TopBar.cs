@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -9,6 +10,9 @@ namespace iOverlayer.Editor
 {
     public class TopBar
     {
+        public event Action SaveClicked;
+        public event Action NewClicked;
+        public event Action OpenClicked;
         private Button _btnNew;
         private Button _btnOpen;
         private Button _btnSave;
@@ -56,22 +60,17 @@ namespace iOverlayer.Editor
 
         private void OnNewClicked()
         {
-            MelonLogger.Msg("Editor: 新建 JSON");
+            NewClicked?.Invoke();
         }
 
         private void OnOpenClicked()
         {
-            var filePath = FileDialog.ShowFilePicker("选择 JSON 文件", "*.json");
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                MelonLogger.Msg($"Editor: 打开文件 → {filePath}");
-                ConfigManager.EnsureConfigDirectory();
-            }
+            OpenClicked?.Invoke();
         }
 
         private void OnSaveClicked()
         {
-            MelonLogger.Msg("Editor: 保存");
+            SaveClicked?.Invoke();
         }
 
         private void OnCloseClicked()
