@@ -14,6 +14,7 @@ namespace iOverlayer.Config
         public string color;
         public string font;
         public bool enabled;
+        public float width;
     }
 
     [Serializable]

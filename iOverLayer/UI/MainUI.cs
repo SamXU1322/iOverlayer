@@ -148,15 +148,16 @@ namespace iOverlayer.UI
             if (_pageAbout != null)
                 _pageAbout.style.display = isAbout ? DisplayStyle.Flex : DisplayStyle.None;
 
-            // Toggle header controls
+            // Hide controls visually but keep them in layout so close-btn doesn't shift
+            var hidden = isAbout ? Visibility.Hidden : Visibility.Visible;
             if (_jsonSelectContainer != null)
-                _jsonSelectContainer.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+                _jsonSelectContainer.style.visibility = hidden;
             if (_refreshBtn != null)
-                _refreshBtn.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+                _refreshBtn.style.visibility = hidden;
             if (_openEditorBtn != null)
-                _openEditorBtn.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+                _openEditorBtn.style.visibility = hidden;
             if (_itemCountLabel != null)
-                _itemCountLabel.style.display = isAbout ? DisplayStyle.None : DisplayStyle.Flex;
+                _itemCountLabel.style.visibility = hidden;
         }
 
         private VisualElement CreateDummyListItem(int index, string title)

@@ -20,6 +20,12 @@ namespace iOverlayer.Editor
         private VisualElement _dragElement;
         private Vector2 _dragStartMouse;
         private Vector2 _dragStartPos;
+        private bool _justCreatedText;
+
+        private VisualElement _resizeHandle;
+        private bool _isResizing;
+        private Vector2 _resizeStartMouse;
+        private float _resizeStartWidth;
 
         public VisualElement Wrap => _canvasWrap;
         public VisualElement Canvas => _canvas;
@@ -39,18 +45,18 @@ namespace iOverlayer.Editor
         {
             _canvasWrap = root.Q<VisualElement>("canvas-wrap");
             _canvas = root.Q<VisualElement>("canvas");
-
             RegisterCallbacks();
         }
 
         public void Unbind()
         {
+            ClearSelection();
             UnregisterCallbacks();
             _canvasWrap = null;
             _canvas = null;
-            _selectedElement = null;
             _dragElement = null;
             _isDragging = false;
+            _isResizing = false;
         }
 
         private void RegisterCallbacks()
@@ -63,6 +69,7 @@ namespace iOverlayer.Editor
 
         private void UnregisterCallbacks()
         {
+            if (_canvas == null) return;
             _canvas.UnregisterCallback<ClickEvent>(OnCanvasClick);
             _canvas.UnregisterCallback<PointerDownEvent>(OnCanvasPointerDown);
             _canvas.UnregisterCallback<PointerMoveEvent>(OnCanvasPointerMove);
@@ -85,7 +92,6 @@ namespace iOverlayer.Editor
         private void HandleTextClick(ClickEvent evt)
         {
             var target = evt.target as VisualElement;
-
             if (target is Label label && label.parent == _canvas)
             {
                 CurrentTool = EditorTool.Select;
@@ -93,6 +99,7 @@ namespace iOverlayer.Editor
             }
             else
             {
+                _justCreatedText = true;
                 CreateText(evt.localPosition);
             }
         }
@@ -100,12 +107,11 @@ namespace iOverlayer.Editor
         private void HandleSelectClick(ClickEvent evt)
         {
             var target = evt.target as VisualElement;
-
             if (target is Label label && label.parent == _canvas)
             {
                 SelectElement(label);
             }
-            else
+            else if (target != _resizeHandle)
             {
                 ClearSelection();
             }
@@ -120,6 +126,10 @@ namespace iOverlayer.Editor
             label.style.fontSize = 32;
             label.style.color = Color.black;
             label.style.whiteSpace = WhiteSpace.Normal;
+            label.style.paddingLeft = 4;
+            label.style.paddingRight = 4;
+            label.style.paddingTop = 2;
+            label.style.paddingBottom = 2;
 
             ApplyFont(label, "Arial");
             _canvas.Add(label);
@@ -136,6 +146,9 @@ namespace iOverlayer.Editor
             {
                 if (child is Label label)
                 {
+                    var w = label.style.width;
+                    var explicitWidth = (w.keyword == StyleKeyword.Undefined || w.keyword == StyleKeyword.Auto)
+                        ? 0f : w.value.value;
                     configs.Add(new OverlayConfig
                     {
                         id = System.Guid.NewGuid().ToString("N"),
@@ -145,7 +158,8 @@ namespace iOverlayer.Editor
                         fontSize = Mathf.RoundToInt(label.resolvedStyle.fontSize),
                         color = "#" + ColorUtility.ToHtmlStringRGB(label.resolvedStyle.color),
                         font = label.userData as string ?? "Arial",
-                        enabled = label.resolvedStyle.display != DisplayStyle.None
+                        enabled = label.resolvedStyle.display != DisplayStyle.None,
+                        width = explicitWidth
                     });
                 }
             }
@@ -183,7 +197,6 @@ namespace iOverlayer.Editor
         public void LoadFromConfigs(List<OverlayConfig> configs)
         {
             ClearAll();
-
             foreach (var config in configs)
             {
                 var label = new Label(config.text);
@@ -192,6 +205,8 @@ namespace iOverlayer.Editor
                 label.style.top = config.y;
                 label.style.fontSize = config.fontSize;
                 label.style.whiteSpace = WhiteSpace.Normal;
+                if (config.width > 0)
+                    label.style.width = config.width;
 
                 if (ColorUtility.TryParseHtmlString(config.color, out Color c))
                     label.style.color = c;
@@ -209,6 +224,18 @@ namespace iOverlayer.Editor
             ClearSelection();
             _selectedElement = element;
             _selectedElement.AddToClassList("selected");
+            _selectedElement.RegisterCallback<GeometryChangedEvent>(OnSelectedGeometryChanged);
+
+            _resizeHandle = new VisualElement();
+            _resizeHandle.AddToClassList("resize-handle");
+            _canvas.Add(_resizeHandle);
+            UpdateResizeHandlePosition();
+
+            _resizeHandle.RegisterCallback<PointerDownEvent>(OnResizePointerDown);
+            _resizeHandle.RegisterCallback<PointerMoveEvent>(OnResizePointerMove);
+            _resizeHandle.RegisterCallback<PointerUpEvent>(OnResizePointerUp);
+            _resizeHandle.RegisterCallback<ClickEvent>(evt => evt.StopPropagation());
+
             SelectionChanged?.Invoke(element);
         }
 
@@ -216,24 +243,81 @@ namespace iOverlayer.Editor
         {
             if (_selectedElement != null)
             {
+                _selectedElement.UnregisterCallback<GeometryChangedEvent>(OnSelectedGeometryChanged);
                 _selectedElement.RemoveFromClassList("selected");
                 _selectedElement = null;
             }
+            if (_resizeHandle != null)
+            {
+                _resizeHandle.RemoveFromHierarchy();
+                _resizeHandle = null;
+            }
             SelectionChanged?.Invoke(null);
+        }
+
+        private void OnSelectedGeometryChanged(GeometryChangedEvent evt)
+        {
+            UpdateResizeHandlePosition();
+        }
+
+        private void UpdateResizeHandlePosition()
+        {
+            if (_selectedElement == null || _resizeHandle == null) return;
+            var s = _selectedElement.resolvedStyle;
+            // Place handle at bottom-right corner, half-overlapping the border
+            _resizeHandle.style.left = s.left + s.width - 5;
+            _resizeHandle.style.top = s.top + s.height - 5;
+        }
+
+        private void OnResizePointerDown(PointerDownEvent evt)
+        {
+            if (_selectedElement == null) return;
+            _isResizing = true;
+            _resizeStartMouse = evt.position;
+            var w = _selectedElement.style.width;
+            _resizeStartWidth = (w.keyword == StyleKeyword.Undefined || w.keyword == StyleKeyword.Auto)
+                ? _selectedElement.resolvedStyle.width
+                : w.value.value;
+            _resizeHandle.CapturePointer(evt.pointerId);
+            evt.StopPropagation();
+        }
+
+        private void OnResizePointerMove(PointerMoveEvent evt)
+        {
+            if (!_isResizing || _selectedElement == null) return;
+            if (!_resizeHandle.HasPointerCapture(evt.pointerId)) return;
+            var delta = evt.position.x - _resizeStartMouse.x;
+            _selectedElement.style.width = Mathf.Max(20f, _resizeStartWidth + delta);
+            evt.StopPropagation();
+        }
+
+        private void OnResizePointerUp(PointerUpEvent evt)
+        {
+            if (_isResizing)
+            {
+                if (_resizeHandle != null && _resizeHandle.HasPointerCapture(evt.pointerId))
+                    _resizeHandle.ReleasePointer(evt.pointerId);
+                ContentChanged?.Invoke();
+                if (_selectedElement != null) SelectionChanged?.Invoke(_selectedElement);
+            }
+            _isResizing = false;
+            evt.StopPropagation();
         }
 
         private void OnCanvasPointerDown(PointerDownEvent evt)
         {
             if (CurrentTool != EditorTool.Select) return;
+            if (evt.target == _resizeHandle) return;
 
             var target = evt.target as VisualElement;
-            if (target is Label label && label.parent == _canvas && label.ClassListContains("selected"))
+            if (target is Label label && label.parent == _canvas && label.ClassListContains("selected") && !_justCreatedText)
             {
                 _isDragging = true;
                 _dragElement = label;
                 _dragStartMouse = evt.localPosition;
                 _dragStartPos = new Vector2(label.resolvedStyle.left, label.resolvedStyle.top);
                 _dragElement.BringToFront();
+                if (_resizeHandle != null) _resizeHandle.BringToFront();
                 evt.StopPropagation();
             }
         }
@@ -241,7 +325,6 @@ namespace iOverlayer.Editor
         private void OnCanvasPointerMove(PointerMoveEvent evt)
         {
             if (!_isDragging || _dragElement == null) return;
-
             var delta = (Vector2)evt.localPosition - _dragStartMouse;
             _dragElement.style.left = _dragStartPos.x + delta.x;
             _dragElement.style.top = _dragStartPos.y + delta.y;
@@ -254,9 +337,9 @@ namespace iOverlayer.Editor
                 SelectionChanged?.Invoke(_dragElement);
                 ContentChanged?.Invoke();
             }
-
             _isDragging = false;
             _dragElement = null;
+            _justCreatedText = false;
         }
     }
 }

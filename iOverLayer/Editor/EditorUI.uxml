@@ -22,9 +22,9 @@
         <!-- Main Area -->
         <ui:VisualElement name="main">
             <!-- Toolbar -->
-            <ui:VisualElement name="toolbar">
-                <ui:Button text="T" class="tool active" name="tool-text" tooltip="文字工具" />
+            <ui:VisualElement name="toolbar">、
                 <ui:Button text="↖" class="tool" name="tool-select" tooltip="选择工具" />
+                <ui:Button text="T" class="tool active" name="tool-text" tooltip="文字工具" />
                 <ui:VisualElement class="sep" />
                 <ui:Label text="+" class="placeholder" />
                 <ui:Label text="+" class="placeholder" />
@@ -67,7 +67,7 @@
                             <ui:IntegerField name="prop-fontSize" />
                         </ui:VisualElement>
 
-                        <ui:VisualElement class="field">
+                        <ui:VisualElement class="field" name="field-color">
                             <ui:Label text="颜色" />
                             <ui:VisualElement class="color-row">
                                 <ui:TextField name="prop-color" style="flex-grow: 1;" />
@@ -75,9 +75,32 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
 
-                        <ui:VisualElement class="field">
+                        <ui:VisualElement name="color-picker-popup" class="field-popup" style="display: none;">
+                            <ui:VisualElement class="picker-header">
+                                <ui:Label text="选择颜色" class="picker-title" />
+                                <ui:Button text="×" name="picker-close" class="picker-close-btn" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="picker-body" class="picker-body" />
+                            <ui:VisualElement class="picker-footer">
+                                <ui:VisualElement name="picker-preview" class="picker-preview" />
+                                <ui:TextField name="picker-hex" class="picker-hex" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="field" name="field-font">
                             <ui:Label text="字体" />
-                            <ui:DropdownField name="prop-font" choices="Arial,Consolas,微软雅黑,SimSun,KaiTi,Times New Roman,Courier New,Verdana,Georgia" />
+                            <ui:Button name="prop-font" text="Arial" class="font-btn" />
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="font-picker-popup" class="field-popup" style="display: none;">
+                            <ui:VisualElement class="picker-header">
+                                <ui:Label text="选择字体" class="picker-title" />
+                                <ui:Button text="×" name="font-picker-close" class="picker-close-btn" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="font-picker-body" style="flex-direction: column; overflow: hidden;">
+                                <ui:TextField name="font-search" style="margin: 8px 10px;" />
+                                <ui:ScrollView name="font-list" class="font-list" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
 
                         <ui:VisualElement class="field">
