@@ -7,6 +7,7 @@ namespace iOverlayer.Config
     public class OverlayConfig
     {
         public string id;
+        public string name;
         public string text;
         public float x;
         public float y;
@@ -14,6 +15,7 @@ namespace iOverlayer.Config
         public string color;
         public string font;
         public bool enabled;
+        public bool locked;
         public float width;
     }
 

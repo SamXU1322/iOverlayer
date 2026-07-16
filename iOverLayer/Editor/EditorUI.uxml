@@ -23,8 +23,8 @@
         <ui:VisualElement name="main">
             <!-- Toolbar -->
             <ui:VisualElement name="toolbar">、
-                <ui:Button text="↖" class="tool" name="tool-select" tooltip="选择工具" />
-                <ui:Button text="T" class="tool active" name="tool-text" tooltip="文字工具" />
+                <ui:Button text="↖" class="tool active" name="tool-select" tooltip="选择工具" />
+                <ui:Button text="T" class="tool" name="tool-text" tooltip="文字工具" />
                 <ui:VisualElement class="sep" />
                 <ui:Label text="+" class="placeholder" />
                 <ui:Label text="+" class="placeholder" />
@@ -105,19 +105,13 @@
 
                         <ui:VisualElement class="field">
                             <ui:VisualElement class="toggle-row">
-                                <ui:Label text="显示" />
+                                <ui:Label text="启用" />
                                 <ui:Toggle name="prop-enabled" value="true" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-
-                <!-- Overlay quick list -->
-                <ui:ScrollView name="overlay-list" />
-
-                <ui:VisualElement class="extend" name="extend-hint">
-                    <ui:Label text="← 图层快速选择 →" />
-                </ui:VisualElement>
+                <ui:ScrollView class="extend" name="overlay-list" />
             </ui:VisualElement>
         </ui:VisualElement>
 

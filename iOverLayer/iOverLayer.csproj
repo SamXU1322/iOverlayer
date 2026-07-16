@@ -116,6 +116,8 @@
     <Compile Include="Editor\FileDialog.cs" />
     <Compile Include="Editor\CanvasArea.cs" />
     <Compile Include="Editor\EditorTool.cs" />
+    <Compile Include="Editor\LabelData.cs" />
+    <Compile Include="Editor\OverlayList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

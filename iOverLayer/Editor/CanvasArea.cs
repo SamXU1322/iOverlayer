@@ -5,11 +5,16 @@ using iOverlayer.Config;
 
 namespace iOverlayer.Editor
 {
+    public enum ResizeDir { Left, Top, Right, Bottom, TopLeft, TopRight, BottomLeft, BottomRight }
+
     public class CanvasArea
     {
         public event System.Action<EditorTool> ToolChanged;
         public event System.Action<VisualElement> SelectionChanged;
         public event System.Action ContentChanged;
+        public event System.Action OverlaysChanged;
+
+        private int _textCounter;
 
         private VisualElement _canvasWrap;
         private VisualElement _canvas;
@@ -22,10 +27,12 @@ namespace iOverlayer.Editor
         private Vector2 _dragStartPos;
         private bool _justCreatedText;
 
-        private VisualElement _resizeHandle;
+        private readonly VisualElement[] _resizeHandles = new VisualElement[8];
+        private ResizeDir _activeDir;
         private bool _isResizing;
         private Vector2 _resizeStartMouse;
-        private float _resizeStartWidth;
+        private Vector2 _resizeStartPos;
+        private Vector2 _resizeStartSize;
 
         public VisualElement Wrap => _canvasWrap;
         public VisualElement Canvas => _canvas;
@@ -94,8 +101,10 @@ namespace iOverlayer.Editor
             var target = evt.target as VisualElement;
             if (target is Label label && label.parent == _canvas)
             {
-                CurrentTool = EditorTool.Select;
-                SelectElement(label);
+                if (!LabelData.Of(label).locked)
+                {
+                    SelectElement(label);
+                }
             }
             else
             {
@@ -109,9 +118,10 @@ namespace iOverlayer.Editor
             var target = evt.target as VisualElement;
             if (target is Label label && label.parent == _canvas)
             {
-                SelectElement(label);
+                if (!LabelData.Of(label).locked)
+                    SelectElement(label);
             }
-            else if (target != _resizeHandle)
+            else if (!IsResizeHandle(target))
             {
                 ClearSelection();
             }
@@ -124,19 +134,21 @@ namespace iOverlayer.Editor
             label.style.left = position.x;
             label.style.top = position.y;
             label.style.fontSize = 32;
-            label.style.color = Color.black;
+            label.style.color = Color.white;
             label.style.whiteSpace = WhiteSpace.Normal;
             label.style.paddingLeft = 4;
             label.style.paddingRight = 4;
             label.style.paddingTop = 2;
             label.style.paddingBottom = 2;
 
+            var data = LabelData.Of(label);
+            data.name = "文本 " + (++_textCounter);
             ApplyFont(label, "Arial");
             _canvas.Add(label);
 
-            CurrentTool = EditorTool.Select;
             SelectElement(label);
             ContentChanged?.Invoke();
+            OverlaysChanged?.Invoke();
         }
 
         public List<OverlayConfig> GetOverlayConfigs()
@@ -149,16 +161,19 @@ namespace iOverlayer.Editor
                     var w = label.style.width;
                     var explicitWidth = (w.keyword == StyleKeyword.Undefined || w.keyword == StyleKeyword.Auto)
                         ? 0f : w.value.value;
+                    var data = LabelData.Of(label);
                     configs.Add(new OverlayConfig
                     {
                         id = System.Guid.NewGuid().ToString("N"),
+                        name = data.name,
                         text = label.text,
                         x = label.resolvedStyle.left,
                         y = label.resolvedStyle.top,
                         fontSize = Mathf.RoundToInt(label.resolvedStyle.fontSize),
                         color = "#" + ColorUtility.ToHtmlStringRGB(label.resolvedStyle.color),
-                        font = label.userData as string ?? "Arial",
-                        enabled = label.resolvedStyle.display != DisplayStyle.None,
+                        font = data.font ?? "Arial",
+                        enabled = label.style.display != DisplayStyle.None,
+                        locked = data.locked,
                         width = explicitWidth
                     });
                 }
@@ -170,12 +185,64 @@ namespace iOverlayer.Editor
         {
             ClearSelection();
             _canvas.Clear();
+            _textCounter = 0;
+            OverlaysChanged?.Invoke();
+        }
+
+        public List<Label> GetLabels()
+        {
+            var labels = new List<Label>();
+            foreach (var child in _canvas.Children())
+                if (child is Label label) labels.Add(label);
+            return labels;
+        }
+
+        public Label SelectedLabel => _selectedElement as Label;
+
+        public void SelectLabel(Label label)
+        {
+            CurrentTool = EditorTool.Select;
+            SelectElement(label);
+        }
+
+        public void RenameLabel(Label label, string newName)
+        {
+            LabelData.Of(label).name = newName;
+            ContentChanged?.Invoke();
+            OverlaysChanged?.Invoke();
+        }
+
+        public void SetLabelLocked(Label label, bool locked)
+        {
+            LabelData.Of(label).locked = locked;
+            if (locked && _selectedElement == label)
+                ClearSelection();
+            ContentChanged?.Invoke();
+            OverlaysChanged?.Invoke();
+        }
+
+        public void SetLabelVisible(Label label, bool visible)
+        {
+            label.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_selectedElement == label && _selectedElement != null)
+                SelectionChanged?.Invoke(_selectedElement);
+            ContentChanged?.Invoke();
+            OverlaysChanged?.Invoke();
+        }
+
+        public void DeleteLabel(Label label)
+        {
+            if (_selectedElement == label)
+                ClearSelection();
+            label.RemoveFromHierarchy();
+            ContentChanged?.Invoke();
+            OverlaysChanged?.Invoke();
         }
 
         private static void ApplyFont(Label label, string fontName)
         {
             if (string.IsNullOrEmpty(fontName)) return;
-            label.userData = fontName;
+            LabelData.Of(label).font = fontName;
             try
             {
                 var size = GetFontSize(label);
@@ -211,12 +278,16 @@ namespace iOverlayer.Editor
                 if (ColorUtility.TryParseHtmlString(config.color, out Color c))
                     label.style.color = c;
 
-                label.userData = config.font;
+                var data = LabelData.Of(label);
+                data.name = string.IsNullOrEmpty(config.name) ? "文本 " + (++_textCounter) : config.name;
+                data.font = config.font;
+                data.locked = config.locked;
                 label.style.display = config.enabled ? DisplayStyle.Flex : DisplayStyle.None;
 
                 ApplyFont(label, config.font);
                 _canvas.Add(label);
             }
+            OverlaysChanged?.Invoke();
         }
 
         private void SelectElement(VisualElement element)
@@ -226,15 +297,20 @@ namespace iOverlayer.Editor
             _selectedElement.AddToClassList("selected");
             _selectedElement.RegisterCallback<GeometryChangedEvent>(OnSelectedGeometryChanged);
 
-            _resizeHandle = new VisualElement();
-            _resizeHandle.AddToClassList("resize-handle");
-            _canvas.Add(_resizeHandle);
-            UpdateResizeHandlePosition();
-
-            _resizeHandle.RegisterCallback<PointerDownEvent>(OnResizePointerDown);
-            _resizeHandle.RegisterCallback<PointerMoveEvent>(OnResizePointerMove);
-            _resizeHandle.RegisterCallback<PointerUpEvent>(OnResizePointerUp);
-            _resizeHandle.RegisterCallback<ClickEvent>(evt => evt.StopPropagation());
+            var dirs = (ResizeDir[])System.Enum.GetValues(typeof(ResizeDir));
+            for (int i = 0; i < 8; i++)
+            {
+                var handle = new VisualElement();
+                handle.AddToClassList("resize-handle");
+                handle.userData = dirs[i];
+                handle.RegisterCallback<PointerDownEvent>(OnResizePointerDown);
+                handle.RegisterCallback<PointerMoveEvent>(OnResizePointerMove);
+                handle.RegisterCallback<PointerUpEvent>(OnResizePointerUp);
+                handle.RegisterCallback<ClickEvent>(evt => evt.StopPropagation());
+                _canvas.Add(handle);
+                _resizeHandles[i] = handle;
+            }
+            UpdateResizeHandlePositions();
 
             SelectionChanged?.Invoke(element);
         }
@@ -247,47 +323,92 @@ namespace iOverlayer.Editor
                 _selectedElement.RemoveFromClassList("selected");
                 _selectedElement = null;
             }
-            if (_resizeHandle != null)
+            for (int i = 0; i < 8; i++)
             {
-                _resizeHandle.RemoveFromHierarchy();
-                _resizeHandle = null;
+                if (_resizeHandles[i] != null)
+                {
+                    _resizeHandles[i].RemoveFromHierarchy();
+                    _resizeHandles[i] = null;
+                }
             }
             SelectionChanged?.Invoke(null);
         }
 
-        private void OnSelectedGeometryChanged(GeometryChangedEvent evt)
+        private bool IsResizeHandle(VisualElement target)
         {
-            UpdateResizeHandlePosition();
+            return target != null && target.ClassListContains("resize-handle");
         }
 
-        private void UpdateResizeHandlePosition()
+        private void OnSelectedGeometryChanged(GeometryChangedEvent evt)
         {
-            if (_selectedElement == null || _resizeHandle == null) return;
+            UpdateResizeHandlePositions();
+        }
+
+        private void UpdateResizeHandlePositions()
+        {
+            if (_selectedElement == null) return;
             var s = _selectedElement.resolvedStyle;
-            // Place handle at bottom-right corner, half-overlapping the border
-            _resizeHandle.style.left = s.left + s.width - 5;
-            _resizeHandle.style.top = s.top + s.height - 5;
+            float l = s.left, t = s.top, w = s.width, h = s.height;
+            float cx = l + w * 0.5f, cy = t + h * 0.5f;
+
+            // Positions for each dir: Left, Top, Right, Bottom, TopLeft, TopRight, BottomLeft, BottomRight
+            Vector2[] pos =
+            {
+                new Vector2(l - 5, cy - 5),
+                new Vector2(cx - 5, t - 5),
+                new Vector2(l + w - 5, cy - 5),
+                new Vector2(cx - 5, t + h - 5),
+                new Vector2(l - 5, t - 5),
+                new Vector2(l + w - 5, t - 5),
+                new Vector2(l - 5, t + h - 5),
+                new Vector2(l + w - 5, t + h - 5)
+            };
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (_resizeHandles[i] == null) continue;
+                _resizeHandles[i].style.left = pos[i].x;
+                _resizeHandles[i].style.top = pos[i].y;
+            }
         }
 
         private void OnResizePointerDown(PointerDownEvent evt)
         {
             if (_selectedElement == null) return;
+            var handle = evt.currentTarget as VisualElement;
+            _activeDir = (ResizeDir)handle.userData;
             _isResizing = true;
             _resizeStartMouse = evt.position;
-            var w = _selectedElement.style.width;
-            _resizeStartWidth = (w.keyword == StyleKeyword.Undefined || w.keyword == StyleKeyword.Auto)
-                ? _selectedElement.resolvedStyle.width
-                : w.value.value;
-            _resizeHandle.CapturePointer(evt.pointerId);
+            _resizeStartPos = new Vector2(_selectedElement.resolvedStyle.left, _selectedElement.resolvedStyle.top);
+            _resizeStartSize = new Vector2(_selectedElement.resolvedStyle.width, _selectedElement.resolvedStyle.height);
+            handle.CapturePointer(evt.pointerId);
             evt.StopPropagation();
         }
 
         private void OnResizePointerMove(PointerMoveEvent evt)
         {
             if (!_isResizing || _selectedElement == null) return;
-            if (!_resizeHandle.HasPointerCapture(evt.pointerId)) return;
-            var delta = evt.position.x - _resizeStartMouse.x;
-            _selectedElement.style.width = Mathf.Max(20f, _resizeStartWidth + delta);
+            var dx = evt.position.x - _resizeStartMouse.x;
+            var dy = evt.position.y - _resizeStartMouse.y;
+
+            float l = _resizeStartPos.x, t = _resizeStartPos.y;
+            float w = _resizeStartSize.x, h = _resizeStartSize.y;
+            const float min = 20f;
+
+            bool affectsL = _activeDir == ResizeDir.Left || _activeDir == ResizeDir.TopLeft || _activeDir == ResizeDir.BottomLeft;
+            bool affectsR = _activeDir == ResizeDir.Right || _activeDir == ResizeDir.TopRight || _activeDir == ResizeDir.BottomRight;
+            bool affectsT = _activeDir == ResizeDir.Top || _activeDir == ResizeDir.TopLeft || _activeDir == ResizeDir.TopRight;
+            bool affectsB = _activeDir == ResizeDir.Bottom || _activeDir == ResizeDir.BottomLeft || _activeDir == ResizeDir.BottomRight;
+
+            if (affectsL) { float nw = w - dx; if (nw >= min) { l += dx; w = nw; } }
+            if (affectsR) { float nw = w + dx; if (nw >= min) w = nw; }
+            if (affectsT) { float nh = h - dy; if (nh >= min) { t += dy; h = nh; } }
+            if (affectsB) { float nh = h + dy; if (nh >= min) h = nh; }
+
+            _selectedElement.style.left = l;
+            _selectedElement.style.top = t;
+            _selectedElement.style.width = w;
+            _selectedElement.style.height = h;
             evt.StopPropagation();
         }
 
@@ -295,8 +416,9 @@ namespace iOverlayer.Editor
         {
             if (_isResizing)
             {
-                if (_resizeHandle != null && _resizeHandle.HasPointerCapture(evt.pointerId))
-                    _resizeHandle.ReleasePointer(evt.pointerId);
+                for (int i = 0; i < 8; i++)
+                    if (_resizeHandles[i] != null && _resizeHandles[i].HasPointerCapture(evt.pointerId))
+                        _resizeHandles[i].ReleasePointer(evt.pointerId);
                 ContentChanged?.Invoke();
                 if (_selectedElement != null) SelectionChanged?.Invoke(_selectedElement);
             }
@@ -307,7 +429,7 @@ namespace iOverlayer.Editor
         private void OnCanvasPointerDown(PointerDownEvent evt)
         {
             if (CurrentTool != EditorTool.Select) return;
-            if (evt.target == _resizeHandle) return;
+            if (IsResizeHandle(evt.target as VisualElement)) return;
 
             var target = evt.target as VisualElement;
             if (target is Label label && label.parent == _canvas && label.ClassListContains("selected") && !_justCreatedText)
@@ -317,9 +439,15 @@ namespace iOverlayer.Editor
                 _dragStartMouse = evt.localPosition;
                 _dragStartPos = new Vector2(label.resolvedStyle.left, label.resolvedStyle.top);
                 _dragElement.BringToFront();
-                if (_resizeHandle != null) _resizeHandle.BringToFront();
+                BringHandlesToFront();
                 evt.StopPropagation();
             }
+        }
+
+        private void BringHandlesToFront()
+        {
+            for (int i = 0; i < 8; i++)
+                if (_resizeHandles[i] != null) _resizeHandles[i].BringToFront();
         }
 
         private void OnCanvasPointerMove(PointerMoveEvent evt)

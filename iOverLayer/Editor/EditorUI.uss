@@ -179,11 +179,8 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #3B82F6;
+    background-color: #FFFFFF;
     border-radius: 2px;
-    border-width: 1px;
-    border-color: #FFFFFF;
-    cursor: resize-horizontal;
 }
 
 /* ── Right Panel ── */
@@ -208,6 +205,7 @@
 /* ── Properties ── */
 #props {
     padding: 0 12px 12px;
+    height: 300px;
     flex-shrink: 0;
 }
 
@@ -472,6 +470,8 @@
 #prop-enabled:checked > .unity-toggle__input > .unity-toggle__checkmark {
     translate: 16px 0;
     background-color: #FFFFFF;
+    -unity-background-image-tint-color: transparent;
+    background-image: none;
 }
 
 .no-select {
@@ -504,12 +504,6 @@
 
 #statusbar .dim {
     opacity: 0.7;
-}
-
-/* ── Overlay Quick List ── */
-#overlay-list {
-    flex-grow: 1;
-    padding: 6px 10px;
 }
 
 .row-item {
@@ -557,18 +551,74 @@
     color: #334155;
 }
 
-/* ── Extend area ── */
-.extend {
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
-    border-top-width: 1px;
-    border-top-color: #1E293B;
-    margin: 0 10px;
+.row-item.active .name {
+    color: #FFFFFF;
 }
 
-.extend Label {
-    color: #475569;
+.row-item .name-edit {
+    flex-grow: 1;
+    margin: 0 4px 0 0;
+}
+
+.row-item .name-edit > .unity-text-field__input {
+    background-color: #060B14;
+    color: #F1F5F9;
+    border-width: 1px;
+    border-color: #3B82F6;
+    padding: 1px 4px;
     font-size: 10px;
+    border-radius: 3px;
+}
+
+.row-btn {
+    background-color: transparent;
+    border-width: 0;
+    color: #64748B;
+    font-size: 10px;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    margin-left: 2px;
     -unity-text-align: middle-center;
+    flex-shrink: 0;
+    transition-property: background-color, color;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-out;
+}
+
+.row-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 2px;
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.row-btn:hover {
+    background-color: #1E293B;
+    color: #CBD5E1;
+}
+
+.row-btn.on {
+    color: #F59E0B;
+}
+
+.row-btn.off {
+    color: #334155;
+}
+
+.row-btn.danger:hover {
+    background-color: #EF4444;
+    color: #FFFFFF;
+}
+
+/* ── Extend area / Overlay list ── */
+.extend {
+    flex-grow: 1;
+    flex-direction: column;
+    border-top-width: 1px;
+    border-top-color: #1E293B;
+    padding: 6px 10px;
+    overflow: hidden;
 }

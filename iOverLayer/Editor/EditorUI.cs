@@ -21,6 +21,7 @@ namespace iOverlayer.Editor
         private CanvasArea _canvasArea;
         private PropertyPanel _propertyPanel;
         private StatusBar _statusBar;
+        private OverlayList _overlayList;
 
         private void OnEnable()
         {
@@ -45,7 +46,6 @@ namespace iOverlayer.Editor
             _canvasArea.SelectionChanged += OnSelectionChanged;
 
             _canvasArea.Bind(_root);
-            _root.RegisterCallback<KeyDownEvent>(OnKeyDown);
 
             _propertyPanel = new PropertyPanel();
             _propertyPanel.Bind(_root);
@@ -53,6 +53,9 @@ namespace iOverlayer.Editor
 
             _statusBar = new StatusBar();
             _statusBar.Bind(_root);
+
+            _overlayList = new OverlayList();
+            _overlayList.Bind(_root, _canvasArea);
         }
 
         private void MarkDirty()
@@ -112,15 +115,9 @@ namespace iOverlayer.Editor
             if (element is Label label)
                 _propertyPanel.SelectTarget(label);
             else
-                _propertyPanel.ClearTarget();
-        }
-
-        private void OnKeyDown(KeyDownEvent evt)
-        {
-            if (evt.ctrlKey && evt.keyCode == KeyCode.S)
             {
-                evt.StopPropagation();
-                SaveToJson();
+                _propertyPanel.ClearTarget();
+                _root.Focus();
             }
         }
 
@@ -150,8 +147,6 @@ namespace iOverlayer.Editor
 
         private void OnDisable()
         {
-            if (_root != null)
-                _root.UnregisterCallback<KeyDownEvent>(OnKeyDown);
             if (_canvasArea != null) _canvasArea.ContentChanged -= MarkDirty;
             if (_propertyPanel != null) _propertyPanel.ContentChanged -= MarkDirty;
             _topBar?.Unbind();
@@ -159,6 +154,7 @@ namespace iOverlayer.Editor
             _canvasArea?.Unbind();
             _propertyPanel?.Unbind();
             _statusBar?.Unbind();
+            _overlayList?.Unbind();
         }
     }
 }

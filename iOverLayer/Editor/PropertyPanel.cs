@@ -112,7 +112,7 @@ namespace iOverlayer.Editor
         private void ApplyFont(string fontName)
         {
             if (_targetLabel == null || string.IsNullOrEmpty(fontName)) return;
-            _targetLabel.userData = fontName;
+            LabelData.Of(_targetLabel).font = fontName;
             try
             {
                 var size = GetFontSize(_targetLabel);
@@ -182,7 +182,7 @@ namespace iOverlayer.Editor
             UpdateColorSwatch(colorHex);
             HideColorPicker();
 
-            var fontName = label.userData as string ?? "Arial";
+            var fontName = LabelData.Of(label).font ?? "Arial";
             if (_propFont != null) _propFont.text = fontName;
             ApplyFont(fontName);
 
