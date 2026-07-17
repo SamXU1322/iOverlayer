@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using MelonLoader;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -42,6 +41,13 @@ namespace iOverlayer.Editor
         private Button _addScriptButton;
         private List<string> _allFontNames = new List<string>();
 
+        private Button _alignLeft;
+        private Button _alignCenter;
+        private Button _alignRight;
+        private Button _alignTop;
+        private Button _alignMiddle;
+        private Button _alignBottom;
+
         public void Bind(VisualElement root)
         {
             _noSelection = root.Q<VisualElement>("no-selection");
@@ -65,8 +71,15 @@ namespace iOverlayer.Editor
             _fontSearch = root.Q<TextField>("font-search");
             _fontList = root.Q<ScrollView>("font-list");
             _addScriptButton = root.Q<Button>("btn-add-script");
+            _alignLeft = root.Q<Button>("align-left");
+            _alignCenter = root.Q<Button>("align-center");
+            _alignRight = root.Q<Button>("align-right");
+            _alignTop = root.Q<Button>("align-top");
+            _alignMiddle = root.Q<Button>("align-middle");
+            _alignBottom = root.Q<Button>("align-bottom");
 
             PopulateFontChoices();
+            ApplyAlignIcons();
             RegisterCallbacks();
         }
 
@@ -162,6 +175,12 @@ namespace iOverlayer.Editor
             _fontPickerClose = null;
             _fontSearch = null;
             _fontList = null;
+            _alignLeft = null;
+            _alignCenter = null;
+            _alignRight = null;
+            _alignTop = null;
+            _alignMiddle = null;
+            _alignBottom = null;
 
             if (_hueTex != null) { Object.Destroy(_hueTex); _hueTex = null; }
             if (_svTex != null) { Object.Destroy(_svTex); _svTex = null; }
@@ -190,6 +209,9 @@ namespace iOverlayer.Editor
             ApplyFont(fontName);
 
             _propEnabled.value = label.resolvedStyle.display != DisplayStyle.None;
+
+            var align = LabelData.Of(label).textAlign;
+            UpdateAlignButtons(align);
 
             _isUpdating = false;
         }
@@ -237,6 +259,12 @@ namespace iOverlayer.Editor
                 _fontSearch.RegisterValueChangedCallback(OnFontSearchChanged);
             if (_addScriptButton != null)
                 _addScriptButton.clicked += OnAddScriptClicked;
+            if (_alignLeft != null) _alignLeft.clicked += () => SetHAlign(TextAnchor.UpperLeft);
+            if (_alignCenter != null) _alignCenter.clicked += () => SetHAlign(TextAnchor.UpperCenter);
+            if (_alignRight != null) _alignRight.clicked += () => SetHAlign(TextAnchor.UpperRight);
+            if (_alignTop != null) _alignTop.clicked += () => SetVAlign(TextAnchor.UpperLeft);
+            if (_alignMiddle != null) _alignMiddle.clicked += () => SetVAlign(TextAnchor.MiddleLeft);
+            if (_alignBottom != null) _alignBottom.clicked += () => SetVAlign(TextAnchor.LowerLeft);
         }
 
         private void UnregisterCallbacks()
@@ -506,6 +534,17 @@ namespace iOverlayer.Editor
             ContentChanged?.Invoke();
         }
 
+        private void ApplyAlignIcons()
+        {
+            var tint = new Color(0.8f, 0.84f, 0.88f);
+            SvgIconLoader.ApplyToButton(_alignLeft, "align-left", tint);
+            SvgIconLoader.ApplyToButton(_alignCenter, "align-center", tint);
+            SvgIconLoader.ApplyToButton(_alignRight, "align-right", tint);
+            SvgIconLoader.ApplyToButton(_alignTop, "align-top", tint);
+            SvgIconLoader.ApplyToButton(_alignMiddle, "align-middle", tint);
+            SvgIconLoader.ApplyToButton(_alignBottom, "align-bottom", tint);
+        }
+
         private void OnPropFontClicked()
         {
             if (_fontPickerOverlay == null) return;
@@ -525,7 +564,7 @@ namespace iOverlayer.Editor
         }
         private void OnAddScriptClicked()
         {
-            MelonLogger.Msg("Add Script button clicked!");
+            // MelonLogger.Msg("Add Script button clicked!");
         }
         private void HideFontPicker()
         {
@@ -538,6 +577,101 @@ namespace iOverlayer.Editor
             if (_isUpdating || _targetLabel == null) return;
             _targetLabel.style.display = evt.newValue ? DisplayStyle.Flex : DisplayStyle.None;
             ContentChanged?.Invoke();
+        }
+
+        private void SetHAlign(TextAnchor anchor)
+        {
+            if (_isUpdating || _targetLabel == null) return;
+            var data = LabelData.Of(_targetLabel);
+            var v = GetVerticalPart(data.textAlign);
+            data.textAlign = CombineAnchor(v, GetHorizontalPart(anchor));
+            ApplyAlignment(_targetLabel, data.textAlign);
+            UpdateAlignButtons(data.textAlign);
+            ContentChanged?.Invoke();
+        }
+
+        private void SetVAlign(TextAnchor anchor)
+        {
+            if (_isUpdating || _targetLabel == null) return;
+            var data = LabelData.Of(_targetLabel);
+            var h = GetHorizontalPart(data.textAlign);
+            data.textAlign = CombineAnchor(GetVerticalPart(anchor), h);
+            ApplyAlignment(_targetLabel, data.textAlign);
+            UpdateAlignButtons(data.textAlign);
+            ContentChanged?.Invoke();
+        }
+
+        private static void ApplyAlignment(Label label, TextAnchor anchor)
+        {
+            label.style.unityTextAlign = anchor;
+        }
+
+        private void UpdateAlignButtons(TextAnchor anchor)
+        {
+            var h = GetHorizontalPart(anchor);
+            SetBtnActive(_alignLeft, h == TextAnchor.UpperLeft);
+            SetBtnActive(_alignCenter, h == TextAnchor.UpperCenter);
+            SetBtnActive(_alignRight, h == TextAnchor.UpperRight);
+            var v = GetVerticalPart(anchor);
+            SetBtnActive(_alignTop, v == TextAnchor.UpperLeft);
+            SetBtnActive(_alignMiddle, v == TextAnchor.MiddleLeft);
+            SetBtnActive(_alignBottom, v == TextAnchor.LowerLeft);
+        }
+
+        private static void SetBtnActive(Button btn, bool active)
+        {
+            if (btn == null) return;
+            if (active) btn.AddToClassList("active");
+            else btn.RemoveFromClassList("active");
+        }
+
+        private static TextAnchor GetHorizontalPart(TextAnchor anchor)
+        {
+            switch (anchor)
+            {
+                case TextAnchor.UpperLeft:
+                case TextAnchor.MiddleLeft:
+                case TextAnchor.LowerLeft:
+                    return TextAnchor.UpperLeft;
+                case TextAnchor.UpperCenter:
+                case TextAnchor.MiddleCenter:
+                case TextAnchor.LowerCenter:
+                    return TextAnchor.UpperCenter;
+                default:
+                    return TextAnchor.UpperRight;
+            }
+        }
+
+        private static TextAnchor GetVerticalPart(TextAnchor anchor)
+        {
+            switch (anchor)
+            {
+                case TextAnchor.UpperLeft:
+                case TextAnchor.UpperCenter:
+                case TextAnchor.UpperRight:
+                    return TextAnchor.UpperLeft;
+                case TextAnchor.MiddleLeft:
+                case TextAnchor.MiddleCenter:
+                case TextAnchor.MiddleRight:
+                    return TextAnchor.MiddleLeft;
+                default:
+                    return TextAnchor.LowerLeft;
+            }
+        }
+
+        private static TextAnchor CombineAnchor(TextAnchor vertical, TextAnchor horizontal)
+        {
+            bool isRight = horizontal == TextAnchor.UpperRight;
+            bool isCenter = horizontal == TextAnchor.UpperCenter;
+            switch (vertical)
+            {
+                case TextAnchor.UpperLeft:
+                    return isRight ? TextAnchor.UpperRight : isCenter ? TextAnchor.UpperCenter : TextAnchor.UpperLeft;
+                case TextAnchor.MiddleLeft:
+                    return isRight ? TextAnchor.MiddleRight : isCenter ? TextAnchor.MiddleCenter : TextAnchor.MiddleLeft;
+                default:
+                    return isRight ? TextAnchor.LowerRight : isCenter ? TextAnchor.LowerCenter : TextAnchor.LowerLeft;
+            }
         }
 
         private void UpdateColorSwatch(string colorHex)

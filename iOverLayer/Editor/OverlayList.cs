@@ -76,7 +76,6 @@ namespace iOverlayer.Editor
                 }
                 else if (evt.button == 1)
                 {
-                    Debug.Log($"[OverlayList] Right-click on: {data.name}");
                     evt.StopPropagation();
                 }
             });
@@ -96,16 +95,18 @@ namespace iOverlayer.Editor
                 }
             });
 
-            var lockBtn = new Button { text = "◆" };
+            var lockBtn = new Button();
             lockBtn.AddToClassList("row-btn");
+            SvgIconLoader.ApplyToButton(lockBtn, "icon-lock", data.locked ? new Color(0.96f, 0.62f, 0.04f) : new Color(0.39f, 0.45f, 0.52f));
             if (data.locked) lockBtn.AddToClassList("on");
             lockBtn.tooltip = data.locked ? "解锁" : "锁定";
             lockBtn.clicked += () => _canvas.SetLabelLocked(label, !data.locked);
             row.Add(lockBtn);
 
             // Visibility toggle
-            var eyeBtn = new Button { text = "◉" };
+            var eyeBtn = new Button();
             eyeBtn.AddToClassList("row-btn");
+            SvgIconLoader.ApplyToButton(eyeBtn, "icon-eye", visible ? new Color(0.8f, 0.84f, 0.88f) : new Color(0.2f, 0.26f, 0.33f));
             if (!visible) eyeBtn.AddToClassList("off");
             eyeBtn.tooltip = visible ? "隐藏" : "显示";
             eyeBtn.clicked += () => _canvas.SetLabelVisible(label, !visible);

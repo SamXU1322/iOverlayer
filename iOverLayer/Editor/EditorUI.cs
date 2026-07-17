@@ -102,7 +102,6 @@ namespace iOverlayer.Editor
                 _currentFilePath = filePath;
                 _baseFileName = Path.GetFileName(filePath);
                 ClearDirty();
-                MelonLoader.MelonLogger.Msg($"Opened: {filePath}");
             }
             catch (Exception ex)
             {

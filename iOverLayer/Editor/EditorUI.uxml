@@ -67,6 +67,19 @@
                             <ui:IntegerField name="prop-fontSize" />
                         </ui:VisualElement>
 
+                        <ui:VisualElement class="field">
+                            <ui:VisualElement class="align-row">
+                                <ui:Button name="align-left" class="align-btn active" tooltip="左对齐" />
+                                <ui:Button name="align-center" class="align-btn" tooltip="水平居中" />
+                                <ui:Button name="align-right" class="align-btn" tooltip="右对齐" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="align-row" style="margin-top: 4px;">
+                                <ui:Button name="align-top" class="align-btn active" tooltip="上对齐" />
+                                <ui:Button name="align-middle" class="align-btn" tooltip="垂直居中" />
+                                <ui:Button name="align-bottom" class="align-btn" tooltip="下对齐" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
                         <ui:VisualElement class="field" name="field-color">
                             <ui:Label text="颜色" />
                             <ui:VisualElement class="color-row">

@@ -17,6 +17,7 @@ namespace iOverlayer.Config
         public bool enabled;
         public bool locked;
         public float width;
+        public string textAlign;
     }
 
     [Serializable]

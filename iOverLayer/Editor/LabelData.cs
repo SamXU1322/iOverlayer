@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace iOverlayer.Editor
@@ -8,6 +9,7 @@ namespace iOverlayer.Editor
         public string name;
         public string font = "Arial";
         public bool locked;
+        public TextAnchor textAlign = TextAnchor.UpperLeft;
 
         public static LabelData Of(Label label)
         {

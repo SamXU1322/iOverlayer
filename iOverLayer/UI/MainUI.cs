@@ -341,7 +341,6 @@ namespace iOverlayer.UI
 
         private void OnOpenEditorClicked()
         {
-            MelonLogger.Msg("Open Editor Button Clicked!");
             _gameSceneName = SceneManager.GetActiveScene().name;
 
             AudioListener.pause = true;

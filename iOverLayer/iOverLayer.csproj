@@ -98,7 +98,12 @@
       <HintPath>..\..\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>..\..\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +123,17 @@
     <Compile Include="Editor\EditorTool.cs" />
     <Compile Include="Editor\LabelData.cs" />
     <Compile Include="Editor\OverlayList.cs" />
+    <Compile Include="Editor\SvgIconLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Asset\pic\align-left.svg" />
+    <EmbeddedResource Include="..\Asset\pic\align-center.svg" />
+    <EmbeddedResource Include="..\Asset\pic\align-right.svg" />
+    <EmbeddedResource Include="..\Asset\pic\align-top.svg" />
+    <EmbeddedResource Include="..\Asset\pic\align-middle.svg" />
+    <EmbeddedResource Include="..\Asset\pic\align-bottom.svg" />
+    <EmbeddedResource Include="..\Asset\pic\icon-lock.svg" />
+    <EmbeddedResource Include="..\Asset\pic\icon-eye.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
