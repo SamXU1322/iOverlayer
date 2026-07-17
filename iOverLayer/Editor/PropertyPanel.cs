@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -38,6 +39,7 @@ namespace iOverlayer.Editor
         private Button _fontPickerClose;
         private TextField _fontSearch;
         private ScrollView _fontList;
+        private Button _addScriptButton;
         private List<string> _allFontNames = new List<string>();
 
         public void Bind(VisualElement root)
@@ -62,6 +64,7 @@ namespace iOverlayer.Editor
             _fontPickerClose = root.Q<Button>("font-picker-close");
             _fontSearch = root.Q<TextField>("font-search");
             _fontList = root.Q<ScrollView>("font-list");
+            _addScriptButton = root.Q<Button>("btn-add-script");
 
             PopulateFontChoices();
             RegisterCallbacks();
@@ -232,6 +235,8 @@ namespace iOverlayer.Editor
                 _fontPickerClose.clicked += HideFontPicker;
             if (_fontSearch != null)
                 _fontSearch.RegisterValueChangedCallback(OnFontSearchChanged);
+            if (_addScriptButton != null)
+                _addScriptButton.clicked += OnAddScriptClicked;
         }
 
         private void UnregisterCallbacks()
@@ -518,7 +523,10 @@ namespace iOverlayer.Editor
         {
             RebuildFontList(evt.newValue);
         }
-
+        private void OnAddScriptClicked()
+        {
+            MelonLogger.Msg("Add Script button clicked!");
+        }
         private void HideFontPicker()
         {
             if (_fontPickerOverlay != null)
