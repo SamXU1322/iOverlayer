@@ -43,7 +43,7 @@ namespace iOverlayer.Editor
         private VisualElement BuildRow(Label label, bool isActive)
         {
             var data = LabelData.Of(label);
-            bool visible = label.style.display != DisplayStyle.None;
+            bool visible = !data.hidden;
 
             var row = new VisualElement();
             row.AddToClassList("row-item");
@@ -103,7 +103,6 @@ namespace iOverlayer.Editor
             lockBtn.clicked += () => _canvas.SetLabelLocked(label, !data.locked);
             row.Add(lockBtn);
 
-            // Visibility toggle
             var eyeBtn = new Button();
             eyeBtn.AddToClassList("row-btn");
             SvgIconLoader.ApplyToButton(eyeBtn, "icon-eye", visible ? new Color(0.8f, 0.84f, 0.88f) : new Color(0.2f, 0.26f, 0.33f));
@@ -112,7 +111,6 @@ namespace iOverlayer.Editor
             eyeBtn.clicked += () => _canvas.SetLabelVisible(label, !visible);
             row.Add(eyeBtn);
 
-            // Delete
             var delBtn = new Button { text = "×" };
             delBtn.AddToClassList("row-btn");
             delBtn.AddToClassList("danger");
@@ -120,8 +118,6 @@ namespace iOverlayer.Editor
             delBtn.clicked += () => _canvas.DeleteLabel(label);
             row.Add(delBtn);
 
-            // Click row to select (locked labels can't be selected)
-            // Skip nameLabel so double-click can reach it for rename
             row.RegisterCallback<ClickEvent>(evt =>
             {
                 if (evt.clickCount > 1) return;

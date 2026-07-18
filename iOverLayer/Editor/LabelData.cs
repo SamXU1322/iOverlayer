@@ -9,6 +9,7 @@ namespace iOverlayer.Editor
         public string name;
         public string font = "Arial";
         public bool locked;
+        public bool hidden;
         public TextAnchor textAlign = TextAnchor.UpperLeft;
 
         public static LabelData Of(Label label)

@@ -174,6 +174,7 @@ namespace iOverlayer.Editor
                         font = data.font ?? "Arial",
                         enabled = label.style.display != DisplayStyle.None,
                         locked = data.locked,
+                        hidden = data.hidden,
                         width = explicitWidth,
                         textAlign = data.textAlign.ToString()
                     });
@@ -224,11 +225,8 @@ namespace iOverlayer.Editor
 
         public void SetLabelVisible(Label label, bool visible)
         {
-            var savedLeft = label.style.left;
-            var savedTop = label.style.top;
-            label.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-            label.style.left = savedLeft;
-            label.style.top = savedTop;
+            LabelData.Of(label).hidden = !visible;
+            label.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
             if (_selectedElement == label && _selectedElement != null)
                 SelectionChanged?.Invoke(_selectedElement);
             ContentChanged?.Invoke();
@@ -287,12 +285,14 @@ namespace iOverlayer.Editor
                 data.name = string.IsNullOrEmpty(config.name) ? "文本 " + (++_textCounter) : config.name;
                 data.font = config.font;
                 data.locked = config.locked;
+                data.hidden = config.hidden;
                 if (!string.IsNullOrEmpty(config.textAlign) && System.Enum.TryParse(config.textAlign, out TextAnchor anchor))
                 {
                     data.textAlign = anchor;
                     label.style.unityTextAlign = anchor;
                 }
                 label.style.display = config.enabled ? DisplayStyle.Flex : DisplayStyle.None;
+                label.style.visibility = config.hidden ? Visibility.Hidden : Visibility.Visible;
 
                 ApplyFont(label, config.font);
                 _canvas.Add(label);

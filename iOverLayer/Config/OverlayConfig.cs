@@ -16,6 +16,7 @@ namespace iOverlayer.Config
         public string font;
         public bool enabled;
         public bool locked;
+        public bool hidden;
         public float width;
         public string textAlign;
     }
