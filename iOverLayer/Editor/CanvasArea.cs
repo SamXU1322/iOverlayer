@@ -172,6 +172,7 @@ namespace iOverlayer.Editor
                         fontSize = Mathf.RoundToInt(label.resolvedStyle.fontSize),
                         color = "#" + ColorUtility.ToHtmlStringRGB(label.resolvedStyle.color),
                         font = data.font ?? "Arial",
+                        fontPath = data.fontPath,
                         enabled = label.style.display != DisplayStyle.None,
                         locked = data.locked,
                         hidden = data.hidden,
@@ -242,6 +243,12 @@ namespace iOverlayer.Editor
             OverlaysChanged?.Invoke();
         }
 
+        public void DeleteSelected()
+        {
+            if (_selectedElement is Label label)
+                DeleteLabel(label);
+        }
+
         private static void ApplyFont(Label label, string fontName)
         {
             if (string.IsNullOrEmpty(fontName)) return;
@@ -284,6 +291,9 @@ namespace iOverlayer.Editor
                 var data = LabelData.Of(label);
                 data.name = string.IsNullOrEmpty(config.name) ? "文本 " + (++_textCounter) : config.name;
                 data.font = config.font;
+                data.fontPath = config.fontPath;
+                if (!string.IsNullOrEmpty(config.fontPath))
+                    CustomFont.GetOrRegister(config.fontPath);
                 data.locked = config.locked;
                 data.hidden = config.hidden;
                 if (!string.IsNullOrEmpty(config.textAlign) && System.Enum.TryParse(config.textAlign, out TextAnchor anchor))

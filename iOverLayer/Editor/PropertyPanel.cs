@@ -38,6 +38,9 @@ namespace iOverlayer.Editor
         private Button _fontPickerClose;
         private TextField _fontSearch;
         private ScrollView _fontList;
+        private TextField _fontPath;
+        private Button _btnFontBrowse;
+        private Button _btnFontApply;
         private Button _addScriptButton;
         private List<string> _allFontNames = new List<string>();
 
@@ -70,6 +73,9 @@ namespace iOverlayer.Editor
             _fontPickerClose = root.Q<Button>("font-picker-close");
             _fontSearch = root.Q<TextField>("font-search");
             _fontList = root.Q<ScrollView>("font-list");
+            _fontPath = root.Q<TextField>("font-path");
+            _btnFontBrowse = root.Q<Button>("btn-font-browse");
+            _btnFontApply = root.Q<Button>("btn-font-apply");
             _addScriptButton = root.Q<Button>("btn-add-script");
             _alignLeft = root.Q<Button>("align-left");
             _alignCenter = root.Q<Button>("align-center");
@@ -114,6 +120,7 @@ namespace iOverlayer.Editor
                 row.RegisterCallback<ClickEvent>(evt =>
                 {
                     ApplyFont(name);
+                    LabelData.Of(_targetLabel).fontPath = null;
                     _isUpdating = true;
                     if (_propFont != null) _propFont.text = name;
                     _isUpdating = false;
@@ -175,6 +182,9 @@ namespace iOverlayer.Editor
             _fontPickerClose = null;
             _fontSearch = null;
             _fontList = null;
+            _fontPath = null;
+            _btnFontBrowse = null;
+            _btnFontApply = null;
             _alignLeft = null;
             _alignCenter = null;
             _alignRight = null;
@@ -257,6 +267,12 @@ namespace iOverlayer.Editor
                 _fontPickerClose.clicked += HideFontPicker;
             if (_fontSearch != null)
                 _fontSearch.RegisterValueChangedCallback(OnFontSearchChanged);
+            if (_btnFontBrowse != null)
+                _btnFontBrowse.clicked += OnFontBrowseClicked;
+            if (_btnFontApply != null)
+                _btnFontApply.clicked += OnFontApplyClicked;
+            if (_fontPath != null)
+                _fontPath.RegisterCallback<KeyDownEvent>(OnFontPathKeyDown);
             if (_addScriptButton != null)
                 _addScriptButton.clicked += OnAddScriptClicked;
             if (_alignLeft != null) _alignLeft.clicked += () => SetHAlign(TextAnchor.UpperLeft);
@@ -293,6 +309,12 @@ namespace iOverlayer.Editor
                 _fontPickerClose.clicked -= HideFontPicker;
             if (_fontSearch != null)
                 _fontSearch.UnregisterValueChangedCallback(OnFontSearchChanged);
+            if (_btnFontBrowse != null)
+                _btnFontBrowse.clicked -= OnFontBrowseClicked;
+            if (_btnFontApply != null)
+                _btnFontApply.clicked -= OnFontApplyClicked;
+            if (_fontPath != null)
+                _fontPath.UnregisterCallback<KeyDownEvent>(OnFontPathKeyDown);
         }
 
         private void OnPropTextChanged(ChangeEvent<string> evt)
@@ -319,7 +341,15 @@ namespace iOverlayer.Editor
         private void OnPropFontSizeChanged(ChangeEvent<int> evt)
         {
             if (_isUpdating || _targetLabel == null) return;
-            _targetLabel.style.fontSize = evt.newValue;
+            _targetLabel.style.fontSize = Mathf.Max(1, evt.newValue);
+
+            // Fonts created via Font.CreateDynamicFontFromOSFont are rendered by UI
+            // Toolkit at the size baked into the Font object, so changing fontSize
+            // alone has no visible effect. Re-create the font at the new size.
+            var fontName = LabelData.Of(_targetLabel).font;
+            if (!string.IsNullOrEmpty(fontName))
+                ApplyFont(fontName);
+
             ContentChanged?.Invoke();
         }
 
@@ -562,6 +592,58 @@ namespace iOverlayer.Editor
         {
             RebuildFontList(evt.newValue);
         }
+
+        private void OnFontBrowseClicked()
+        {
+            if (_fontPath == null) return;
+            var path = FileDialog.ShowFilePicker("选择字体文件", "*.ttf;*.otf");
+            if (string.IsNullOrEmpty(path)) return;
+            _fontPath.SetValueWithoutNotify(path);
+            ApplyCustomFont(path);
+        }
+
+        private void OnFontApplyClicked()
+        {
+            if (_fontPath == null) return;
+            ApplyCustomFont(_fontPath.value);
+        }
+
+        private void OnFontPathKeyDown(KeyDownEvent evt)
+        {
+            if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
+            {
+                ApplyCustomFont(_fontPath.value);
+                evt.StopPropagation();
+            }
+        }
+
+        private void ApplyCustomFont(string path)
+        {
+            if (_targetLabel == null || string.IsNullOrEmpty(path)) return;
+
+            var familyName = CustomFont.GetOrRegister(path);
+            if (familyName == null) return;
+
+            try
+            {
+                var font = CustomFont.CreateDynamicFont(path, GetFontSize(_targetLabel));
+                if (font == null) return;
+
+                LabelData.Of(_targetLabel).font = familyName;
+                LabelData.Of(_targetLabel).fontPath = path;
+                _targetLabel.style.unityFont = font;
+                _targetLabel.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromFont(font));
+
+                _isUpdating = true;
+                if (_propFont != null) _propFont.text = familyName;
+                _isUpdating = false;
+
+                HideFontPicker();
+                ContentChanged?.Invoke();
+            }
+            catch { }
+        }
+
         private void OnAddScriptClicked()
         {
             // MelonLogger.Msg("Add Script button clicked!");

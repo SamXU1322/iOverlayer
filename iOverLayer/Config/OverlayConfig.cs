@@ -14,6 +14,7 @@ namespace iOverlayer.Config
         public int fontSize;
         public string color;
         public string font;
+        public string fontPath;
         public bool enabled;
         public bool locked;
         public bool hidden;
