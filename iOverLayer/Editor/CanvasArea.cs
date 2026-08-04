@@ -177,7 +177,8 @@ namespace iOverlayer.Editor
                         locked = data.locked,
                         hidden = data.hidden,
                         width = explicitWidth,
-                        textAlign = data.textAlign.ToString()
+                        textAlign = data.textAlign.ToString(),
+                        script = data.script
                     });
                 }
             }
@@ -294,6 +295,7 @@ namespace iOverlayer.Editor
                 data.fontPath = config.fontPath;
                 if (!string.IsNullOrEmpty(config.fontPath))
                     CustomFont.GetOrRegister(config.fontPath);
+                data.script = config.script;
                 data.locked = config.locked;
                 data.hidden = config.hidden;
                 if (!string.IsNullOrEmpty(config.textAlign) && System.Enum.TryParse(config.textAlign, out TextAnchor anchor))

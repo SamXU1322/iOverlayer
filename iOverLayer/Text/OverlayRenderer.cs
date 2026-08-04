@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using iOverlayer.Config;
+using iOverlayer.Script;
 using UnityEngine.UI;
 
 namespace iOverlayer.Text
@@ -12,8 +13,12 @@ namespace iOverlayer.Text
         private const string EditorSceneName = "EditorScenes";
 
         private Canvas _canvas;
+        private CanvasScaler _scaler;
         private RectTransform _root;
         private readonly List<GameObject> _texts = new List<GameObject>();
+        private int _canvasWidth = 1920;
+        private int _canvasHeight = 1080;
+        private readonly ScriptHost _scripts = new ScriptHost();
 
         private void Awake()
         {
@@ -34,6 +39,11 @@ namespace iOverlayer.Text
             StartCoroutine(FixLayout());
         }
 
+        private void Update()
+        {
+            _scripts.Update(Time.deltaTime);
+        }
+
         private void BuildCanvas()
         {
             var go = new GameObject("iOverlayer_OverlayCanvas");
@@ -42,10 +52,10 @@ namespace iOverlayer.Text
             _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             _canvas.sortingOrder = 90;
 
-            var scaler = go.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+            _scaler = go.AddComponent<CanvasScaler>();
+            _scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            _scaler.referenceResolution = new Vector2(_canvasWidth, _canvasHeight);
+            _scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
             _root = go.transform as RectTransform;
             if (_root == null)
@@ -56,7 +66,7 @@ namespace iOverlayer.Text
         {
             yield return null;
             if (_root.rect.width <= 100f && _root.rect.height <= 100f)
-                _root.sizeDelta = new Vector2(1920f, 1080f);
+                _root.sizeDelta = new Vector2(_canvasWidth, _canvasHeight);
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -74,10 +84,16 @@ namespace iOverlayer.Text
         private void LoadConfig(string fileName)
         {
             Clear();
+            _scripts.Clear();
             if (string.IsNullOrEmpty(fileName)) return;
 
             var configFile = ConfigManager.LoadConfig(fileName);
             if (configFile == null || configFile.overlays == null) return;
+
+            _canvasWidth = configFile.canvasWidth > 0 ? configFile.canvasWidth : 1920;
+            _canvasHeight = configFile.canvasHeight > 0 ? configFile.canvasHeight : 1080;
+            if (_scaler != null)
+                _scaler.referenceResolution = new Vector2(_canvasWidth, _canvasHeight);
 
             foreach (var overlay in configFile.overlays)
             {
@@ -117,6 +133,13 @@ namespace iOverlayer.Text
             rect.pivot = new Vector2(0f, 1f);
             rect.anchoredPosition = new Vector2(overlay.x, -overlay.y);
             rect.sizeDelta = new Vector2(overlay.width > 0 ? overlay.width : 0f, 0f);
+
+            if (!string.IsNullOrEmpty(overlay.script))
+            {
+                var script = ScriptCompiler.CreateInstance(overlay.script);
+                if (script != null)
+                    _scripts.Attach(go, script, new OverlayScriptContext(overlay, tmp, go));
+            }
         }
 
         private static Color ParseColor(string hex)

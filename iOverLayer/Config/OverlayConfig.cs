@@ -20,12 +20,15 @@ namespace iOverlayer.Config
         public bool hidden;
         public float width;
         public string textAlign;
+        public string script;
     }
 
     [Serializable]
     public class OverlayConfigFile
     {
         public string version;
+        public int canvasWidth;
+        public int canvasHeight;
         public List<OverlayConfig> overlays;
     }
 }

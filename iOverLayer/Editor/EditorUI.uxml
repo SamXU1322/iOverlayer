@@ -130,6 +130,35 @@
 
                         <ui:Button text="添加自定义脚本" name="btn-add-script" class="script-btn" />
 
+                        <ui:VisualElement name="script-picker-popup" class="field-popup" style="display: none;">
+                            <ui:VisualElement class="picker-header">
+                                <ui:Label text="添加脚本" class="picker-title" />
+                                <ui:Button text="×" name="script-picker-close" class="picker-close-btn" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="picker-body" style="flex-direction: column;">
+                                <ui:Button text="节点编辑器（开发中）" name="script-mode-node" class="script-mode-btn disabled" tooltip="开发中，敬请期待" />
+                                <ui:Button text="C# 代码脚本" name="script-mode-csharp" class="script-mode-btn" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="csharp-script-popup" class="field-popup" style="display: none;">
+                            <ui:VisualElement class="picker-header">
+                                <ui:Label text="C# 代码脚本" class="picker-title" />
+                                <ui:Button text="×" name="csharp-script-close" class="picker-close-btn" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="picker-body" style="flex-direction: column;">
+                                <ui:VisualElement class="field">
+                                    <ui:Label text="脚本类名" />
+                                    <ui:TextField name="script-class-name" placeholder="例如 BlinkScript" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="row">
+                                    <ui:Button text="创建模板" name="script-create-template" class="script-mode-btn" style="flex-grow: 1; margin-right: 4px;" />
+                                    <ui:Button text="打开文件" name="script-open-file" class="script-mode-btn" style="flex-grow: 1; margin-right: 4px;" />
+                                    <ui:Button text="应用" name="script-apply" class="script-mode-btn" style="flex-grow: 1;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:ScrollView class="extend" name="overlay-list" />
@@ -138,11 +167,32 @@
 
         <!-- Status Bar -->
         <ui:VisualElement name="statusbar">
-            <ui:Label text="画布: 1920×1080" />
+            <ui:Button text="画布: 1920×1080" name="btn-canvas-props" class="canvas-props-btn" tooltip="画布属性" />
             <ui:Label text="未选中" class="dim" name="sel-info" />
             <ui:Label text="" class="dim" name="pos-info" />
             <ui:VisualElement class="spacer" />
             <ui:Label text="0 个叠加层" class="dim" name="count-info" />
+        </ui:VisualElement>
+        <ui:VisualElement name="canvas-props-popup" class="field-popup"
+            style="position: absolute; left: 14px; bottom: 32px; width: 240px; display: none;">
+            <ui:VisualElement class="picker-header">
+                <ui:Label text="画布属性" class="picker-title" />
+                <ui:Button text="×" name="canvas-props-close" class="picker-close-btn" />
+            </ui:VisualElement>
+            <ui:VisualElement class="picker-body" style="flex-direction: column;">
+                <ui:VisualElement class="row">
+                    <ui:VisualElement class="field">
+                        <ui:Label text="宽度" />
+                        <ui:IntegerField name="canvas-width" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="field" style="margin-right: 0;">
+                        <ui:Label text="高度" />
+                        <ui:IntegerField name="canvas-height" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Button text="应用" name="canvas-apply"
+                    style="background-color: #3B82F6; color: #FFFFFF; border-width: 0; border-radius: 4px; padding: 4px 10px; font-size: 11px; margin-top: 10px; align-self: flex-end;" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

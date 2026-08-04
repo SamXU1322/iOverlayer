@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
+using iOverlayer.Config;
 
 namespace iOverlayer.Editor
 {
@@ -42,6 +44,16 @@ namespace iOverlayer.Editor
         private Button _btnFontBrowse;
         private Button _btnFontApply;
         private Button _addScriptButton;
+        private VisualElement _scriptPickerPopup;
+        private Button _scriptPickerClose;
+        private Button _scriptModeNode;
+        private Button _scriptModeCSharp;
+        private VisualElement _csharpScriptPopup;
+        private Button _csharpScriptClose;
+        private TextField _scriptClassField;
+        private Button _scriptCreateTemplate;
+        private Button _scriptOpenFile;
+        private Button _scriptApply;
         private List<string> _allFontNames = new List<string>();
 
         private Button _alignLeft;
@@ -77,6 +89,16 @@ namespace iOverlayer.Editor
             _btnFontBrowse = root.Q<Button>("btn-font-browse");
             _btnFontApply = root.Q<Button>("btn-font-apply");
             _addScriptButton = root.Q<Button>("btn-add-script");
+            _scriptPickerPopup = root.Q<VisualElement>("script-picker-popup");
+            _scriptPickerClose = root.Q<Button>("script-picker-close");
+            _scriptModeNode = root.Q<Button>("script-mode-node");
+            _scriptModeCSharp = root.Q<Button>("script-mode-csharp");
+            _csharpScriptPopup = root.Q<VisualElement>("csharp-script-popup");
+            _csharpScriptClose = root.Q<Button>("csharp-script-close");
+            _scriptClassField = root.Q<TextField>("script-class-name");
+            _scriptCreateTemplate = root.Q<Button>("script-create-template");
+            _scriptOpenFile = root.Q<Button>("script-open-file");
+            _scriptApply = root.Q<Button>("script-apply");
             _alignLeft = root.Q<Button>("align-left");
             _alignCenter = root.Q<Button>("align-center");
             _alignRight = root.Q<Button>("align-right");
@@ -185,6 +207,16 @@ namespace iOverlayer.Editor
             _fontPath = null;
             _btnFontBrowse = null;
             _btnFontApply = null;
+            _scriptPickerPopup = null;
+            _scriptPickerClose = null;
+            _scriptModeNode = null;
+            _scriptModeCSharp = null;
+            _csharpScriptPopup = null;
+            _csharpScriptClose = null;
+            _scriptClassField = null;
+            _scriptCreateTemplate = null;
+            _scriptOpenFile = null;
+            _scriptApply = null;
             _alignLeft = null;
             _alignCenter = null;
             _alignRight = null;
@@ -275,6 +307,20 @@ namespace iOverlayer.Editor
                 _fontPath.RegisterCallback<KeyDownEvent>(OnFontPathKeyDown);
             if (_addScriptButton != null)
                 _addScriptButton.clicked += OnAddScriptClicked;
+            if (_scriptPickerClose != null)
+                _scriptPickerClose.clicked += HideScriptPicker;
+            if (_scriptModeNode != null)
+                _scriptModeNode.clicked += OnScriptModeNodeClicked;
+            if (_scriptModeCSharp != null)
+                _scriptModeCSharp.clicked += OnScriptModeCSharpClicked;
+            if (_csharpScriptClose != null)
+                _csharpScriptClose.clicked += HideCSharpScriptPopup;
+            if (_scriptCreateTemplate != null)
+                _scriptCreateTemplate.clicked += OnScriptCreateTemplateClicked;
+            if (_scriptOpenFile != null)
+                _scriptOpenFile.clicked += OnScriptOpenFileClicked;
+            if (_scriptApply != null)
+                _scriptApply.clicked += OnScriptApplyClicked;
             if (_alignLeft != null) _alignLeft.clicked += () => SetHAlign(TextAnchor.UpperLeft);
             if (_alignCenter != null) _alignCenter.clicked += () => SetHAlign(TextAnchor.UpperCenter);
             if (_alignRight != null) _alignRight.clicked += () => SetHAlign(TextAnchor.UpperRight);
@@ -315,6 +361,20 @@ namespace iOverlayer.Editor
                 _btnFontApply.clicked -= OnFontApplyClicked;
             if (_fontPath != null)
                 _fontPath.UnregisterCallback<KeyDownEvent>(OnFontPathKeyDown);
+            if (_scriptPickerClose != null)
+                _scriptPickerClose.clicked -= HideScriptPicker;
+            if (_scriptModeNode != null)
+                _scriptModeNode.clicked -= OnScriptModeNodeClicked;
+            if (_scriptModeCSharp != null)
+                _scriptModeCSharp.clicked -= OnScriptModeCSharpClicked;
+            if (_csharpScriptClose != null)
+                _csharpScriptClose.clicked -= HideCSharpScriptPopup;
+            if (_scriptCreateTemplate != null)
+                _scriptCreateTemplate.clicked -= OnScriptCreateTemplateClicked;
+            if (_scriptOpenFile != null)
+                _scriptOpenFile.clicked -= OnScriptOpenFileClicked;
+            if (_scriptApply != null)
+                _scriptApply.clicked -= OnScriptApplyClicked;
         }
 
         private void OnPropTextChanged(ChangeEvent<string> evt)
@@ -646,8 +706,95 @@ namespace iOverlayer.Editor
 
         private void OnAddScriptClicked()
         {
-            // MelonLogger.Msg("Add Script button clicked!");
+            if (_scriptPickerPopup == null) return;
+            if (_scriptPickerPopup.style.display != DisplayStyle.None)
+            {
+                HideScriptPicker();
+                return;
+            }
+            _scriptPickerPopup.style.display = DisplayStyle.Flex;
         }
+
+        private void OnScriptModeNodeClicked()
+        {
+            MelonLoader.MelonLogger.Msg("[iOverlayer] 节点编辑器开发中，敬请期待");
+        }
+
+        private void OnScriptModeCSharpClicked()
+        {
+            HideScriptPicker();
+            if (_csharpScriptPopup == null || _targetLabel == null) return;
+            if (_scriptClassField != null)
+                _scriptClassField.SetValueWithoutNotify(LabelData.Of(_targetLabel).script ?? "");
+            _csharpScriptPopup.style.display = DisplayStyle.Flex;
+        }
+
+        private void HideScriptPicker()
+        {
+            if (_scriptPickerPopup != null)
+                _scriptPickerPopup.style.display = DisplayStyle.None;
+        }
+
+        private void OnScriptCreateTemplateClicked()
+        {
+            var className = GetScriptClassName();
+            var dir = Path.Combine(ConfigManager.ConfigDirectory, "Scripts");
+            Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, className + ".cs");
+            if (File.Exists(file))
+            {
+                MelonLoader.MelonLogger.Warning($"[iOverlayer] 脚本文件已存在: {file}");
+                return;
+            }
+            File.WriteAllText(file, BuildScriptTemplate(className));
+            MelonLoader.MelonLogger.Msg($"[iOverlayer] 已创建脚本模板: {file}");
+        }
+
+        private void OnScriptOpenFileClicked()
+        {
+            var className = GetScriptClassName();
+            var dir = Path.Combine(ConfigManager.ConfigDirectory, "Scripts");
+            Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, className + ".cs");
+            if (!File.Exists(file))
+                File.WriteAllText(file, BuildScriptTemplate(className));
+            System.Diagnostics.Process.Start(file);
+        }
+
+        private void OnScriptApplyClicked()
+        {
+            if (_targetLabel == null) return;
+            var value = _scriptClassField?.value;
+            LabelData.Of(_targetLabel).script = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+            HideCSharpScriptPopup();
+            ContentChanged?.Invoke();
+        }
+
+        private string GetScriptClassName()
+        {
+            var value = _scriptClassField?.value;
+            return string.IsNullOrWhiteSpace(value) ? "MyOverlayScript" : value.Trim();
+        }
+
+        private static string BuildScriptTemplate(string className)
+        {
+            return "using iOverlayer.Script;\n" +
+                   "using UnityEngine;\n\n" +
+                   $"public class {className} : IOverlayScript\n" +
+                   "{\n" +
+                   "    private OverlayScriptContext _ctx;\n\n" +
+                   "    public void OnInit(OverlayScriptContext ctx) { _ctx = ctx; }\n\n" +
+                   "    public void OnUpdate(OverlayScriptContext ctx, float deltaTime) { }\n\n" +
+                   "    public void OnDestroy() { }\n" +
+                   "}\n";
+        }
+
+        private void HideCSharpScriptPopup()
+        {
+            if (_csharpScriptPopup != null)
+                _csharpScriptPopup.style.display = DisplayStyle.None;
+        }
+
         private void HideFontPicker()
         {
             if (_fontPickerOverlay != null)

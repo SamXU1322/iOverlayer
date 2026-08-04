@@ -22,6 +22,8 @@ namespace iOverlayer.Editor
         private PropertyPanel _propertyPanel;
         private StatusBar _statusBar;
         private OverlayList _overlayList;
+        private int _canvasWidth = 1920;
+        private int _canvasHeight = 1080;
 
         private void OnEnable()
         {
@@ -53,6 +55,8 @@ namespace iOverlayer.Editor
 
             _statusBar = new StatusBar();
             _statusBar.Bind(_root);
+            _statusBar.CanvasSizeChanged += OnCanvasSizeChanged;
+            _statusBar.SetCanvasSize(_canvasWidth, _canvasHeight);
 
             _overlayList = new OverlayList();
             _overlayList.Bind(_root, _canvasArea);
@@ -99,6 +103,9 @@ namespace iOverlayer.Editor
                     configFile.overlays = new List<OverlayConfig>();
 
                 _canvasArea.LoadFromConfigs(configFile.overlays);
+                _canvasWidth = configFile.canvasWidth > 0 ? configFile.canvasWidth : 1920;
+                _canvasHeight = configFile.canvasHeight > 0 ? configFile.canvasHeight : 1080;
+                _statusBar.SetCanvasSize(_canvasWidth, _canvasHeight);
                 _currentFilePath = filePath;
                 _baseFileName = Path.GetFileName(filePath);
                 ClearDirty();
@@ -123,6 +130,14 @@ namespace iOverlayer.Editor
                 _propertyPanel.ClearTarget();
                 _root.Focus();
             }
+        }
+
+        private void OnCanvasSizeChanged(int width, int height)
+        {
+            _canvasWidth = width;
+            _canvasHeight = height;
+            _statusBar.SetCanvasSize(width, height);
+            MarkDirty();
         }
 
         private void Update()
@@ -164,7 +179,9 @@ namespace iOverlayer.Editor
             var configFile = new OverlayConfigFile
             {
                 version = "1.0",
-                overlays = configs
+                overlays = configs,
+                canvasWidth = _canvasWidth,
+                canvasHeight = _canvasHeight
             };
             var json = JsonConvert.SerializeObject(configFile, Formatting.Indented);
             File.WriteAllText(_currentFilePath, json);
@@ -182,6 +199,7 @@ namespace iOverlayer.Editor
             _toolbar?.Unbind();
             _canvasArea?.Unbind();
             _propertyPanel?.Unbind();
+            if (_statusBar != null) _statusBar.CanvasSizeChanged -= OnCanvasSizeChanged;
             _statusBar?.Unbind();
             _overlayList?.Unbind();
         }

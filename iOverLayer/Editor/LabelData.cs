@@ -9,6 +9,7 @@ namespace iOverlayer.Editor
         public string name;
         public string font = "Arial";
         public string fontPath;
+        public string script;
         public bool locked;
         public bool hidden;
         public TextAnchor textAlign = TextAnchor.UpperLeft;

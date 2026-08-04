@@ -530,6 +530,34 @@
     color: #F1F5F9;
 }
 
+.script-mode-btn {
+    background-color: #1A2235;
+    color: #CBD5E1;
+    border-width: 0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 11px;
+    margin-bottom: 6px;
+    text-align: center;
+    transition-property: background-color, color, opacity;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+}
+
+.script-mode-btn:hover {
+    background-color: #232D42;
+    color: #F1F5F9;
+}
+
+.script-mode-btn.disabled {
+    opacity: 0.45;
+}
+
+.script-mode-btn.disabled:hover {
+    background-color: #1A2235;
+    color: #CBD5E1;
+}
+
 .no-select {
     justify-content: center;
     align-items: center;
@@ -560,6 +588,23 @@
 
 #statusbar .dim {
     opacity: 0.7;
+}
+
+.canvas-props-btn {
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 10px;
+    margin: 0 10px;
+    padding: 2px 8px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    opacity: 0.9;
+}
+
+.canvas-props-btn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    opacity: 1;
 }
 
 .row-item {

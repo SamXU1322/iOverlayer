@@ -105,6 +105,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Info.cs" />
@@ -127,6 +128,9 @@
     <Compile Include="Editor\SvgIconLoader.cs" />
     <Compile Include="Text\OverlayFonts.cs" />
     <Compile Include="Text\OverlayRenderer.cs" />
+    <Compile Include="Script\IOverlayScript.cs" />
+    <Compile Include="Script\ScriptCompiler.cs" />
+    <Compile Include="Script\ScriptHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Asset\pic\align-left.svg" />
