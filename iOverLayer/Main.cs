@@ -2,6 +2,7 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
 using iOverlayer.Editor;
+using iOverlayer.Text;
 using iOverlayer.UI;
 
 
@@ -29,6 +30,7 @@ namespace iOverlayer
             canvas.sortingOrder = 100;
             rootGo.AddComponent<CanvasScaler>();
             rootGo.AddComponent<GraphicRaycaster>();
+            rootGo.AddComponent<OverlayRenderer>();
             mainUI = BundleLoader.Instantiate("mainui", "MainUI");
             if (mainUI != null)
             {

@@ -122,8 +122,11 @@
     <Compile Include="Editor\CanvasArea.cs" />
     <Compile Include="Editor\EditorTool.cs" />
     <Compile Include="Editor\LabelData.cs" />
+    <Compile Include="Editor\CustomFont.cs" />
     <Compile Include="Editor\OverlayList.cs" />
     <Compile Include="Editor\SvgIconLoader.cs" />
+    <Compile Include="Text\OverlayFonts.cs" />
+    <Compile Include="Text\OverlayRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Asset\pic\align-left.svg" />

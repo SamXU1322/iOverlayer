@@ -10,6 +10,8 @@ namespace iOverlayer.UI
 {
     public class MainUI : MonoBehaviour
     {
+        public static string SelectedJsonFile;
+
         private static string _gameSceneName;
         private static bool _editorSceneLoading;
 
@@ -280,6 +282,7 @@ namespace iOverlayer.UI
                 {
                     if (_jsonTextField != null)
                         _jsonTextField.value = fileName;
+                    SelectedJsonFile = fileName;
 
                     CollapseJsonPanel();
                     return;

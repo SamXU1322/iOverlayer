@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using MelonLoader;
 using MelonLoader.Utils;
-using UnityEngine;
+using Newtonsoft.Json;
 
 namespace iOverlayer.Config
 {
@@ -38,7 +38,7 @@ namespace iOverlayer.Config
             try
             {
                 var json = File.ReadAllText(filePath);
-                var configFile = JsonUtility.FromJson<OverlayConfigFile>(json);
+                var configFile = JsonConvert.DeserializeObject<OverlayConfigFile>(json);
                 if (configFile == null)
                 {
                     MelonLogger.Warning($"Failed to parse JSON: {fileName}");
@@ -63,7 +63,7 @@ namespace iOverlayer.Config
             var filePath = Path.Combine(_configDir, fileName);
             try
             {
-                var json = JsonUtility.ToJson(configFile, prettyPrint: true);
+                var json = JsonConvert.SerializeObject(configFile, Formatting.Indented);
                 File.WriteAllText(filePath, json);
             }
             catch (Exception ex)

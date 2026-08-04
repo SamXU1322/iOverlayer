@@ -112,6 +112,11 @@
                             </ui:VisualElement>
                             <ui:VisualElement name="font-picker-body" style="flex-direction: column; overflow: hidden;">
                                 <ui:TextField name="font-search" style="margin: 8px 10px;" />
+                                <ui:VisualElement style="flex-direction: row; padding: 0 10px 4px;">
+                                    <ui:TextField name="font-path" style="flex-grow: 1; margin-right: 6px;" placeholder="自定义字体文件 (.ttf/.otf)" />
+                                    <ui:Button name="btn-font-browse" text="浏览" style="background-color: #1A2235; color: #CBD5E1; border-width: 0; border-radius: 4px; padding: 4px 10px; font-size: 11px; flex-shrink: 0;" />
+                                    <ui:Button name="btn-font-apply" text="应用" style="background-color: #3B82F6; color: #FFFFFF; border-width: 0; border-radius: 4px; padding: 4px 10px; font-size: 11px; flex-shrink: 0;" />
+                                </ui:VisualElement>
                                 <ui:ScrollView name="font-list" class="font-list" />
                             </ui:VisualElement>
                         </ui:VisualElement>

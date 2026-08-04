@@ -112,12 +112,42 @@ namespace iOverlayer.Editor
         private void OnSelectionChanged(VisualElement element)
         {
             if (element is Label label)
+            {
+                // Move focus away from any text input so Delete acts on the
+                // selected label instead of editing the focused field.
+                (_root.focusController?.focusedElement as VisualElement)?.Blur();
                 _propertyPanel.SelectTarget(label);
+            }
             else
             {
                 _propertyPanel.ClearTarget();
                 _root.Focus();
             }
+        }
+
+        private void Update()
+        {
+            if (_root == null) return;
+
+            if (Input.GetKeyDown(KeyCode.Delete) && !IsFocusedOnTextInput())
+                _canvasArea?.DeleteSelected();
+
+            bool ctrl = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            if (ctrl && Input.GetKeyDown(KeyCode.S))
+                SaveToJson();
+        }
+
+        private bool IsFocusedOnTextInput()
+        {
+            var focused = _root.focusController?.focusedElement as VisualElement;
+            if (focused == null) return false;
+
+            for (var e = focused; e != null; e = e.parent)
+            {
+                if (e is TextField || e is IntegerField || e is FloatField)
+                    return true;
+            }
+            return false;
         }
 
         private void SaveToJson()
